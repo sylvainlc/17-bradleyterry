@@ -51,13 +51,20 @@ Consider the following assumptions on the model.
 
 \begin{hypH}
 \label{assum:strongmix}
-For all $\param\in\param$, there exist $0<\sigma_-(\param)<\sigma_+(\param)<\infty$ such that for all $v\in C_{\param}$, $\sigma_-(\param)\le \pi_{\param}(v)\le\sigma_+(\param)$.
+There exist $0<\sigma_-<\sigma_+<\infty$ such that for all $\param\in\param$ and all $v\in C_{\param}$, $\sigma_-\le \pi_{\param}(v)\le\sigma_+$.
 \end{hypH}
 
 \begin{hypH}
 \label{assum:compact}
-For all $\param\in\param$, there exist $0<c_-(\param)<c_+(\param)<\infty$ such that $C_{\param} \subset (c_-(\param),c_+(\param))$.
+There exist $0<c_-<c_+<\infty$ such that for all $\param\in\param$, $C_{\param} \subset (c_-,c_+)$.
 \end{hypH}
+
+Define 
+\begin{equation}
+\label{eq:def:rho}
+\rho = 1- \left(\frac{c_-\sigma_-}{(c_-+c_+)\sigma_+}\right)^2\eqsp.
+\end{equation}
+
 Define $\bar C_{\param} = C_{\param}\times C_{\param}$, $\bar v_1 = v_1$, $\bar X_1 = (X_{1,2},X_{1,3})$ and for all $k\ge 2$, $\bar v_k = (v_{2k-2},v_{2k-1})$ and $\bar X_k = (X_{2k-2,2k},X_{2k-1,2k+1})$. Conditional on $(\bar v_i)_{i\ge 1}$, the observations $(\bar X_i)_{i\ge 1}$ are independent and, for each $\ell\ge 1$ the conditional distribution of $\bar X_{\ell}$ given $(\bar v_i)_{i\ge 1}$ has probability density function:
 \[
 \bar x = (x_1,x_2) \mapsto \bar G (\bar x;\bar v_{\ell+1},\bar v_{\ell}) = G (x_1,v_{2\ell},v_{2\ell+2})G (x_2;v_{2\ell-1},v_{2\ell+1})\eqsp,
@@ -119,7 +126,19 @@ and
 p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right) &= \int_{\bar C_{\param}^2}\phi^{m,k+1}_{\pi_{\param},\param}\left(\bar v_{k+1}\right)\pi_{\param}(\bar v_{k})\bar G(\bar X_{k};\bar v_{k+1},\bar v_{k})\mu(\rmd \bar v_{k:k+1})\eqsp,\\
 &=\int_{\bar C_{\param}^2}\phi^{n,k+1}_{\eta^{m,n}_{\pi_{\param},\param},\param}\left(\bar v_{k+1}\right)\pi_{\param}(\bar v_{k})\bar G(\bar X_{k};\bar v_{k+1},\bar v_{k})\mu(\rmd \bar v_{k:k+1})\eqsp.
 \end{align*}
-Therefore,
+\begin{lemma}
+Assume that H\ref{assum:strongmix} and H\ref{assum:compact} hold. Then, for all $1\le k \le n < m$, $\Pstar$-a.s.,
+\[
+\sup_{\theta\in\Theta}\left|\log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right) - \log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right)\right| \le \left(1+\frac{c_+}{c_-}\right)^2\rho^{n-k}\eqsp,
+\]
+where $\rho$ is defined by \eqref{eq:def:rho}.
+In addition,
+\[
+\sup_{\theta\in\Theta;\;n\ge k}\left|\log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right)\right|\le 2\log\left(1+\frac{c_+}{c_-}\right)\eqsp. 
+\]
+\end{lemma}
+\begin{proof}
+To prove the first inequality, note that
 \begin{multline}
 \left|p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right) - p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right)\right|\\
 = \left|\left(\phi^{n,k+1}_{\eta^{m,n}_{\pi_{\param},\param},\param} - \phi^{n,k+1}_{\pi_{\param},\param}\right)\left[\int_{\bar C_{\param}}\pi_{\param}(\bar v_{k})\bar G(\bar X_{k};\cdot,\bar v_{k})\mu(\rmd \bar v_{k})\right]\right|\eqsp.\label{eq:diff:likelihood}
@@ -127,27 +146,29 @@ Therefore,
 Conditional on $(\bar X_n,\ldots,\bar X_{k+1})$, $(\bar v_{n+1},\ldots,\bar v_{k+1})$ is a Markov chain with kernel:
 \begin{align*}
 p_{\param}\left(\bar v_{p}\middle | \bar v_{n+1},\ldots, \bar v_{p+1},\bar X_n,\ldots,\bar X_{k+1}\right) &=  p_{\param}\left(\bar v_{p}\middle |\bar v_{p+1},\bar X_p,\ldots,\bar X_{k+1}\right)\eqsp,\\
-&\propto \bar\pi_{\param}(\bar v_{p+1}) \bar G(\bar X_{p};\bar v_{p+1},\bar v_{p})p_{\param}\left(\bar X_{p-1},\ldots,\bar X_{k}\middle|\bar v_p\right)
+&\propto \bar\pi_{\param}(\bar v_{p+1}) \bar G(\bar X_{p};\bar v_{p+1},\bar v_{p})p_{\param}\left(\bar X_{p-1},\ldots,\bar X_{k}\middle|\bar v_p\right)\eqsp.
 \end{align*}
 Therefore, by H\ref{assum:strongmix} and H\ref{assum:compact}, for all measurable set $A\subset \bar C_{\param}$,
 \[
-\mathbb{P}_{\param}\left(\bar v_{p}\in A\middle | \bar v_{n+1},\ldots, \bar v_{p+1},\bar X_n,\ldots,\bar X_{k+1}\right) \ge \left(\frac{c_-(\param)\sigma_-(\param)}{2c_+(\param)\sigma_+(\param)}\right)^2 \mu^p_{\param}\left(\bar X_{p-1},\ldots,\bar X_{k},A\right)\eqsp,
+\mathbb{P}_{\param}\left(\bar v_{p}\in A\middle | \bar v_{n+1},\ldots, \bar v_{p+1},\bar X_n,\ldots,\bar X_{k+1}\right) \ge \left(\frac{c_-\sigma_-}{(c_-+c_+)\sigma_+}\right)^2 \mu^p_{\param}\left(\bar X_{p-1},\ldots,\bar X_{k},A\right)\eqsp,
 \]
 where the measure $\mu^p_{\param}\left(\bar X_{p-1},\ldots,\bar X_{k},\cdot\right)$ is given by
 \[
 \mu^p_{\param}\left(\bar X_{p-1},\ldots,\bar X_{k},A\right) = \frac{\int_{\bar C_{\param}} \1_{A}(\bar v_p)p_{\param}\left(\bar X_{p-1},\ldots,\bar X_{k}\middle|\bar v_p\right)\mu(\rmd \bar v_p)}{\int_{\bar C_{\param}} p_{\param}\left(\bar X_{p-1},\ldots,\bar X_{k}\middle|\bar v_p\right) \mu(\rmd \bar v_p)}\eqsp.
 \]
-Define 
-\[
-\rho(\param) = 1- \left(\frac{c_-(\param)\sigma_-(\param)}{2c_+(\param)\sigma_+(\param)}\right)^2\eqsp.
-\]
-By \eqref{eq:diff:likelihood},
+By \eqref{eq:diff:likelihood}, as the function $G$ is upper bounded by $1$,
 \begin{align*}
-\left|p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right) - p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right)\right| &\le \rho(\param) ^{n-k} \sup_{\bar v} \int_{\bar C_{\param}}\pi_{\param}(\bar v_{k})\bar G(\bar X_{k};\bar v,\bar v_{k})\mu(\rmd \bar v_{k})\eqsp,\\
-&\le \rho(\param)^{n-k}\sigma_+(\param)c_+(\param)\eqsp.
+\left|p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right) - p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right)\right| &\le \rho^{n-k} \sup_{\bar v} \int_{\bar C_{\param}}\pi_{\param}(\bar v_{k})\bar G(\bar X_{k};\bar v,\bar v_{k})\mu(\rmd \bar v_{k})\eqsp,\\
+&\le \rho^{n-k}\eqsp.
 \end{align*}
-In addition, by \eqref{eq:incremental:likelihood}, $p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right)\wedge p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right)\ge \sigma_-(\param)c_-(\param)$. As for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$,
+In addition, by \eqref{eq:incremental:likelihood}, 
 \[
-\left|\log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right) - \log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right)\right| \le \frac{\sigma_+(\param)c_+(\param)}{\sigma_-(\param)c_-(\param)}\rho(\param)^{n-k}\eqsp.
+p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right)\wedge p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right)\ge \left(\frac{c_-}{c_-+c_+}\right)^2\eqsp.
 \]
+As for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$,
+\[
+\left|\log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right) - \log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right)\right| \le \left(1+\frac{c_+}{c_-}\right)^2\rho^{n-k}\eqsp.
+\]
+The second inequality follows from \eqref{eq:incremental:likelihood} and the fact that the function $G$ defined by \eqref{eq:defG} is upper bounded by $1$ and lower bounded by $c-/(c_-+c_+)$.
+\end{proof}
 \end{document}

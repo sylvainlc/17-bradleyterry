@@ -127,14 +127,15 @@ p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\r
 &=\int_{\bar C_{\param}^2}\phi^{n,k+1}_{\eta^{m,n}_{\pi_{\param},\param},\param}\left(\bar v_{k+1}\right)\pi_{\param}(\bar v_{k})\bar G(\bar X_{k};\bar v_{k+1},\bar v_{k})\mu(\rmd \bar v_{k:k+1})\eqsp.
 \end{align*}
 \begin{lemma}
+\label{lem:uniformforgetting}
 Assume that H\ref{assum:strongmix} and H\ref{assum:compact} hold. Then, for all $1\le k \le n < m$, $\Pstar$-a.s.,
 \[
-\sup_{\theta\in\Theta}\left|\log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right) - \log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right)\right| \le \left(1+\frac{c_+}{c_-}\right)^2\rho^{n-k}\eqsp,
+\sup_{\param\in\paramset}\left|\log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right) - \log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{m},\ldots,\bar X_{k+1}\right)\right| \le \left(1+\frac{c_+}{c_-}\right)^2\rho^{n-k}\eqsp,
 \]
 where $\rho$ is defined by \eqref{eq:def:rho}.
 In addition,
 \[
-\sup_{\theta\in\Theta;\;n\ge k}\left|\log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right)\right|\le 2\log\left(1+\frac{c_+}{c_-}\right)\eqsp. 
+\sup_{\param\in\paramset;\;n\ge k}\left|\log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right)\right|\le 2\log\left(1+\frac{c_+}{c_-}\right)\eqsp. 
 \]
 \end{lemma}
 \begin{proof}
@@ -171,4 +172,11 @@ As for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$,
 \]
 The second inequality follows from \eqref{eq:incremental:likelihood} and the fact that the function $G$ defined by \eqref{eq:defG} is upper bounded by $1$ and lower bounded by $c-/(c_-+c_+)$.
 \end{proof}
+By Lemma~\ref{lem:uniformforgetting}, the sequence $(\log p_{\pi_{\param},\param}(\bar X_{k}| \bar X_{n},\ldots,\bar X_{k+1}))_{n\ge 1}$ converges uniformly in $\param\in\paramset$, $\Pstar$-a.s. Denote by $\ell^k_{\infty}$ this limit. Then, by Lemma~\ref{lem:uniformforgetting}, $\Pstar$-a.s.,
+\begin{align*}
+\sup_{\param\in\paramset}\left|\ell^n_{\pi_{\param},\param}\left(\bar X_{1},\ldots,\bar X_{n}\right) - \sum_{k=1}^{n-1}\ell^k_{\infty}(\param)\right| &\\
+&\hspace{-3.5cm}\le \sup_{\param\in\paramset}\left|\log p_{\pi_{\param},\param}\left(\bar X_n\right)\right| + \sum_{k=1}^{n-1}\sup_{\param\in\paramset}\left|\log p_{\pi_{\param},\param}\left(\bar X_{k}\middle| \bar X_{n},\ldots,\bar X_{k+1}\right)-\ell^k_{\infty}(\param)\right|\eqsp,\\
+&\hspace{-3.5cm}\le \sup_{\param\in\paramset}\left|\log p_{\pi_{\param},\param}\left(\bar X_n\right)\right| +  \left(1+\frac{c_+}{c_-}\right)^2\sum_{k=1}^{n-1} \rho^{n-k}\eqsp.
+\end{align*}
+Hence, $n^{-1}\ell^n_{\pi_{\param},\param}\left(\bar X_{1},\ldots,\bar X_{n}\right)$ has the same limit $\Pstar$-a.s. as $n^{-1}\sum_{k=1}^{n-1}\ell^k_{\infty}(\param)$.
 \end{document}

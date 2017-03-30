@@ -20,13 +20,11 @@ Consider a tournament involving an even number $N$ of players called $[N]=\{1,\l
 \[
 \bP(X_{i,j}=1|v_i,v_j)=\frac{v_i}{v_i+v_j}\enspace.
 \]
-Moreover, given $v=(v_i)_{i\in[N]}$ the r.v. $(X_{i,j})_{1\le i<j\le N}$ are assumed independent. To ease notation, for every vector $a\in \bR^p$ and every subset $B\subset [p]=\{1,\ldots,p\}$, we denote by $a_{B}=\{a_i,\;i\in B\}$. We introduce also the function 
+Moreover, given $v=(v_i)_{i\in[N]}$ the r.v. $(X_{i,j})_{1\le i<j\le N}$ are assumed independent. To ease notation, for every vector $a\in \bR^p$ and every subset $B\subset [p]=\{1,\ldots,p\}$, we denote by $a_{B}=\{a_i,\;i\in B\}$. Define, for all $x\in \{0,1\}$ and all $(v_1,v_2)\in(\bR_+^*)^2$, 
 \[
-k(x,v_{[2]})=\frac{v_1^xv_2^{1-x}}{v_1+v_2},\qquad \forall x\in \{0,1\},\;\forall (v_1,v_2)\in(\bR_+^*)^2\enspace.
+\condlik(x,v_{[2]})=\frac{v_1^xv_2^{1-x}}{v_1+v_2}\enspace,
 \]
-In particular $\bP(X_{i,j}=x|v_{\{i,j\}})=k(x,v_{\{i,j\}})$.
-
-In our model, $v=(v_i)_{i\in [N]}$ is a vector in $\bR^N$ with i.i.d. entries with common unknown distribution $\bayes$ that is set once and for all before the tournament begins. 
+so that $\bP(X_{i,j}=x|v_{\{i,j\}})=k(x,v_{\{i,j\}})$. In our model, $v=(v_i)_{i\in [N]}$ is a vector in $\bR^N$ with i.i.d. entries with common unknown distribution $\bayes$ that is set once and for all before the tournament begins. 
 
 A voir
 \begin{enumerate}
@@ -34,7 +32,7 @@ A voir
 \end{enumerate}
 
 \subsection{Round-robin days in BTT and early learning task}
-In this paper, we do not assume that all pairs meet once and we describe in this section the round-robin algorithm that gives at each time $t\in[N]$ the pairs that face each others. At time $t=1$, the players are disposed according to Figure~\ref{fig:robin:day1}. Each player faces the one in front of him, that is $2i-1$ faces $2i$, for all $i\in[N/2]$. 
+In this paper, we do not assume that all the pairs meet once and we describe in this section the round-robin algorithm that gives at each time $t\in[N]$ the pairs that face each others. At time $t=1$, the players are disposed according to Figure~\ref{fig:robin:day1}. Each player faces the one in front of him, that is $2i-1$ faces $2i$, for all $i\in[N/2]$. 
 \begin{figure}
 \centering
 \begin{tikzpicture}
@@ -67,7 +65,7 @@ In this paper, we do not assume that all pairs meet once and we describe in this
 \caption{Round-robin, day $1$.}
 \label{fig:robin:day1}
 \end{figure}
-At time $t=2$, the disposition of the players changes according to the round-robin algorithm described in Figure~\ref{fig:robin:day2}.
+At time $t=2$, the disposition of the players changes according to the round-robin algorithm described in Figure~\ref{fig:robin:day2}. Player $1$ does not move, $2$ takes the place of $3$, each odd integer $2i-1<N-1$ takes the place of $2i+1$, $N-1$ takes the place of $N$ and each even integer $2i>2$ takes the place of $2(i-1)$. Once they moved, each player faces the opponent in front of him.
 \begin{figure}
 \centering
 \begin{tikzpicture}
@@ -101,23 +99,21 @@ At time $t=2$, the disposition of the players changes according to the round-rob
 \label{fig:robin:day2}
 \end{figure}
 
-$1$ does not move, $2$ takes the place of $3$, each odd integer $2i-1<N-1$ takes the place of $2i+1$, $N-1$ takes the place of $N$ and each even integer $2i>2$ takes the place of $2(i-1)$. Once they moved, each player faces the opponent in front of him.
+At time $t\ge 2$, each player moves once according to the round-robin algorithm and plays the opponent in front of him. Each time $t\in\bN$ is called a day of the tournament. It is well known that, at day $N$, all players have faced each other once. 
 
-At time $t\ge 2$, players move once according to the round-robin algorithm and play the opponent in front of him. Each time $t\in\bN$ is called a day of the tournament. It is well known that, at day $N$, all players have faced each other once. 
-
-In this paper, we assume that the results of all games up to day $n$ are available and we want to infer the distribution $\bayes$ from this data set. The time $n$ is assumed to be much smaller than $N$ and this is why we called this problem the ``early learning task". The set of couples $(i,j)\in[N]^2$, with $i<j$ such that $i$ has played $j$ before time $n$ is denoted by $\cA_{n,N}$, in other words, the data set is $\cD_{n,N}=\{(X_{i,j})_{(i,j)\in A_{n,N}}\}$
+In this paper, we assume that the results of all games up to day $n$ are available and we want to infer the distribution $\bayes$ from this data set. The time $n$ is assumed to be much smaller than $N$ and this is why we called this problem the ``early learning task". The set of couples $(i,j)\in[N]^2$, with $i<j$ such that $i$ has played $j$ before time $n$ is denoted by $\cA_{n,N}$, in other words, the data set is $\cD_{n,N}=\{(X_{i,j})_{(i,j)\in A_{n,N}}\}$.
 
 
 \subsection{Estimation of the environment distribution}
-Our estimation strategy is quite standard. Let $\Pi$ denote a set of densities $\pi$ on $\bR_+^*$. For technical reasons, every $\pi\in\Pi$ assumed to be supported in $[\epsilon,1]$ for some $\epsilon>0$. To every $\pi\in\Pi$, one can associate the log-likelihood of the observations
+Our estimation strategy is quite standard. Let $\Pi$ denote a set of densities $\pi$ on $\bR_+^*$. For technical reasons, every $\pi\in\Pi$ assumed to be supported in $[\epsilon,1]$ for some $\epsilon>0$. The log-likelihood of the observations is defined, for all $\pi\in\Pi$, by:
 \[
-\gamma(\pi,\cD_{n,N})=\log\cro{\int  \pa{\prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})}\pi^{\otimes N}(dv)}\enspace.
+\Lo{\cD_{n,N}}{\pi}:=-\log\cro{\int  \pa{\prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})}\pi^{\otimes N}(dv)}\enspace.
 \]
-Our estimator is then any maximum likelihood estimator (MLE) :
+Our estimator is then any maximum likelihood estimator (MLE):
 \[
-\MLE\in \arg\max_{\pi\in\Pi}\gamma(\pi,\cD_{n,N})\enspace.
+\MLE\in \arg\min_{\pi\in\Pi}\Lo{\cD_{n,N}}{\pi}\enspace.
 \]
-
+We shall often forget the dependence of the log-likelihood in the data set $\cD_{n,N}$ and write $\loss{\pi}=\Lo{\cD_{n,N}}{\pi}$.
 
 \begin{enumerate}
 \item On pourrait supposer que toutes les lois sont a support dans un meme compact plutot que dans $[\epsilon,1]$, c'est equivalent par invariance par changement d'echelle.
@@ -128,6 +124,30 @@ Our estimator is then any maximum likelihood estimator (MLE) :
 In this section, we assume that $N\to\infty$ and $n\ll N$.
 
 \subsection{Graphical model of the round-robin BTT}
+The purpose of this section is to build a graph representing the conditional dependences between the variables $v$ and $X=(X_{i,j})_{(i,j)\in A_{n,N}}$. This graph is directed and is denoted $G^{(n,N)}=(V^{(n,N)},E^{(n,N)})$. The set of vertices is a disjoint union $V^{(n,N)}=V^{(n,N)}_{p}\cup V^{(n,N)}_g$ where $V^{(n,N)}_p$ is a partition of $[N]$ and $V^{(n,N)}_g$ is a partition of $ A_{n,N}$. 
+
+Start with the undirected graph $(V^{(n,N)}_0,E^{(n,N)}_0)$ where $V^{(n,N)}_0=[N]$ and $E^{(n,N)}_0=\{\{i,j\} : (i,j)\in A_{n,N}\}$, that is the graph where the nodes are the players and an edge is drawn between players who play together. The graph $(V^{(n,N)}_0,E^{(n,N)}_0)$ is endowed with the graph distance $d^{(n,N)}_0$, that is $d^{(n,N)}_0(i,j)$ is the minimal length of a path between the nodes $i$ and $j$ in $V^{(n,N)}_0$. One can write $[N]=\{1\}\cup\cup_{q=1}^{N}V^{(n,N)}_{p,q}$, where, for any $q\in[N]$, $V^{(n,N)}_{p,q}$ is the set of $i\in[N]$ such that $d^{(n,N)}_0(1,i)=q$. Figure~\ref{fig:robin:partitionP} displays this partition for $n = 3$.
+
+\begin{figure}
+\centering
+\begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{box}=[rectangle, draw=black!100]
+\node[main, fill = black!10] (v1){$1$ };
+\node[main,label=below:$d^{(n,N)}_0(1,i) = 1$] (v2) [right=of v1] {$V^{(n,N)}_{p,1}$}; 
+\node[main,label=below:] (v3) [right=of v2] {$V^{(n,N)}_{p,2}$ }; 
+\end{tikzpicture}
+\caption{Round-robin, partition of $[N]$, $n=3$.}
+\label{fig:robin:partitionP}
+\end{figure}
+
+
+Let $(\cE,\cO)$ denotes the following partition of $[N]\setminus\{1\}$. $\cE$ contains all $i$ that play $1$ an even day before time $N/2$ (i.e. the set $\cE_1$ of all $i$ such that $\{1,i\}\in A_{N/2,N}$) and their opponent at time $1$ (i.e. the set $\cE_2$ of all $i$ such that $\{i,j\}\in A_{1,N}$, for some $j\in \cE_1$), $\cO$ contains all $i$ that play $1$ an odd day before time $N/2$. For any $q\ge 1$, let $V^{(n,N)}_{p,q,e}=V^{(n,N)}_{p,q}\cap \cE$ and $V^{(n,N)}_{p,q,o}=V^{(n,N)}_{p,q}\cap \cO$. The vertices $V_p^{(n,N)}=\{\{1\},(V^{(n,N)}_{p,q,e},V^{(n,N)}_{p,q,o})_{q\in[N]}\}$, the empty elements in this collection can be dropped off. These partitions can be visualized in the following picture.
+
+ 
+
+The round-robin algorithm induces an important property that we will now use to derive from this first partition the partition $V_g$. Let $q_e$ and $q_o$ denote respectively the maximal indexes such that $V^{(n,N)}_{p,q_e,e}$ and $V^{(n,N)}_{p,q_o,o}$  are non-empty. For any $n<N/2$, any $q<q_e$ and any $i\in V^{(n,N)}_{p,q,e}$, any $j$ such that $\{i,j\}\in A_{n,N}$ belongs to the union $V^{(n,N)}_{p,q-1,e}\cup V^{(n,N)}_{p,q,e}\cup V^{(n,N)}_{p,q+1,e}$, with the convention that $V^{(n,N)}_{p,0,e}=\{1\}$.
 
 \subsection{Bounding the kernel}
 

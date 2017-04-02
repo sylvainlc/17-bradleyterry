@@ -106,9 +106,10 @@ In this paper, we assume that the results of all games up to day $n$ are availab
 
 \subsection{Estimation of the environment distribution}
 Our estimation strategy is quite standard. Let $\Pi$ denote a set of densities $\pi$ on $\bR_+^*$. For technical reasons, every $\pi\in\Pi$ assumed to be supported in $[\epsilon,1]$ for some $\epsilon>0$. The log-likelihood of the observations is defined, for all $\pi\in\Pi$, by:
-\[
+\begin{equation}
+\label{eq:def:loglik}
 \Lo{\cD_{n,N}}{\pi}:=-\log\cro{\int  \pa{\prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})}\pi^{\otimes N}(dv)}\enspace.
-\]
+\end{equation}
 Our estimator is then any maximum likelihood estimator (MLE):
 \[
 \MLE\in \arg\min_{\pi\in\Pi}\Lo{\cD_{n,N}}{\pi}\enspace.
@@ -167,6 +168,29 @@ q-1= d^{(n,N)}_0(1,i)-d^{(n,N)}_0(i,j)\le d^{(n,N)}_0(1,j)\le d^{(n,N)}_0(1,i)+d
 \end{proof}
 
 \subsection{Bounding the kernel}
+For all $n,N$ define $\ordermax{n}{N}$ by:
+\begin{equation}
+\label{eq:ordermax}
+\ordermax{n}{N} = \max\left\{q\ge 1;\eqsp 2n + (q-1)(n-1)\le N\right\}\eqsp.
+\end{equation}
+The log-likelihood defined by \eqref{eq:def:loglik} may be written $\Lo{\cD_{n,N}}{\pi}= -\log p_{\pi}^{(n,N)}\left(\cD_{n,N}\right)$,
+where $p^{(n,N)}$ is the joint likelihood of the observations:
+\[
+p_{\pi}^{(n,N)}\left(\cD_{n,N}\right) = \int \prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})\pi^{\otimes N}(\rmd v) \eqsp.
+\]
+Note that,
+\begin{multline*}
+\log p_{\pi}^{(n,N)}\left(\cD_{n,N}\right) = \log p_{\pi}^{(n,N)}\left(V_{g,\mathsf{beg}}^{(n,N)}\right) + \sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{(n,N)}\left(V_{g,q}^{(n,N)}\middle|V_{g,\mathsf{beg}}^{(n,N)},V_{g,2:q-1}^{(n,N)}\right) \\
++  \log p_{\pi}^{(n,N)}\left(V_{g,\mathsf{end}}^{(n,N)}\middle|V_{g,\mathsf{beg}}^{(n,N)},V_{g,2:\ordermax{n}{N}-1}^{(n,N)}\right)\eqsp,
+\end{multline*}
+with 
+\begin{align*}
+V_{g,\mathsf{beg}}^{(n,N)} & = \left\{V_{g,u,u+1,e}^{(n,N)},V_{g,u+1,e}^{(n,N)},V_{g,u,u+1,o}^{(n,N)},V_{g,u+1,o}^{(n,N)}\right\} \eqsp,\quad0\le u\le 1\eqsp,\\
+V_{g,q}^{(n,N)}                   & = \left\{V_{g,q,q+1,e}^{(n,N)},V_{g,q+1,e}^{(n,N)},V_{g,q,q+1,o}^{(n,N)},V_{g,q+1,o}^{(n,N)}\right\} \eqsp,\\
+V_{g,\mathsf{end}}^{(n,N)} & = \cD_{n,N}\setminus (V_{g,\mathsf{beg}}^{(n,N)}\cup_{q=2}^{\ordermax{n}{N}-1} V_{g,q}^{(n,N)} )\eqsp.
+\end{align*}
+
+
 %The loglikelihood of the observations may be decomposed as:
 %\begin{align*}
 %\Lo{\cD_{n,N}}{\pi} &= \log \left(p^{\pi}_{\cD_{n,N}}(X)\right)\eqsp,\\

@@ -106,13 +106,12 @@ In this paper, we assume that the results of all games up to day $n$ are availab
 
 \subsection{Estimation of the environment distribution}
 Our estimation strategy is quite standard. Let $\Pi$ denote a set of densities $\pi$ on $\bR_+^*$. For technical reasons, every $\pi\in\Pi$ assumed to be supported in $[\epsilon,1]$ for some $\epsilon>0$. The log-likelihood of the observations is defined, for all $\pi\in\Pi$, by:
-\begin{equation}
-\label{eq:def:loglik}
-\Lo{\cD_{n,N}}{\pi}:=-\log\cro{\int  \pa{\prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})}\pi^{\otimes N}(dv)}\enspace.
-\end{equation}
+\[
+\Lo{\cD_{n,N}}{\pi}:=-\log\cro{p^{\pi}(X_{A_{n,N}})},\quad \text{where}\quad p^{\pi}(X_{A_{n,N}})=\int  \pa{\prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})}\pi^{\otimes N}(dv)\enspace.
+\]
 Our estimator is then any maximum likelihood estimator (MLE):
 \[
-\MLE\in \arg\min_{\pi\in\Pi}\Lo{\cD_{n,N}}{\pi}\enspace.
+\MLE\in \arg\min_{\pi\in\Pi}\{\Lo{\cD_{n,N}}{\pi}\}\enspace.
 \]
 We shall often forget the dependence of the log-likelihood in the data set $\cD_{n,N}$ and write $\loss{\pi}=\Lo{\cD_{n,N}}{\pi}$.
 
@@ -127,7 +126,57 @@ In this section, we assume that $N\to\infty$ and $n\ll N$.
 \subsection{Graphical model of the round-robin BTT}
 The purpose of this section is to build a graph representing the conditional dependences between the variables $v$ and $X=(X_{i,j})_{(i,j)\in A_{n,N}}$. This graph is directed and is denoted $G^{(n,N)}=(V^{(n,N)},E^{(n,N)})$. The set of vertices is a disjoint union $V^{(n,N)}=V^{(n,N)}_{p}\cup V^{(n,N)}_g$ where $V^{(n,N)}_p$ is a partition of $[N]$ and $V^{(n,N)}_g$ is a partition of $ A_{n,N}$. 
 
-Start with the undirected graph $(V^{(n,N)}_0,E^{(n,N)}_0)$ where $V^{(n,N)}_0=[N]$ and $E^{(n,N)}_0=\{\{i,j\} : (i,j)\in A_{n,N}\}$, that is the graph where the nodes are the players and an edge is drawn between players who play together. The graph $(V^{(n,N)}_0,E^{(n,N)}_0)$ is endowed with the graph distance $d^{(n,N)}_0$, that is $d^{(n,N)}_0(i,j)$ is the minimal length of a path between the nodes $i$ and $j$ in $V^{(n,N)}_0$. One can write $[N]=\{1\}\cup\cup_{q=1}^{N}V^{(n,N)}_{p,q}$, where, for any $q\in[N]$, $V^{(n,N)}_{p,q}$ is the set of $i\in[N]$ such that $d^{(n,N)}_0(1,i)=q$. Figure~\ref{fig:robin:partitionP} displays this partition for $n = 3$.
+\subsubsection{The elements of $V_p^{(n,N)}$}
+Start with the undirected graph $(V^{(n,N)}_0,E^{(n,N)}_0)$ where $V^{(n,N)}_0=[N]$ and $E^{(n,N)}_0=\{\{i,j\} : (i,j)\in A_{n,N}\}$, that is the graph where the nodes are the players and an edge is drawn between players who play together. The graph $(V^{(n,N)}_0,E^{(n,N)}_0)$ is endowed with the graph distance $d^{(n,N)}_0$, that is $d^{(n,N)}_0(i,j)$ is the minimal length of a path between the nodes $i$ and $j$ in $V^{(n,N)}_0$. One can write $[N]=\{1\}\cup\cup_{q=1}^{N}V^{(n,N)}_{p,q}$, where, for any $q\in[N]$, $V^{(n,N)}_{p,q}$ is the set of $i\in[N]$ such that $d^{(n,N)}_0(1,i)=q$. Let us now describe more precisely the elements in the sets $V_{p,q}^{(n,N)}$. 
+\begin{lemma}\label{lem:ElementsAtDistanceq} Assume that $2\le n<N/4$ and let $N/2-1= q_0(n-1)+r_0$ where $r_0<n-1$. Define $V_{p,0}^{(n,N)}=\{1\}$. One has
+\begin{equation}\label{def:V1}
+V_{p,1}^{(n,N)}=\{2x : x=1,\ldots,n\}\enspace, 
+\end{equation}
+and, for any $q\in[2,q_0-1]$, 
+\begin{multline}\label{def:Vq}
+V_{p,q}^{(n,N)}=\{2x+1 : x\in[(q-2)(n-1)+1,(q-1)(n-1)]\}\\
+\cup\{2x : x\in[2+(q-1)(n-1),1+q(n-1)]\}\enspace.
+\end{multline}
+If $r_0=0$, then
+\begin{multline}\label{def:Vq0}
+V_{p,q_0}^{(n,N)}=\{N-1\}\cup\{2x+1 : x\in[(q_0-2)(n-1)+1,(q_0-1)(n-1)]\}\\
+\cup\{2x : x\in[2+(q_0-1)(n-1),1+q_0(n-1)]\}
+\end{multline}
+and
+\begin{equation}\label{def:Vq01}
+V_{p,q_0+1}^{(n,N)}=\{2x+1 : x\in[(q_0-1)(n-1)+1,q_0(n-1)-1]\},\qquad V_{p,q}^{(n,N)}=\emptyset,\quad\forall q>q_0+1\enspace.
+\end{equation}
+If $r_0\ne 0$, 
+\begin{multline}\label{def:Vq0'}
+V_{p,q_0}^{(n,N)}=\{2x+1 : x\in[(q_0-2)(n-1)+1,(q_0-1)(n-1)]\}\\
+\cup\{2x : x\in[2+(q_0-1)(n-1),1+q_0(n-1)]\}
+\end{multline}
+and
+\begin{multline}\label{def:Vq01'}
+V_{p,q_0+1}^{(n,N)}=\{2x+1 : x\in[(q_0-1)(n-1)+1,q_0(n-1)+r_0]\}\\
+\cup\{2x : x\in[2+q_0(n-1),1+r_0+q_0(n-1)]\}\enspace.
+\end{multline}
+\end{lemma}
+\begin{proof}
+Property \eqref{def:V1} is obvious. It implies that $V_{p,2}^{(n,N)}$ contains $\{2x+1 : x=1,\ldots,n-1\}$ that is all the opponents of the members of $V_{p,1}^{(n,N)}$ at time $t=1$, besides $1$ that is of course not in $V_{p,2}^{(n,N)}$. $V_{p,2}^{(n,N)}$ contains also all opponents of $2$ and $4$ that are not in $V_{p,0}^{(n,N)}\cup V_{p,1}^{(n,N)}$. Rolling the round-robin algorithm $n$ times, one checks that the opponents of $2$ are $\{1,4x+2 : x=1,\ldots,n-1\}$ and those of $4$ are $\{3,1,4x : x=1,\ldots,n-2\}$. Therefore, one has that 
+\[
+V_{p,2}^{(n,N)}\supset \{2x+1 : x=1,\ldots,n-1\}\cup\{2x : x=n+1,\ldots,2n-1\}\enspace.
+\]
+
+By induction, one can verify that, 
+\begin{gather}
+\notag\forall i\notin \{N-2x+1, x=1,\ldots,2(t-1)\}\cup \{2x : x=1,\ldots, 2n-1\}\enspace,\\
+\notag\text{if }i \text{ is odd, it faces }\{i+4x+1 : x=0,\ldots n-1\}\enspace,\\
+\label{eq:Opponents}\text{if }i \text{ is even, it faces }\{i-4x-1 : x=0,\ldots,n-1\}\enspace.
+\end{gather}
+The first consequence of this fact is that no even number $i\ge 4n$ belongs to $V_{p,2}^{(n,N)}$ and the second is no odd number such that $i>2n-1$ either. Therefore,
+\begin{equation*}
+ V_{p,2}^{(n,N)}= \{2x+1 : x=1,\ldots,n-1\}\cup\{2x : x=n+1,\ldots,2n-1\}\enspace.
+\end{equation*}
+By induction, using the same arguments, we get \eqref{def:Vq}.
+We check \eqref{def:Vq0}, \eqref{def:Vq01}, \eqref{def:Vq0'} and \eqref{def:Vq01'} directly, rolling the round-robin algorithm. 
+\end{proof}
+Figure~\ref{fig:robin:partitionP} displays this partition for $n = 3$.
 
 \begin{figure}
 \centering
@@ -143,54 +192,179 @@ Start with the undirected graph $(V^{(n,N)}_0,E^{(n,N)}_0)$ where $V^{(n,N)}_0=[
 \label{fig:robin:partitionP}
 \end{figure}
 
+The most important result of Lemma~\ref{lem:ElementsAtDistanceq} regarding the decomposition of the likelihood is \eqref{def:Vq}. Hereafter we denote by $q_f=q_0-1-I\{r_0\ne 0\}$, so $q_f$ is the largest index $q$ such that $V_{p,q}^{(n,N)}$ doesn't contain $N-1$ or one of its opponents, in other words, $q_f$ is the largest $q$ such that
+\[
+ \{N-2x+1 : x=1,\ldots, 2(n-1)\}\cap\pa{V_{p,q+1}^{(n,N)}\cup V_{p,q+2}^{(n,N)}}=\emptyset\enspace.
+ \] 
+Let 
+\begin{gather*}
+\cE=\{4x-1,4x : x\in[\PE{N/4}]\},\qquad \cO=[N]\setminus\cE\enspace,\\
+V_{p,q,e}^{(n,N)}= V_{p,q}^{(n,N)}\cap \cE,\qquad V_{p,q,o}^{(n,N)}= V_{p,q}^{(n,N)}\cap \cO,\qquad\forall q\ge 1\enspace. 
+\end{gather*}
 
-Let $(\cE,\cO)$ denotes the following partition of $[N]$. $\cE$ contains all $i$ that play $1$ an even day before time $N/2$ (i.e. the set $\cE_1$ of all $i$ such that $\{1,i\}\in A_{N/2,N}$) and their opponent at time $1$ (i.e. the set $\cE_2$ of all $i$ such that $\{i,j\}\in A_{1,N}$, for some $j\in \cE_1$), $\cO$ contains $1$ and all $i$ that play $1$ an odd day before time $N/2$. For any $q\ge 1$, let $V^{(n,N)}_{p,q,e}=V^{(n,N)}_{p,q}\cap \cE$ and $V^{(n,N)}_{p,q,o}=V^{(n,N)}_{p,q}\cap \cO$. The vertices $V_p^{(n,N)}=\{\{1\},(V^{(n,N)}_{p,q,e},V^{(n,N)}_{p,q,o})_{q\in[N]}\}$, the empty elements in this collection can be dropped off. These partitions can be visualized in the following picture.
+\subsubsection{Elements of $V_g^{(n,N)}$}
 
- 
+Let us first build 
+\[
+V_{g,0\to1,e}^{(n,N)}=\{(1,4x) : x=1,\ldots,\PE{n/2}\}=\{(1,i) : i\in V_{p,1,e}^{(n,N)}\},\qquad V_{g,0\to1,o}^{(n,N)}=\{(1,i) : i\in V_{p,1,o}^{(n,N)}\}\enspace.
+\]
+In words, for any $(i,j)\in V_{g,0\to1,o}^{(n,N)}$, $X_{i,j}$ denotes the result of the game of $1$ (that is of all elements of $V_{p,0}^{(n,N)}$) against its opponent (in $V_{p,1}^{(n,N)}$) at time $t$ when $t$ is odd. Let us now describe the games involving players in $V_{p,1}^{(n,N)}$ against opponents that are both differents from $1$. Start with the games between players in $V_{p,1}^{(n,N)}$ and let 
+\begin{gather*}
+V_{g,1\to1,e}^{(n,N)}=\{(4x,4y) : (x,y)\in [\PE{n/2}], x< y\}=\{(i,j) : i,j\in V_{p,1,e}^{(n,N)},i<j\}\enspace,\\
+V_{g,1\to1,o}^{(n,N)}=\{(i,j) : i,j\in V_{p,1,o}^{(n,N)},i<j\}\enspace. 
+\end{gather*}
+One can check that there is no game between any $i\in V_{p,1,e}^{(n,N)}$ and an opponent $j\in V_{p,q,o}^{(n,N)}$ for any $q\ge 1$. 
+%The same property holds if we reverse the roles of $e$ and $o$. 
+In particular there is no game between any $i\in V_{p,1,e}^{(n,N)}$ and an opponent $j\in V_{p,q,o}^{(n,N)}$.  Therefore, $V_{g,1\to1,e}^{(n,N)}\cup V_{g,1\to1,o}^{(n,N)}$ describes all games between players in $V_{p,1}^{(n,N)}$. 
 
-The round-robin algorithm induces an important property that we will now use to derive from this first partition the partition $V_g$. Call $i$ the player in position $i$ on figure~\ref{fig:robin:day1}.
+Let us now describe the games between $i\in V_{p,1}^{(n,N)}$ and $j\in V_{p,2}^{(n,N)}$. Let 
+\begin{align*}
+&V_{g,1\to2,e}^{(n,N)}=\{(4y-1-4k,4y) : y\in [\PE{n/2}], k<y\}\cup\{(4x,4y) : x\in[\PE{N/4}], y\in[\PE{N/4}+1,n-x]\}\\
+&=\{(i,j) : i\in V_{p,1,e}^{(n,N)},j\in V_{p,2,e}^{(n,N)}\cap 2\bZ+1,j>i\}\cup\{(i,j) : i\in V_{p,1,e}^{(n,N)},j\in V_{p,2,e}^{(n,N)}\cap 2\bZ\cap [4n-i]\}\enspace,\\
+&V_{g,1\to2,o}^{(n,N)}=\{(i,j) : i\in V_{p,1,o}^{(n,N)},j\in V_{p,2,o}^{(n,N)}\cap 2\bZ+1,j>i\}\cup\{(i,j) : i\in V_{p,1,o}^{(n,N)},j\in V_{p,2,o}^{(n,N)}\cap 2\bZ\cap [4n-i]\}\enspace.
+\end{align*}
+Again these are all games between a $i\in V_{p,1}^{(n,N)}$ and $j\in V_{p,2}^{(n,N)}$.
 
-\begin{proposition}\label{prop:RRProp}
-Let $1<t\le N/4-1$. If $t$ is odd, at time $t$, every $i\notin \{N,N-2x+1, x=0,\ldots,2t\}$, that is every $i$ that did not play $N-1$ before time $t$ nor $N$ before time $t-1$, plays a $j$ in the same element in the partition $(\cE,\cO)$, that is $i\in \cE$ plays a $j\in\cE$ and every $i\in \cO$ plays a $j\in\cO$. if $t$ is even, $i\notin \{N,N-2x+1, x=1,\ldots,2t\}$ plays either $1$ or a $j$ in the same element of the partition $(\cE,\cO)$.  
-\end{proposition}
+Now, for any $q\in [2,q_f]$, we can describe the games between players $i$ and $j$ both in $V_{p,q}^{(n,N)}$. One can use \eqref{eq:Opponents} to check that
+\begin{align}
+ \notag V_{g,q\to q,e}^{(n,N)}&=\{(i,j) : i\in V_{p,q,e}^{(n,N)}\cap 2\bZ+1, j\in V_{p,q,e}^{(n,N)}\cap 2\bZ\}\enspace,\\
+\label{Def:Vqtoq}  V_{g,q\to q,o}^{(n,N)}&=\{(i,j) : i\in V_{p,q,o}^{(n,N)}\cap 2\bZ+1, j\in V_{p,q,o}^{(n,N)}\cap 2\bZ\}\enspace.
+\end{align}
+Eq~\eqref{eq:Opponents} shows also that there is no game between $i\in V_{p, q,e}^{(n,N)}$ and $j\in V_{p,q,o}^{(n,N)}$. 
 
-Proposition~\ref{prop:RRProp} can easily be checked by induction. It implies the following corollary that we'll use to build the partition of $X$.
+Let us give the games between a player $i\in V_{p,q}^{(n,N)}$ and a $j\in V_{p,q+1}^{(n,N)}$.
+\begin{align*}
+V_{g,q\to q+1,e}^{(n,N)}=&\{(i,j) : i\in V_{p,q,e}^{(n,N)}\cap(2\bZ+1),j\in V_{p,q+1,e}^{(n,N)}\cap [i+4n-3]\}\\
+&\cup\{(i,j) : i\in V_{p,q,e}^{(n,N)}\cap 2\bZ,j\in V_{p,q+1,e}^{(n,N)}\cap 2\bZ+1\cap [i]\}\enspace,\\
+V_{g,q\to q+1,o}^{(n,N)}=&\{(i,j) : i\in V_{p,q,o}^{(n,N)}\cap(2\bZ+1),j\in V_{p,q+1,o}^{(n,N)}\cap [i+4n-3]\}\\
+&\cup\{(i,j) : i\in V_{p,q,o}^{(n,N)}\cap 2\bZ,j\in V_{p,q+1,o}^{(n,N)}\cap 2\bZ+1\cap [i]\}\enspace.
+\end{align*}
 
-\begin{corollary}
-Let $u\in\{e,o\}$. For any $n<N/2$, any $q$ such that $N-1\notin V_{p,q,u}\cup V_{p,q+1,u}$ and any $i\in V^{(n,N)}_{p,q,u}$, any $j$ such that $\{i,j\}\in A_{n,N}$ belongs to the union $V^{(n,N)}_{p,q-1,u}\cup V^{(n,N)}_{p,q,u}\cup V^{(n,N)}_{p,q+1,u}$, with the convention that $V^{(n,N)}_{p,0,u}=\{1\}$.
-\end{corollary}
-\begin{proof}
- Fix $n$, $q\in[1,q_u-1]$, $i\in V_{p,q,u}^{(n,N)}$ and let $j$ such that $\{i,j\}\in A_{n,N}$. By definition $d_0^{(n,N)}(1,i)$ and $d_0^{(n,N)}(i,j)=1$, thus by the triangular inequality
- \[
-q-1= d^{(n,N)}_0(1,i)-d^{(n,N)}_0(i,j)\le d^{(n,N)}_0(1,j)\le d^{(n,N)}_0(1,i)+d^{(n,N)}_0(i,j)=q+1\enspace.
- \]
- Therefore, $j\in V^{(n,N)}_{p,q-1}\cup V^{(n,N)}_{p,q}\cup V^{(n,N)}_{p,q+1}$. Moreover, $i$ cannot play $N-1$ nor $N$, therefore, by Proposition~\ref{prop:RRProp}, either $j=1$, which is only possible if $q=1$ or $i$ and $j$ belong to the same element of the partition $(\cE,\cO)$.
-\end{proof}
+\subsubsection{Cardinality of the cells}
+It is easy to check that 
+\[
+|V_{p,0}^{(n,N)}|=1, \qquad |V_{p,1}^{(n,N)}|=n,\qquad |V_{p,q}^{(n,N)}|=2(n-1),\qquad\forall q\in[2,q_f]\enspace,
+\]
+furthermore, one also has
+\[
+|V_{p,q,e}^{(n,N)}|=|V_{p,q,o}^{(n,N)}|=(n-1),\qquad \forall q\in [2,q_f]\enspace.
+\]
+Finally either $n-1=2p$, for some $p\in \bN$ and, in this case 
+\[
+|V_{p,q,e}^{(n,N)}\cap 2\bZ|=|V_{p,q,e}^{(n,N)}\cap (2\bZ+1)|=p\enspace,
+\]
+or $n-2=2p+1$ for some $p\in \bN$ and, in this case either 
+\[
+|V_{p,q,e}^{(n,N)}\cap 2\bZ|=p,\qquad\text{and}\qquad |V_{p,q,e}^{(n,N)}\cap (2\bZ+1)|=p+1\enspace,
+\]
+or 
+\[
+|V_{p,q,e}^{(n,N)}\cap 2\bZ|=p+1,\qquad\text{and}\qquad |V_{p,q,e}^{(n,N)}\cap (2\bZ+1)|=p\enspace,
+\]
 
 \subsection{Bounding the kernel}
 For all $n,N$ define $\ordermax{n}{N}$ by:
 \begin{equation}
 \label{eq:ordermax}
-\ordermax{n}{N} = \max\left\{q\ge 1;\eqsp 2n + (q-1)(n-1)\le N\right\}\eqsp.
+\ordermax{n}{N} = \max\left\{q\ge 1;\eqsp n+1 + 2(q-1)(n-1)\le N\right\}\eqsp.
 \end{equation}
-The log-likelihood defined by \eqref{eq:def:loglik} may be written $\Lo{\cD_{n,N}}{\pi}= -\log p_{\pi}^{(n,N)}\left(\cD_{n,N}\right)$,
-where $p^{(n,N)}$ is the joint likelihood of the observations:
-\[
-p_{\pi}^{(n,N)}\left(\cD_{n,N}\right) = \int \prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})\pi^{\otimes N}(\rmd v) \eqsp.
-\]
-Note that,
+%The log-likelihood defined by \eqref{eq:def:loglik} may be written $\Lo{\cD_{n,N}}{\pi}= -\log p_{\pi}^{(n,N)}\left(\cD_{n,N}\right)$,
+%where $p^{(n,N)}$ is the joint likelihood of the observations:
+%\[
+%p_{\pi}^{(n,N)}\left(\cD_{n,N}\right) = \int \prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})\pi^{\otimes N}(\rmd v) \eqsp.
+%\]
+Note that, the loglikelihood of the observations may be written:
 \begin{multline*}
-\log p_{\pi}^{(n,N)}\left(\cD_{n,N}\right) = \log p_{\pi}^{(n,N)}\left(V_{g,\mathsf{beg}}^{(n,N)}\right) + \sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{(n,N)}\left(V_{g,q}^{(n,N)}\middle|V_{g,\mathsf{beg}}^{(n,N)},V_{g,2:q-1}^{(n,N)}\right) \\
-+  \log p_{\pi}^{(n,N)}\left(V_{g,\mathsf{end}}^{(n,N)}\middle|V_{g,\mathsf{beg}}^{(n,N)},V_{g,2:\ordermax{n}{N}-1}^{(n,N)}\right)\eqsp,
+\log p_{\pi}^{(n,N)}\left(X_{\cA_{n,N}}\right) = \log p_{\pi}^{(n,N)}\left(X_{\mathsf{end}}^{(n,N)}\right) + \sum_{q=2}^{\ordermax{n}{N}}  \log p_{\pi}^{(n,N)}\left(X_{q}^{(n,N)}\middle|X_{\mathsf{end}}^{(n,N)},X_{q+1:\ordermax{n}{N}}^{(n,N)}\right) \\
++  \log p_{\pi}^{(n,N)}\left(X_{\mathsf{beg}}^{(n,N)}\middle|X_{\mathsf{end}}^{(n,N)},X_{2:\ordermax{n}{N}}^{(n,N)}\right)\eqsp,
 \end{multline*}
 with 
 \begin{align*}
-V_{g,\mathsf{beg}}^{(n,N)} & = \left\{V_{g,u,u+1,e}^{(n,N)},V_{g,u+1,e}^{(n,N)},V_{g,u,u+1,o}^{(n,N)},V_{g,u+1,o}^{(n,N)}\right\} \eqsp,\quad0\le u\le 1\eqsp,\\
-V_{g,q}^{(n,N)}                   & = \left\{V_{g,q,q+1,e}^{(n,N)},V_{g,q+1,e}^{(n,N)},V_{g,q,q+1,o}^{(n,N)},V_{g,q+1,o}^{(n,N)}\right\} \eqsp,\\
-V_{g,\mathsf{end}}^{(n,N)} & = \cD_{n,N}\setminus (V_{g,\mathsf{beg}}^{(n,N)}\cup_{q=2}^{\ordermax{n}{N}-1} V_{g,q}^{(n,N)} )\eqsp.
+X_{\mathsf{beg}}^{(n,N)} & = \left\{X_{i,j};\;(i,j)\in V_{g,u\to u+1,e}^{(n,N)}\cup V_{g,u+1\to u+1,e}^{(n,N)}\cup V_{g,u\to u+1,o}^{(n,N)}\cup V_{g,u+1\to u+1,o}^{(n,N)},\;0\le u\le 1\right\}\eqsp,\\
+X_{q}^{(n,N)}                   & = \left\{X_{i,j};\;(i,j)\in V_{g,q\to q+1,e}^{(n,N)}\cup V_{g,q+1\to q+1,e}^{(n,N)}\cup V_{g,q\to q+1,o}^{(n,N)}\cup V_{g,q+1\to q+1,o}^{(n,N)}\right\} \eqsp,\\
+X_{\mathsf{end}}^{(n,N)} & = X_{\cA_{n,N}}\setminus (X_{\mathsf{beg}}^{(n,N)}\cup\cup_{q=2}^{\ordermax{n}{N}} X_{q}^{(n,N)} )\eqsp.
 \end{align*}
 
+Consider the following assumptions on the model.
 
+\begin{hypH}
+\label{assum:strongmix}
+There exist $0<\sigma_-<\sigma_+<\infty$ such that for all $\pi\in\Pi$ and all $v\in [\varepsilon,1]$, $\sigma_-\le \pi_{\param}(v)\le\sigma_+$.
+\end{hypH}
+
+\begin{lemma}
+For all $n,N$, conditional  $(X_{2:\ordermax{n}{N}}^{(n,N)},X_{\mathsf{end}}^{(n,N)})$, $\{(V_{p,q,o}^{(n,N)},V_{p,q,e}^{(n,N)})\}_{q=\ordermax{n}{N}}^2$ is a Markov chain with transition kernel given, for all $1\le q \le \ordermax{n}{N}-1$ and all measurable set $A$, by:
+%\[
+%\mathbb{P}\left(V^{(n,N)}_{p,\ordermax{n}{N}}\in A\middle|V^{(n,N)}_{p,\mathsf{end}},X_{2:\ordermax{n}{N}}^{(n,N)},X_{\mathsf{end}}^{(n,N)}\right) = 
+%\]
+\[
+\mathbb{P}\left(V^{(n,N)}_{p,q}\in A\middle|V^{(n,N)}_{p,q+1},X_{2:\ordermax{n}{N}}^{(n,N)},X_{\mathsf{end}}^{(n,N)}\right) = \mathbb{P}\left(V^{(n,N)}_{p,q}\in A\middle|V^{(n,N)}_{p,q+1},X^{(n,N)}_{2:q-1},X^{(n,N)}_{q\to q+1}\right)\eqsp.
+\]
+In addition,  for all $1\le q \le \ordermax{n}{N}-1$ there exists a measure $\mu^{(n,N)}_{\pi,q}$ such that:
+\[
+\mathbb{P}\left(V^{(n,N)}_{p,q}\in A\middle|V^{(n,N)}_{p,q+1},X_{2:\ordermax{n}{N}}^{(n,N)},X_{\mathsf{end}}^{(n,N)}\right)\ge \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{(n,N)}_{q\to q+1}\right)} \mu^{(n,N)}_{\pi,q}(A)\eqsp.
+\] 
+\end{lemma}
+
+\begin{proof}
+For all $1\le q \le \ordermax{n}{N}-1$ define $X^{(n,N)}_{q\to q+1} = \{X_{i,j};\;(i,j)\in V^{(n,N)}_{g,q\to q+1,e}\cup V^{(n,N)}_{g,q\to q+1,o}\}$. Using the graphical model displayed in Figure~\ref{}, 
+\begin{align*}
+\mathbb{P}\left(V^{(n,N)}_{p,q}\in A\middle|V^{(n,N)}_{p,q+1},X_{2:\ordermax{n}{N}}^{(n,N)},X_{\mathsf{end}}^{(n,N)}\right) &\\
+ &\hspace{-4.2cm}= \mathbb{P}\left(V^{(n,N)}_{p,q}\in A\middle|V^{(n,N)}_{p,q+1},X^{(n,N)}_{2:q-1},X^{(n,N)}_{q\to q+1}\right)\eqsp,\\
+ &\hspace{-4.2cm}= \frac{\int \1_{A}(v^{(n,N)}_{p,q})\pi(v^{(n,N)}_{p,q})\prod_{X_{i,j}\in X^{(n,N)}_{q\to q+1}}\condlik(X_{i,j},v_{\{i,j\}})p_{\pi}^{(n,N)}(X^{(n,N)}_{2:q-1}|v^{(n,N)}_{p,q})\rmd v^{(n,N)}_{p,q}}{\int \pi(v^{(n,N)}_{p,q})\prod_{X_{i,j}\in X^{(n,N)}_{q\to q+1}}\condlik(X_{i,j},v_{\{i,j\}})p_{\pi}^{(n,N)}(X^{(n,N)}_{2:q-1}|v^{(n,N)}_{p,q})\rmd v^{(n,N)}_{p,q}}\eqsp.
+\end{align*}
+As for all $x\in\{0,1\}$ and all $\varepsilon\le v_1,v_2\le 1$, $\varepsilon(1+\varepsilon)^{-1}\le \condlik(X_{i,j},v_{\{i,j\}})\le 1$,
+\begin{multline*}
+\mathbb{P}\left(V^{(n,N)}_{p,q}\in A\middle|V^{(n,N)}_{p,q+1},X_{2:\ordermax{n}{N}}^{(n,N)},X_{\mathsf{end}}^{(n,N)}\right)\\
+\ge \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{(n,N)}_{q\to q+1}\right)}\frac{\int \1_{A}(v^{(n,N)}_{p,q})\pi(v^{(n,N)}_{p,q})p_{\pi}^{(n,N)}(X^{(n,N)}_{2:q-1}|v^{(n,N)}_{p,q})\rmd v^{(n,N)}_{p,q}}{\int \pi(v^{(n,N)}_{p,q})p_{\pi}^{(n,N)}(X^{(n,N)}_{2:q-1}|v^{(n,N)}_{p,q})\rmd v^{(n,N)}_{p,q}}\eqsp. 
+\end{multline*}
+The proof is then completed by choosing:
+\[
+\mu^{(n,N)}_{\pi,q}(A) = \frac{\int \1_{A}(v^{(n,N)}_{p,q})\pi(v^{(n,N)}_{p,q})p_{\pi}^{(n,N)}(X^{(n,N)}_{2:q-1}|v^{(n,N)}_{p,q})\rmd v^{(n,N)}_{p,q}}{\int \pi(v^{(n,N)}_{p,q})p_{\pi}^{(n,N)}(X^{(n,N)}_{2:q-1}|v^{(n,N)}_{p,q})\rmd v^{(n,N)}_{p,q}}\eqsp. 
+\]
+\end{proof}
+%\begin{hypH}
+%\label{assum:compact}
+%There exist $0<c_-<c_+<\infty$ such that for all $\param\in\param$, $C_{\param} \subset (c_-,c_+)$.
+%\end{hypH}
+
+%Define 
+%\begin{equation}
+%\label{eq:def:rho}
+%\rho_n = 1- \left(\frac{\varepsilon\sigma_-}{(\varepsilon+1)\sigma_+}\right)^2\eqsp.
+%\end{equation}
+
+\begin{lemma}
+For all $n,N$,
+\begin{align*}
+\left|\log p_{\pi}^{(n,N)}\left(X_{\mathsf{end}}^{(n,N)}\right)\right|&\le \card\left(X_{\mathsf{end}}^{(n,N)}\right)\log \left(1+\frac{1}{\varepsilon}\right)\eqsp,\\
+\left|\log p_{\pi}^{(n,N)}\left(X_{\mathsf{beg}}^{(n,N)}\middle|X_{\mathsf{end}}^{(n,N)},X_{2:\ordermax{n}{N}}^{(n,N)}\right)\right|&\le \card\left(X_{\mathsf{beg}}^{(n,N)}\right)\log \left(1+\frac{1}{\varepsilon}\right)\eqsp.
+\end{align*}
+In addition,  for all $\ell>1$ and all $2\le q\le \ordermax{n}{N}$,
+\begin{multline*}
+\left|\log p_{\pi}^{(n,N)}\left(X_{q}^{(n,N)}\middle|X_{\mathsf{end}}^{(n,N)},X_{q+1:\ordermax{n}{N}}^{(n,N)}\right) \right.\\
+\left.- \log p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{\mathsf{end}}^{(n,N+\ell)},X_{q+1:\ordermax{n}{N+\ell}}^{(n,N+\ell)}\right) \right|\leq\eqsp.
+\end{multline*}
+\end{lemma}
+
+\begin{proof}
+\[
+\log p_{\pi}^{(n,N)}\left(X_{\mathsf{end}}^{(n,N)}\right) = \int \pi\left(v_{\mathsf{end}}^{(n,N)}\right) \prod_{X_{i,j}\in X_{\mathsf{end}}^{(n,N)}}\condlik(X_{i,j},v_{\{i,j\}})\rmd v_{\mathsf{end}}^{(n,N)}\eqsp,
+\]
+By \eqref{},
+\[
+ \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X_{\mathsf{end}}^{(n,N)}\right)}\le p_{\pi}^{(n,N)}\left(X_{\mathsf{end}}^{(n,N)}\right)  \le 1\eqsp.
+\]
+\begin{align*}
+p_{\pi}^{(n,N)}\left(X_{\mathsf{beg}}^{(n,N)}\middle|X_{\mathsf{end}}^{(n,N)},X_{2:\ordermax{n}{N}}^{(n,N)}\right) &= \int p_{\pi}^{(n,N)}\left(X_{\mathsf{beg}}^{(n,N)},v_{\mathsf{beg}}^{(n,N)}\middle|X_{\mathsf{end}}^{(n,N)},X_{2:\ordermax{n}{N}}^{(n,N)}\right)\rmd v_{\mathsf{beg}}^{(n,N)}\eqsp,\\
+&=\int p_{\pi}^{(n,N)}\left(v_{\mathsf{beg}}^{(n,N)}\middle|X_{\mathsf{end}}^{(n,N)},X_{2:\ordermax{n}{N}}^{(n,N)}\right) p_{\pi}^{(n,N)}\left(X_{\mathsf{beg}}^{(n,N)}\middle|v_{\mathsf{beg}}^{(n,N)}\right)\rmd v_{\mathsf{beg}}^{(n,N)}\eqsp,\\
+&=\int p_{\pi}^{(n,N)}\left(v_{\mathsf{beg}}^{(n,N)}\middle|X_{\mathsf{end}}^{(n,N)},X_{2:\ordermax{n}{N}}^{(n,N)}\right) \prod_{X_{i,j}\in X_{\mathsf{beg}}^{(n,N)}}\condlik(X_{i,j},v_{\{i,j\}})\rmd v_{\mathsf{beg}}^{(n,N)}\eqsp,\\
+\end{align*}
+By \eqref{},
+\[
+ \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X_{\mathsf{beg}}^{(n,N)}\right)}\le p_{\pi}^{(n,N)}\left(X_{\mathsf{beg}}^{(n,N)}\middle|X_{\mathsf{end}}^{(n,N)},X_{2:\ordermax{n}{N}}^{(n,N)}\right) \le 1\eqsp.
+\]
+\end{proof}
 %The loglikelihood of the observations may be decomposed as:
 %\begin{align*}
 %\Lo{\cD_{n,N}}{\pi} &= \log \left(p^{\pi}_{\cD_{n,N}}(X)\right)\eqsp,\\
@@ -234,23 +408,6 @@ The graphical model associated with Bradley-Terry model in the case $n=2$ is dis
 \label{fig:bt}
 \end{figure}
 
-Consider the following assumptions on the model.
-
-\begin{hypH}
-\label{assum:strongmix}
-There exist $0<\sigma_-<\sigma_+<\infty$ such that for all $\param\in\param$ and all $v\in C_{\param}$, $\sigma_-\le \pi_{\param}(v)\le\sigma_+$.
-\end{hypH}
-
-\begin{hypH}
-\label{assum:compact}
-There exist $0<c_-<c_+<\infty$ such that for all $\param\in\param$, $C_{\param} \subset (c_-,c_+)$.
-\end{hypH}
-
-Define 
-\begin{equation}
-\label{eq:def:rho}
-\rho = 1- \left(\frac{c_-\sigma_-}{(c_-+c_+)\sigma_+}\right)^2\eqsp.
-\end{equation}
 
 Define $\bar C_{\param} = C_{\param}\times C_{\param}$, $\bar v_1 = v_1$, $\bar X_1 = (X_{1,2},X_{1,3})$ and for all $k\ge 2$, $\bar v_k = (v_{2k-2},v_{2k-1})$ and $\bar X_k = (X_{2k-2,2k},X_{2k-1,2k+1})$. Conditional on $(\bar v_i)_{i\ge 1}$, the observations $(\bar X_i)_{i\ge 1}$ are independent and, for each $\ell\ge 1$ the conditional distribution of $\bar X_{\ell}$ given $(\bar v_i)_{i\ge 1}$ has probability density function:
 \[

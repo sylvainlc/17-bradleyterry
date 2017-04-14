@@ -26,16 +26,18 @@ Moreover, given $v=(v_i)_{i\in[N]}$ the r.v. $(X_{i,j})_{1\le i<j\le N}$ are ass
 \]
 so that $\bP(X_{i,j}=x|v_{\{i,j\}})=k(x,v_{\{i,j\}})$. In our model, $v=(v_i)_{i\in [N]}$ is a vector in $\bR^N$ with i.i.d. entries with common unknown distribution $\bayes$ that is set once and for all before the tournament begins. 
 
-A voir
-\begin{enumerate}
- \item Loi quenched et annealed?
-\end{enumerate}
+%A voir
+%\begin{enumerate}
+% \item Loi quenched et annealed?
+%\end{enumerate}
 
 \subsection{Round-robin days in BTT and early learning task}
 In this paper, we do not assume that all the pairs meet once and we describe in this section the round-robin algorithm that gives at each time $t\in[N]$ the pairs that face each others. At time $t=1$, the players are disposed according to Figure~\ref{fig:robin:day1}. Each player faces the one in front of him, that is $2i-1$ faces $2i$, for all $i\in[N/2]$. 
+
 \begin{figure}
-\centering
-\begin{tikzpicture}
+\begin{subfigure}{\textwidth}
+  \centering
+  \begin{tikzpicture}
 \tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
 \tikzstyle{box}=[rectangle, draw=black!100]
@@ -64,9 +66,47 @@ In this paper, we do not assume that all the pairs meet once and we describe in 
 \end{tikzpicture}
 \caption{Round-robin, day $1$.}
 \label{fig:robin:day1}
-\end{figure}
-At time $t=2$, the disposition of the players changes according to the round-robin algorithm described in Figure~\ref{fig:robin:day2}. Player $1$ does not move, $2$ takes the place of $3$, each odd integer $2i-1<N-1$ takes the place of $2i+1$, $N-1$ takes the place of $N$ and each even integer $2i>2$ takes the place of $2(i-1)$. Once they moved, each player faces the opponent in front of him.
-\begin{figure}
+\end{subfigure}
+
+\vspace{.5cm}
+
+\begin{subfigure}{\textwidth}
+  \centering
+  \begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{box}=[rectangle, draw=black!100]
+\node[main, fill = black!10] (v1){$1$ };
+\node[main] (v3) [right=of v1] {$3$ };
+\node[main] (v5) [right=of v3] {$5$ };
+\node[main] (v7) [right=of v5] {{\small$2i-1$}};
+\node[main] (v9) [right=of v7] {{\small$N-3$}};
+\node[main] (v11) [right=of v9] {{\small$N-1$}};
+\node[main] (v2) [below=of v1] {$2$};
+\node[main] (v4) [below=of v3] {$4$};
+\node[main] (v6) [below=of v5] {$6$};
+\node[main] (v8) [below=of v7] {{\small$2i$}};
+\node[main] (v10) [below=of v9] {{\small$N-2$}};
+\node[main] (v12) [below=of v11] {{\small$N$}};
+\path (v2) edge [connect] (v3);   
+\path (v4) edge [connect] (v2);  
+\path (v3) edge [connect] (v5);  
+\path (v6) edge [connect] (v4); 
+\path (v9) edge [connect] (v11); 
+\path (v11) edge [connect] (v12);   
+\path (v12) edge [connect] (v10);   
+\path (v5) -- node[auto=false]{\ldots}  (v7); 
+\path (v7) -- node[auto=false]{\ldots}  (v9); 
+\path (v6) -- node[auto=false]{\ldots}  (v8); 
+\path (v8) -- node[auto=false]{\ldots}  (v10);    
+\end{tikzpicture}
+\caption{Round-robin, first move.}
+\label{fig:robin:move}
+\end{subfigure}
+
+\vspace{.5cm}
+
+\begin{subfigure}{\textwidth}
 \centering
 \begin{tikzpicture}
 \tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
@@ -88,18 +128,20 @@ At time $t=2$, the disposition of the players changes according to the round-rob
 \draw (v3) -- (v4);
 \draw (v5) -- (v6);
 \draw (v7) -- (v8);
-\draw (v9) -- (v10);   
+\draw (v9) -- (v10);  
 \draw (v11) -- (v12);     
 \path (v5) -- node[auto=false]{\ldots}  (v7); 
 \path (v7) -- node[auto=false]{\ldots}  (v9); 
 \path (v6) -- node[auto=false]{\ldots}  (v8); 
-\path (v8) -- node[auto=false]{\ldots}  (v10);   
+\path (v8) -- node[auto=false]{\ldots}  (v10);    
 \end{tikzpicture}
 \caption{Round-robin, day $2$.}
 \label{fig:robin:day2}
+\end{subfigure}
+\caption{First two days using the round-robin algorithm.}
+\label{fig:fig}
 \end{figure}
-
-At time $t\ge 2$, each player moves once according to the round-robin algorithm and plays the opponent in front of him. Each time $t\in\bN$ is called a day of the tournament. It is well known that, at day $N$, all players have faced each other once. 
+At time $t=2$, the disposition of the players changes according to the round-robin algorithm described in Figure~\ref{fig:robin:move}. Player $1$ does not move, $2$ takes the place of $3$, each odd integer $2i-1<N-1$ takes the place of $2i+1$, $N-1$ takes the place of $N$ and each even integer $2i>2$ takes the place of $2(i-1)$. Once they moved, each player faces the opponent in front of him. At time $t\ge 2$, each player moves once according to the round-robin algorithm and plays the opponent in front of him as displayed in Figure~\ref{fig:robin:day2}. Each time $t\in\bN$ is called a day of the tournament. It is well known that, at day $N$, all players have faced each other once. 
 
 In this paper, we assume that the results of all games up to day $n$ are available and we want to infer the distribution $\bayes$ from this data set. The time $n$ is assumed to be much smaller than $N$ and this is why we called this problem the ``early learning task". The set of couples $(i,j)\in[N]^2$, with $i<j$ such that $i$ has played $j$ before time $n$ is denoted by $\cA_{n,N}$, in other words, the data set is $\cD_{n,N}=\{(X_{i,j})_{(i,j)\in A_{n,N}}\}$.
 
@@ -115,152 +157,180 @@ Our estimator is then any maximum likelihood estimator (MLE):
 \]
 We shall often forget the dependence of the log-likelihood in the data set $\cD_{n,N}$ and write $\loss{\pi}=\Lo{\cD_{n,N}}{\pi}$.
 
-\begin{enumerate}
-\item On pourrait supposer que toutes les lois sont a support dans un meme compact plutot que dans $[\epsilon,1]$, c'est equivalent par invariance par changement d'echelle.
-\end{enumerate}
+%\begin{enumerate}
+%\item On pourrait supposer que toutes les lois sont a support dans un meme compact plutot que dans $[\epsilon,1]$, c'est equivalent par invariance par changement d'echelle.
+%\end{enumerate}
 
 \section{Loss of memory properties in the early learning problem}
 
 In this section, we assume that $N\to\infty$ and $n\ll N$.
 
 \subsection{Graphical model of the round-robin BTT}
-The purpose of this section is to build a graph representing the conditional dependences between the variables $v$ and $X=(X_{i,j})_{(i,j)\in A_{n,N}}$. This graph is directed and is denoted $G^{n,N}=(V^{n,N},E^{n,N})$. The set of vertices is a disjoint union $V^{n,N}=V^{n,N}_{p}\cup V^{n,N}_g$ where $V^{n,N}_p$ is a partition of $[N]$ and $V^{n,N}_g$ is a partition of $ A_{n,N}$. 
+Let $G^{n,N}=(V^{n,N},E^{n,N})$ be the directed graph representing the conditional dependences between the variables $v$ and $X=(X_{i,j})_{(i,j)\in A_{n,N}}$. The set of vertices is a disjoint union $V^{n,N}=\cV^{n,N}\cup \cX^{n,N}$ where $\cV^{n,N}$ is a partition of $(v_i)_{i\in[N]}$ and $\cX^{n,N}$ is a partition of $(X_{i,j})_{(i,j)\in A_{n,N}}$. 
 
-\subsubsection{The elements of $V_p^{n,N}$}
-Start with the undirected graph $(V^{n,N}_0,E^{n,N}_0)$ where $V^{n,N}_0=[N]$ and $E^{n,N}_0=\{\{i,j\} : (i,j)\in A_{n,N}\}$, that is the graph where the nodes are the players and an edge is drawn between players who play together. The graph $(V^{n,N}_0,E^{n,N}_0)$ is endowed with the graph distance $d^{n,N}_0$, that is $d^{n,N}_0(i,j)$ is the minimal length of a path between the nodes $i$ and $j$ in $V^{n,N}_0$. One can write $[N]=\{1\}\cup\cup_{q=1}^{N}V^{n,N}_{p,q}$, where, for any $q\in[N]$, $V^{n,N}_{p,q}$ is the set of $i\in[N]$ such that $d^{n,N}_0(1,i)=q$. Let us now describe more precisely the elements in the sets $V_{p,q}^{n,N}$. 
-\begin{lemma}\label{lem:ElementsAtDistanceq} Assume that $2\le n<N/4$ and let $N/2-1= q_0(n-1)+r_0$ where $r_0<n-1$. Define $V_{p,0}^{n,N}=\{1\}$. One has
+\subsubsection{The elements of $\cV^{n,N}$}
+Let $G_0^{n,N}$ be the undirected graph with vertices $(v_i)_{i\in[N]}$ and edges $(X_{i,j})_{ (i,j)\in A_{n,N}}$, that is the graph where the nodes are the players and an edge is drawn between individuals who play together. $G_0^{n,N}$ is endowed with the graph distance $d^{n,N}_0$, that is $d^{n,N}_0(v_i,v_j)$ is the minimal length of a path between the nodes $v_i$ and $v_j$ in $G_0^{n,N}$. One can write $(v_i)_{i\in[N]}=\{v_1\}\cup\cup_{q=1}^{N}V^{n,N}_{q}$, where, for any $q\in[N]$, $V^{n,N}_{q}$ is the set of $v_i$ such that $d^{n,N}_0(v_1,v_i)=q$. Lemma~\ref{lem:ElementsAtDistanceq} describes the elements in the sets $V_{q}^{n,N}$, $q\ge 1$. 
+\begin{lemma}\label{lem:ElementsAtDistanceq} Assume that $2\le n<N/4$ and let $N/2-1= \ordermax{n}{N}(n-1)+r_0$ where $r_0<n-1$. Define $V_{0}^{n,N}=\{v_1\}$. One has
 \begin{equation}\label{def:V1}
-V_{p,1}^{n,N}=\{2x : x=1,\ldots,n\}\enspace, 
+V_{1}^{n,N}=\{v_{2x} : x=1,\ldots,n\}\enspace, 
 \end{equation}
-and, for any $q\in[2,q_0-1]$, 
+and, for any $2\le q \le \ordermax{n}{N}$, 
 \begin{multline}\label{def:Vq}
-V_{p,q}^{n,N}=\{2x+1 : x\in[(q-2)(n-1)+1,(q-1)(n-1)]\}\\
-\cup\{2x : x\in[2+(q-1)(n-1),1+q(n-1)]\}\enspace.
+V_{q}^{n,N}=\{v_{2x+1} : x\in[(q-2)(n-1)+1,(q-1)(n-1)]\}\\
+\cup\{v_{2x} : x\in[2+(q-1)(n-1),1+q(n-1)]\}\enspace.
 \end{multline}
-If $r_0=0$, then
-\begin{multline}\label{def:Vq0}
-V_{p,q_0}^{n,N}=\{N-1\}\cup\{2x+1 : x\in[(q_0-2)(n-1)+1,(q_0-1)(n-1)]\}\\
-\cup\{2x : x\in[2+(q_0-1)(n-1),1+q_0(n-1)]\}
-\end{multline}
-and
-\begin{equation}\label{def:Vq01}
-V_{p,q_0+1}^{n,N}=\{2x+1 : x\in[(q_0-1)(n-1)+1,q_0(n-1)-1]\},\qquad V_{p,q}^{n,N}=\emptyset,\quad\forall q>q_0+1\enspace.
-\end{equation}
-If $r_0\ne 0$, 
-\begin{multline}\label{def:Vq0'}
-V_{p,q_0}^{n,N}=\{2x+1 : x\in[(q_0-2)(n-1)+1,(q_0-1)(n-1)]\}\\
-\cup\{2x : x\in[2+(q_0-1)(n-1),1+q_0(n-1)]\}
-\end{multline}
-and
+%If $r_0=0$, then
+%\begin{multline}\label{def:Vq0}
+%V_{p,\ordermax{n}{N}}^{n,N}=\{N-1\}\cup\{2x+1 : x\in[(\ordermax{n}{N}-2)(n-1)+1,(\ordermax{n}{N}-1)(n-1)]\}\\
+%\cup\{2x : x\in[2+(\ordermax{n}{N}-1)(n-1),1+\ordermax{n}{N}(n-1)]\}
+%\end{multline}
+%and
+%\begin{equation}\label{def:Vq01}
+%V_{p,\ordermax{n}{N}+1}^{n,N}=\{2x+1 : x\in[(\ordermax{n}{N}-1)(n-1)+1,\ordermax{n}{N}(n-1)-1]\},\qquad V_{p,q}^{n,N}=\emptyset,\quad\forall q>\ordermax{n}{N}+1\enspace.
+%\end{equation}
+Furthermore,
+%\begin{multline}\label{def:Vq0'}
+%V_{p,\ordermax{n}{N}}^{n,N}=\{2x+1 : x\in[(\ordermax{n}{N}-2)(n-1)+1,(\ordermax{n}{N}-1)(n-1)]\}\\
+%\cup\{2x : x\in[2+(\ordermax{n}{N}-1)(n-1),1+\ordermax{n}{N}(n-1)]\}
+%\end{multline}
+%and
 \begin{multline}\label{def:Vq01'}
-V_{p,q_0+1}^{n,N}=\{2x+1 : x\in[(q_0-1)(n-1)+1,q_0(n-1)+r_0]\}\\
-\cup\{2x : x\in[2+q_0(n-1),1+r_0+q_0(n-1)]\}\enspace.
+V_{\ordermax{n}{N}+1}^{n,N}=\{v_{2x+1} : x\in[(\ordermax{n}{N}-1)(n-1)+1,\ordermax{n}{N}(n-1)+r_0]\}\\
+\cup\{v_{2x} : x\in[2+\ordermax{n}{N}(n-1),1+r_0+\ordermax{n}{N}(n-1)]\}\enspace.
 \end{multline}
 \end{lemma}
-\begin{proof}
-Property \eqref{def:V1} is obvious. It implies that $V_{p,2}^{n,N}$ contains $\{2x+1 : x=1,\ldots,n-1\}$ that is all the opponents of the members of $V_{p,1}^{n,N}$ at time $t=1$, besides $1$ that is of course not in $V_{p,2}^{n,N}$. $V_{p,2}^{n,N}$ contains also all opponents of $2$ and $4$ that are not in $V_{p,0}^{n,N}\cup V_{p,1}^{n,N}$. Rolling the round-robin algorithm $n$ times, one checks that the opponents of $2$ are $\{1,4x+2 : x=1,\ldots,n-1\}$ and those of $4$ are $\{3,1,4x : x=1,\ldots,n-2\}$. Therefore, one has that 
+\begin{proof}[Proof by induction on $q$]
+The definition of $V_{1}^{n,N}$ given by \eqref{def:V1} is straightforward. Then, $V_{2}^{n,N}$ contains:
+\begin{enumerate}[-]
+\item  the opponents of the members of $V_{1}^{n,N}$ at time $t=1$, besides $1$ which is not in $V_{2}^{n,N}$: $\{v_{2x+1} : x=1,\ldots,n-1\}$ ;
+\item the opponents of $2$ and $4$ that are not in $V_{0}^{n,N}\cup V_{1}^{n,N}$. Rolling the round-robin algorithm $n$ times,  the opponents of $v_2$ are $\{v_1,v_{4x+2} : x=1,\ldots,n-1\}$ and those of $4$ are $\{v_1,v_3,v_{4x} : x=2,\ldots,n-2\}$. 
+\end{enumerate}
+Therefore, 
 \[
-V_{p,2}^{n,N}\supset \{2x+1 : x=1,\ldots,n-1\}\cup\{2x : x=n+1,\ldots,2n-1\}\enspace.
+V_{2}^{n,N}\supset \{v_{2x+1} : x=1,\ldots,n-1\}\cup\{v_{2x} : x=n+1,\ldots,2n-1\}\enspace.
 \]
-
-By induction, one can verify that, 
+On the other hand, by induction,  
 \begin{gather}
 \notag\forall i\notin \{N-2x+1, x=1,\ldots,2(t-1)\}\cup \{2x : x=1,\ldots, 2n-1\}\enspace,\\
-\notag\text{if }i \text{ is odd, it faces }\{i+4x+1 : x=0,\ldots n-1\}\enspace,\\
+\notag\text{if }i \text{ is odd, $v_i$ faces }\{v_{i+4x+1} : x=0,\ldots n-1\}\enspace,\\
 \label{eq:Opponents}\text{if }i \text{ is even, it faces }\{i-4x-1 : x=0,\ldots,n-1\}\enspace.
 \end{gather}
-The first consequence of this fact is that no even number $i\ge 4n$ belongs to $V_{p,2}^{n,N}$ and the second is no odd number such that $i>2n-1$ either. Therefore,
+This implies that there is no even number $i\ge 4n$ nor odd number $i>2n-1$ such that $v_i\in V_{2}^{n,N}$ which yields:
 \begin{equation*}
- V_{p,2}^{n,N}= \{2x+1 : x=1,\ldots,n-1\}\cup\{2x : x=n+1,\ldots,2n-1\}\enspace.
+ V_{2}^{n,N}= \{v_{2x+1} : x=1,\ldots,n-1\}\cup\{v_{2x} : x=n+1,\ldots,2n-1\}\enspace.
 \end{equation*}
-By induction, using the same arguments, we get \eqref{def:Vq}.
-We check \eqref{def:Vq0}, \eqref{def:Vq01}, \eqref{def:Vq0'} and \eqref{def:Vq01'} directly, rolling the round-robin algorithm. 
+\eqref{def:Vq} is obtained by induction using the same arguments and
+%\eqref{def:Vq0}, \eqref{def:Vq01}, \eqref{def:Vq0'} and 
+\eqref{def:Vq01'} is a direct consequence of the round-robin procedure. 
 \end{proof}
-Figure~\ref{fig:robin:partitionP} displays this partition for $n = 3$.
+%Figure~\ref{fig:robin:partitionP} displays this partition for $n = 3$.
+%
+%\begin{figure}
+%\centering
+%\begin{tikzpicture}
+%\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
+%\tikzstyle{connect}=[-latex, thick]
+%\tikzstyle{box}=[rectangle, draw=black!100]
+%\node[main, fill = black!10] (v1){$1$ };
+%\node[main,label=below:] (v2) [right=of v1] {$V^{n,N}_{p,1}$}; 
+%\node[main,label=below:] (v3) [right=of v2] {$V^{n,N}_{p,2}$ }; 
+%\end{tikzpicture}
+%\caption{Round-robin, partition of $[N]$, $n=3$.}
+%\label{fig:robin:partitionP}
+%\end{figure}
 
-\begin{figure}
-\centering
-\begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
-\tikzstyle{connect}=[-latex, thick]
-\tikzstyle{box}=[rectangle, draw=black!100]
-\node[main, fill = black!10] (v1){$1$ };
-\node[main,label=below:] (v2) [right=of v1] {$V^{n,N}_{p,1}$}; 
-\node[main,label=below:] (v3) [right=of v2] {$V^{n,N}_{p,2}$ }; 
-\end{tikzpicture}
-\caption{Round-robin, partition of $[N]$, $n=3$.}
-\label{fig:robin:partitionP}
-\end{figure}
-
-The most important result of Lemma~\ref{lem:ElementsAtDistanceq} regarding the decomposition of the likelihood is \eqref{def:Vq}. Hereafter we denote by $q_f=q_0-1-I\{r_0\ne 0\}$, so $q_f$ is the largest index $q$ such that $V_{p,q}^{n,N}$ doesn't contain $N-1$ or one of its opponents, in other words, $q_f$ is the largest $q$ such that
-\[
- \{N-2x+1 : x=1,\ldots, 2(n-1)\}\cap\pa{V_{p,q+1}^{n,N}\cup V_{p,q+2}^{n,N}}=\emptyset\enspace.
- \] 
+The most important result of Lemma~\ref{lem:ElementsAtDistanceq} regarding the decomposition of the likelihood is \eqref{def:Vq}. 
+%Hereafter we denote by $q_f=\ordermax{n}{N}-1-I\{r_0\ne 0\}$, so $q_f$ is the largest index $q$ such that $V_{p,q}^{n,N}$ doesn't contain $N-1$ or one of its opponents, in other words, $q_f$ is the largest $q$ such that
+%\[
+% \{N-2x+1 : x=1,\ldots, 2(n-1)\}\cap\pa{V_{p,q+1}^{n,N}\cup V_{p,q+2}^{n,N}}=\emptyset\enspace.
+% \] 
 Let 
 \begin{gather*}
 \cE=\{4x-1,4x : x\in[\PE{N/4}]\},\qquad \cO=[N]\setminus\cE\enspace,\\
-V_{p,q,e}^{n,N}= V_{p,q}^{n,N}\cap \cE,\qquad V_{p,q,o}^{n,N}= V_{p,q}^{n,N}\cap \cO,\qquad\forall q\ge 1\enspace. 
+V_{q,e}^{n,N}= V_{q}^{n,N}\cap \cE,\qquad V_{q,o}^{n,N}= V_{q}^{n,N}\cap \cO,\qquad\forall q\ge 1\enspace. 
 \end{gather*}
+Finally, $\cV^{n,N}=\{V_0^{n,N},V_{\ordermax{n}{N}+1}^{n,N},V_{q,e}^{n,N},V_{q,o}^{n,N},q=1,\ldots,\ordermax{n}{N}\}$.
 
-\subsubsection{Elements of $V_g^{n,N}$}
+\subsubsection{Elements of $\cX^{n,N}$}
 
 Let us first build 
 \[
-V_{g,0\to1,e}^{n,N}=\{(1,4x) : x=1,\ldots,\PE{n/2}\}=\{(1,i) : i\in V_{p,1,e}^{n,N}\},\qquad V_{g,0\to1,o}^{n,N}=\{(1,i) : i\in V_{p,1,o}^{n,N}\}\enspace.
+X_{0-1,e}^{n,N}=\{X_{1,4x} : x=1,\ldots,\PE{n/2}\}=\{X_{1,i} : v_i\in V_{1,e}^{n,N}\},\qquad X_{0-1,o}^{n,N}=\{X_{1,i} : v_i\in V_{1,o}^{n,N}\}\enspace.
 \]
-In words, for any $(i,j)\in V_{g,0\to1,o}^{n,N}$, $X_{i,j}$ denotes the result of the game of $1$ (that is of all elements of $V_{p,0}^{n,N}$) against its opponent (in $V_{p,1}^{n,N}$) at time $t$ when $t$ is odd. Let us now describe the games involving players in $V_{p,1}^{n,N}$ against opponents that are both differents from $1$. Start with the games between players in $V_{p,1}^{n,N}$ and let 
+In words, for any $X_{i,j}\in X_{0-1,o}^{n,N}$, $X_{i,j}$ denotes the result of the game of $v_1$ (that is of all elements of $V_{0}^{n,N}$) against its opponent (in $V_{1}^{n,N}$) at time $t$ when $t$ is odd. Let us now describe the games involving players in $V_{1}^{n,N}$ against opponents that are both differents from $1$. Start with the games between players in $V_{1}^{n,N}$ and let 
 \begin{gather*}
-V_{g,1\to1,e}^{n,N}=\{(4x,4y) : (x,y)\in [\PE{n/2}], x< y\}=\{(i,j) : i,j\in V_{p,1,e}^{n,N},i<j\}\enspace,\\
-V_{g,1\to1,o}^{n,N}=\{(i,j) : i,j\in V_{p,1,o}^{n,N},i<j\}\enspace. 
+X_{1-1,e}^{n,N}=\{X_{4x,4y} : (x,y)\in [\PE{n/2}], x< y\}=\{X_{i,j} : v_i,v_j\in V_{1,e}^{n,N},i<j\}\enspace,\\
+X_{1-1,o}^{n,N}=\{X_{i,j} : v_i,v_j\in V_{1,o}^{n,N},i<j\}\enspace. 
 \end{gather*}
-One can check that there is no game between any $i\in V_{p,1,e}^{n,N}$ and an opponent $j\in V_{p,q,o}^{n,N}$ for any $q\ge 1$. 
+One can check that there is no game between any $v_i\in V_{1,e}^{n,N}$ and an opponent $v_j\in V_{q,o}^{n,N}$ for any $q\ge 1$. 
 %The same property holds if we reverse the roles of $e$ and $o$. 
-In particular there is no game between any $i\in V_{p,1,e}^{n,N}$ and an opponent $j\in V_{p,q,o}^{n,N}$.  Therefore, $V_{g,1\to1,e}^{n,N}\cup V_{g,1\to1,o}^{n,N}$ describes all games between players in $V_{p,1}^{n,N}$. 
+In particular there is no game between any $v_i\in V_{1,e}^{n,N}$ and an opponent $v_j\in V_{1,o}^{n,N}$.  Therefore, $X_{1-1,e}^{n,N}\cup X_{1-1,o}^{n,N}$ describes all games between players in $V_{1}^{n,N}$. 
 
-Let us now describe the games between $i\in V_{p,1}^{n,N}$ and $j\in V_{p,2}^{n,N}$. Let 
+Let us now describe the games between $i\in V_{1}^{n,N}$ and $j\in V_{2}^{n,N}$. Let 
 \begin{align*}
-&V_{g,1\to2,e}^{n,N}=\{(4y-1-4k,4y) : y\in [\PE{n/2}], k<y\}\cup\{(4x,4y) : x\in[\PE{N/4}], y\in[\PE{N/4}+1,n-x]\}\\
-&=\{(i,j) : i\in V_{p,1,e}^{n,N},j\in V_{p,2,e}^{n,N}\cap 2\bZ+1,j>i\}\cup\{(i,j) : i\in V_{p,1,e}^{n,N},j\in V_{p,2,e}^{n,N}\cap 2\bZ\cap [4n-i]\}\enspace,\\
-&V_{g,1\to2,o}^{n,N}=\{(i,j) : i\in V_{p,1,o}^{n,N},j\in V_{p,2,o}^{n,N}\cap 2\bZ+1,j>i\}\cup\{(i,j) : i\in V_{p,1,o}^{n,N},j\in V_{p,2,o}^{n,N}\cap 2\bZ\cap [4n-i]\}\enspace.
+&X_{1-2,e}^{n,N}=\{X_{4y-1-4k,4y} : y\in [\PE{n/2}], k<y\}\cup\{X_{4x,4y} : x\in[\PE{n/4}], y\in[\PE{n/2}+1,n-x]\}\\
+&=\{X_{i,j} : v_i\in V_{1,e}^{n,N},v_j\in V_{2,e}^{n,N},j\in 2\bZ+1,j>i\}\cup\{X_{i,j} : v_i\in V_{1,e}^{n,N},v_j\in V_{2,e}^{n,N},j\in 2\bZ\cap [4n-i]\}\enspace,\\
+&X_{1-2,o}^{n,N}=\{X_{i,j} : v_i\in V_{1,o}^{n,N},v_j\in V_{2,o}^{n,N},j\in 2\bZ+1,j>i\}\cup\{X_{i,j} : v_i\in V_{1,o}^{n,N},v_j\in V_{2,o}^{n,N},j\in 2\bZ\cap [4n-i]\}\enspace.
 \end{align*}
-Again these are all games between a $i\in V_{p,1}^{n,N}$ and $j\in V_{p,2}^{n,N}$.
+Again these are all games between a $v_i\in V_{1}^{n,N}$ and $v_j\in V_{2}^{n,N}$.
 
-Now, for any $q\in [2,q_f]$, we can describe the games between players $i$ and $j$ both in $V_{p,q}^{n,N}$. One can use \eqref{eq:Opponents} to check that
+Now, for any $q\in [2,\ordermax{n}{N}]$, we can describe the games between players $i$ and $j$ both in $V_{q}^{n,N}$. One can use \eqref{eq:Opponents} to check that
 \begin{align}
- \notag V_{g,q\to q,e}^{n,N}&=\{(i,j) : i\in V_{p,q,e}^{n,N}\cap 2\bZ+1, j\in V_{p,q,e}^{n,N}\cap 2\bZ\}\enspace,\\
-\label{Def:Vqtoq}  V_{g,q\to q,o}^{n,N}&=\{(i,j) : i\in V_{p,q,o}^{n,N}\cap 2\bZ+1, j\in V_{p,q,o}^{n,N}\cap 2\bZ\}\enspace.
+ \notag X_{q- q,e}^{n,N}&=\{X_{i,j} : v_i\in V_{q,e}^{n,N},i\in 2\bZ+1, v_j\in V_{q,e}^{n,N},j\in 2\bZ\}\enspace,\\
+\label{Def:Vqtoq}  X_{q- q,o}^{n,N}&=\{X_{i,j} : v_i\in V_{q,o}^{n,N},i\in 2\bZ+1, v_j\in V_{q,o}^{n,N},j\in 2\bZ\}\enspace.
 \end{align}
-Eq~\eqref{eq:Opponents} shows also that there is no game between $i\in V_{p, q,e}^{n,N}$ and $j\in V_{p,q,o}^{n,N}$. 
+Eq~\eqref{eq:Opponents} shows also that there is no game between $v_i\in V_{q,e}^{n,N}$ and $v_j\in V_{q,o}^{n,N}$. 
 
-Let us give the games between a player $i\in V_{p,q}^{n,N}$ and a $j\in V_{p,q+1}^{n,N}$.
+Let us give the games between a player $v_i\in V_{q}^{n,N}$ and a $v_j\in V_{q+1}^{n,N}$, for all $q\in[2,\ordermax{n}{N}-1]$.
 \begin{align*}
-V_{g,q\to q+1,e}^{n,N}=&\{(i,j) : i\in V_{p,q,e}^{n,N}\cap(2\bZ+1),j\in V_{p,q+1,e}^{n,N}\cap [i+4n-3]\}\\
-&\cup\{(i,j) : i\in V_{p,q,e}^{n,N}\cap 2\bZ,j\in V_{p,q+1,e}^{n,N}\cap 2\bZ+1\cap [i]\}\enspace,\\
-V_{g,q\to q+1,o}^{n,N}=&\{(i,j) : i\in V_{p,q,o}^{n,N}\cap(2\bZ+1),j\in V_{p,q+1,o}^{n,N}\cap [i+4n-3]\}\\
-&\cup\{(i,j) : i\in V_{p,q,o}^{n,N}\cap 2\bZ,j\in V_{p,q+1,o}^{n,N}\cap 2\bZ+1\cap [i]\}\enspace.
+X_{q- q+1,e}^{n,N}=&\{X_{i,j} : v_i\in V_{q,e}^{n,N},i\in(2\bZ+1),v_j\in V_{q+1,e}^{n,N}j\in 2\bZ\cap [i+4n-3]\}\\
+&\cup\{X_{i,j} : v_i\in V_{q,e}^{n,N},i\in 2\bZ,v_j\in V_{q+1,e}^{n,N},j\in 2\bZ+1\cap [i]\}\enspace,\\
+X_{q- q+1,o}^{n,N}=&\{X_{i,j} : v_i\in V_{q,o}^{n,N},i\in(2\bZ+1),v_j\in V_{q+1,o}^{n,N},j\in2\bZ\cap [i+4n-3]\}\\
+&\cup\{X_{i,j} : v_i\in V_{q,o}^{n,N},i\in2\bZ,v_j\in V_{q+1,o}^{n,N},j\in( 2\bZ+1)\cap [i]\}\enspace.
 \end{align*}
 
 \subsubsection{Cardinality of the cells}
 It is easy to check that 
 \[
-|V_{p,0}^{n,N}|=1, \qquad |V_{p,1}^{n,N}|=n,\qquad |V_{p,q}^{n,N}|=2(n-1),\qquad\forall q\in[2,q_f]\enspace,
+|V_{0}^{n,N}|=1, \qquad |V_{1}^{n,N}|=n,\qquad |V_{q}^{n,N}|=2(n-1),\qquad\forall q\in[2,\ordermax{n}{N}]\enspace,
 \]
 furthermore, one also has
 \[
-|V_{p,q,e}^{n,N}|=|V_{p,q,o}^{n,N}|=(n-1),\qquad \forall q\in [2,q_f]\enspace.
+|V_{q,e}^{n,N}|=|V_{q,o}^{n,N}|=n-1,\qquad \forall q\in [2,\ordermax{n}{N}]\enspace.
 \]
 Finally either $n-1=2p$, for some $p\in \bN$ and, in this case 
 \[
-|V_{p,q,e}^{n,N}\cap 2\bZ|=|V_{p,q,e}^{n,N}\cap (2\bZ+1)|=p\enspace,
+|\{j: v_j\in V_{q,e}^{n,N},j\in 2\bZ\}|=|\{i : v_i\in V_{q,e}^{n,N},i\in 2\bZ+1\}|=p\enspace,
 \]
-or $n-2=2p+1$ for some $p\in \bN$ and, in this case either 
+or $n-1=2p+1$ for some $p\in \bN$ and, in this case either 
 \[
-|V_{p,q,e}^{n,N}\cap 2\bZ|=p,\qquad\text{and}\qquad |V_{p,q,e}^{n,N}\cap (2\bZ+1)|=p+1\enspace,
+|\{j: v_j\in V_{q,e}^{n,N},j\in 2\bZ\}|=p,\qquad\text{and}\qquad |\{i : v_i\in V_{q,e}^{n,N},i\in 2\bZ+1\}|=p+1\enspace,
 \]
 or 
 \[
-|V_{p,q,e}^{n,N}\cap 2\bZ|=p+1,\qquad\text{and}\qquad |V_{p,q,e}^{n,N}\cap (2\bZ+1)|=p\enspace,
+|\{j: v_j\in V_{q,e}^{n,N},j\in 2\bZ\}|=p+1,\qquad\text{and}\qquad |\{i : v_i\in V_{q,e}^{n,N},i\in 2\bZ+1\}|=p\enspace.
 \]
+Now,
+\begin{align*}
+|X_{q- q,e}^{n,N}|&=|\{i : v_i\in V_{q,e}^{n,N},i\in 2\bZ+1\}||\{j: v_j\in V_{q,e}^{n,N},j\in 2\bZ\}|\\
+&=
+\begin{cases}
+ p^2&\text{ if }n-1=2p\\
+ p(p+1)&\text{ if }n-1=2p+1
+\end{cases}
+\enspace. 
+\end{align*}
+\begin{align*}
+|X_{q- q+1,e}^{n,N}|=&\sum_{i : v_i\in V_{q,e}^{n,N},i\in(2\bZ+1)}|\{j : v_j\in V_{q+1,e}^{n,N}j\in 2\bZ\cap [i+4n-3]\}\\
+&+\sum_{i : v_i\in V_{q,e}^{n,N},i\in 2\bZ}|\{j: v_j\in V_{q+1,e}^{n,N},j\in 2\bZ+1\cap [i]\}|\\
+&=
+\begin{cases}
+2\sum_{i=1}^pi=p(p+1) &\text{ if }n-1=2p\\
+\sum_{i=1}^pi+\sum_{i=1}^{p+1}i=(p+1)^2 &\text{ if }n-1=2p+1
+\end{cases}
+\enspace.
+\enspace,
+\end{align*}
 
 \subsection{Bounding the kernel}
 For all $n,N$ define $\ordermax{n}{N}$ by:

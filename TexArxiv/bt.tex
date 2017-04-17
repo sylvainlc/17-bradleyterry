@@ -170,7 +170,7 @@ Let $G^{n,N}=(V^{n,N},E^{n,N})$ be the directed graph representing the condition
 
 \subsubsection{The elements of $\cV^{n,N}$}
 Let $G_0^{n,N}$ be the undirected graph with vertices $(v_i)_{i\in[N]}$ and edges $(X_{i,j})_{ (i,j)\in A_{n,N}}$, that is the graph where the nodes are the players and an edge is drawn between individuals who play together. $G_0^{n,N}$ is endowed with the graph distance $d^{n,N}_0$, that is $d^{n,N}_0(v_i,v_j)$ is the minimal length of a path between the nodes $v_i$ and $v_j$ in $G_0^{n,N}$. One can write $(v_i)_{i\in[N]}=\{v_1\}\cup\cup_{q=1}^{N}V^{n,N}_{q}$, where, for any $q\in[N]$, $V^{n,N}_{q}$ is the set of $v_i$ such that $d^{n,N}_0(v_1,v_i)=q$. Lemma~\ref{lem:ElementsAtDistanceq} describes the elements in the sets $V_{q}^{n,N}$, $q\ge 1$. 
-\begin{lemma}\label{lem:ElementsAtDistanceq} Assume that $2\le n<N/4$ and let $N/2-1= \ordermax{n}{N}(n-1)+r_0$ where $r_0<n-1$. Define $V_{0}^{n,N}=\{v_1\}$. One has
+\begin{lemma}\label{lem:ElementsAtDistanceq} Assume that $2\le n<N/4$ and let $N/2-1= \ordermax{n}{N}(n-1)+\remainder{n}{N}$ where $0\le \remainder{n}{N}<n-1$. Define $V_{0}^{n,N}=\{v_1\}$. One has
 \begin{equation}\label{def:V1}
 V_{1}^{n,N}=\{v_{2x} : x=1,\ldots,n\}\enspace, 
 \end{equation}
@@ -195,8 +195,8 @@ Furthermore,
 %\end{multline}
 %and
 \begin{multline}\label{def:Vq01'}
-V_{\ordermax{n}{N}+1}^{n,N}=\{v_{2x+1} : x\in[(\ordermax{n}{N}-1)(n-1)+1,\ordermax{n}{N}(n-1)+r_0]\}\\
-\cup\{v_{2x} : x\in[2+\ordermax{n}{N}(n-1),1+r_0+\ordermax{n}{N}(n-1)]\}\enspace.
+V_{\ordermax{n}{N}+1}^{n,N}=\{v_{2x+1} : x\in[(\ordermax{n}{N}-1)(n-1)+1,\ordermax{n}{N}(n-1)+\remainder{n}{N}]\}\\
+\cup\{v_{2x} : x\in[2+\ordermax{n}{N}(n-1),1+\remainder{n}{N}+\ordermax{n}{N}(n-1)]\}\enspace.
 \end{multline}
 \end{lemma}
 \begin{proof}[Proof by induction on $q$]
@@ -215,13 +215,13 @@ On the other hand, by induction,
 \notag\text{if }i \text{ is odd, $v_i$ faces }\{v_{i+4x+1} : x=0,\ldots n-1\}\enspace,\\
 \label{eq:Opponents}\text{if }i \text{ is even, it faces }\{i-4x-1 : x=0,\ldots,n-1\}\enspace.
 \end{gather}
-This implies that there is no even number $i\ge 4n$ nor odd number $i>2n-1$ such that $v_i\in V_{2}^{n,N}$ which yields:
+This implies that there is no even number $i\ge 4n$ nor odd number $i>2n-1$ such that $v_i\in V_{2}^{n,N}$, which yields:
 \begin{equation*}
  V_{2}^{n,N}= \{v_{2x+1} : x=1,\ldots,n-1\}\cup\{v_{2x} : x=n+1,\ldots,2n-1\}\enspace.
 \end{equation*}
 \eqref{def:Vq} is obtained by induction using the same arguments and
 %\eqref{def:Vq0}, \eqref{def:Vq01}, \eqref{def:Vq0'} and 
-\eqref{def:Vq01'} is a direct consequence of the round-robin procedure. 
+\eqref{def:Vq01'} is a direct consequence of the round-robin algorithm. 
 \end{proof}
 %Figure~\ref{fig:robin:partitionP} displays this partition for $n = 3$.
 %
@@ -238,7 +238,6 @@ This implies that there is no even number $i\ge 4n$ nor odd number $i>2n-1$ such
 %\caption{Round-robin, partition of $[N]$, $n=3$.}
 %\label{fig:robin:partitionP}
 %\end{figure}
-
 The most important result of Lemma~\ref{lem:ElementsAtDistanceq} regarding the decomposition of the likelihood is \eqref{def:Vq}. 
 %Hereafter we denote by $q_f=\ordermax{n}{N}-1-I\{r_0\ne 0\}$, so $q_f$ is the largest index $q$ such that $V_{p,q}^{n,N}$ doesn't contain $N-1$ or one of its opponents, in other words, $q_f$ is the largest $q$ such that
 %\[
@@ -246,9 +245,13 @@ The most important result of Lemma~\ref{lem:ElementsAtDistanceq} regarding the d
 % \] 
 Let 
 \begin{gather*}
-\cE=\{4x-1,4x : x\in[\PE{N/4}]\},\qquad \cO=[N]\setminus\cE\enspace,\\
-V_{q,e}^{n,N}= V_{q}^{n,N}\cap \cE,\qquad V_{q,o}^{n,N}= V_{q}^{n,N}\cap \cO,\qquad\forall q\ge 1\enspace. 
+\cE=\{4x-1,4x : x\in[\PE{N/4}]\}\quad\mbox{and}\quad \cO=[N]\setminus\cE\eqsp.
+%V_{q,e}^{n,N}= V_{q}^{n,N}\cap \cE,\qquad V_{q,o}^{n,N}= V_{q}^{n,N}\cap \cO,\qquad\forall q\ge 1\enspace. 
 \end{gather*}
+Define, for all $q\ge 1$,
+\[
+V_{q,e}^{n,N}= V_{q}^{n,N}\cap \cE\quad\mbox{and}\quad V_{q,o}^{n,N}= V_{q}^{n,N}\cap \cO\eqsp.
+\]
 Finally, $\cV^{n,N}=\{V_0^{n,N},V_{\ordermax{n}{N}+1}^{n,N},V_{q,e}^{n,N},V_{q,o}^{n,N},q=1,\ldots,\ordermax{n}{N}\}$.
 
 \subsubsection{Elements of $\cX^{n,N}$}
@@ -333,27 +336,31 @@ Now,
 \end{align*}
 
 \subsection{Bounding the kernel}
-For all $n,N$ define $\ordermax{n}{N}$ by:
-\begin{equation}
-\label{eq:ordermax}
-\ordermax{n}{N} = \max\left\{q\ge 1;\eqsp n+1 + 2(q-1)(n-1)\le N\right\}\eqsp.
-\end{equation}
+%For all $n,N$ define $\ordermax{n}{N}$ by:
+%\begin{equation}
+%\label{eq:ordermax}
+%\ordermax{n}{N} = \max\left\{q\ge 1;\eqsp n+1 + 2(q-1)(n-1)\le N\right\}\eqsp.
+%\end{equation}
 %The log-likelihood defined by \eqref{eq:def:loglik} may be written $\Lo{\cD_{n,N}}{\pi}= -\log p_{\pi}^{n,N}\left(\cD_{n,N}\right)$,
 %where $p^{n,N}$ is the joint likelihood of the observations:
 %\[
 %p_{\pi}^{n,N}\left(\cD_{n,N}\right) = \int \prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})\pi^{\otimes N}(\rmd v) \eqsp.
 %\]
-The loglikelihood of the observations may be decomposed as follows:
-\begin{multline*}
-\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right) = \log p_{\pi}^{n,N}\left(X_{\mathsf{end}}^{n,N}\right) + \sum_{q=2}^{\ordermax{n}{N}}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{q+1:\ordermax{n}{N}}^{n,N}\right) \\
-+  \log p_{\pi}^{n,N}\left(X_{\mathsf{beg}}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{2:\ordermax{n}{N}}^{n,N}\right)\eqsp,
-\end{multline*}
-with 
+Consider the following notations, for $1\le q \le \ordermax{n}{N}-1$,
 \begin{align*}
-X_{\mathsf{beg}}^{n,N} & = \left\{X_{i,j};\;(i,j)\in V_{g,u\to u+1,e}^{n,N}\cup V_{g,u+1\to u+1,e}^{n,N}\cup V_{g,u\to u+1,o}^{n,N}\cup V_{g,u+1\to u+1,o}^{n,N},\;0\le u\le 1\right\}\eqsp,\\
-X_{q}^{n,N}                   & = \left\{X_{i,j};\;(i,j)\in V_{g,q\to q+1,e}^{n,N}\cup V_{g,q+1\to q+1,e}^{n,N}\cup V_{g,q\to q+1,o}^{n,N}\cup V_{g,q+1\to q+1,o}^{n,N}\right\} \eqsp,\\
-X_{\mathsf{end}}^{n,N} & = X_{\cA_{n,N}}\setminus (X_{\mathsf{beg}}^{n,N}\cup\cup_{q=2}^{\ordermax{n}{N}} X_{q}^{n,N} )\eqsp.
+X_{0}^{n,N} & = X_{0-1,e}^{n,N}\cup X_{1-1,e}^{n,N}\cup X_{0-1,o}^{n,N}\cup X_{1-1,e}^{n,N}\eqsp,\\
+X_{q}^{n,N}                   & = X_{q- q+1,e}^{n,N}\cup X_{q+1-q+1,e}^{n,N}\cup X_{q-q+1,o}^{n,N}\cup X_{q+1 - q+1,o}^{n,N}\eqsp,\\
+X_{\ordermax{n}{N}}^{n,N} & = X_{\ordermax{n}{N} - \ordermax{n}{N} +1,e}^{n,N}\cup X_{\ordermax{n}{N}+1-\ordermax{n}{N}+1}^{n,N}\cup X_{\ordermax{n}{N}-\ordermax{n}{N}+1,o}^{n,N}\eqsp.
 \end{align*}
+The loglikelihood of the observations may be decomposed as follows:
+\[
+\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right) = \log p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right) + \sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) +  \log p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{2:\ordermax{n}{N}}^{n,N}\right)\eqsp.
+\]
+%\begin{align*}
+%X_{\mathsf{beg}}^{n,N} & = \left\{X_{i,j};\;(i,j)\in V_{g,u\to u+1,e}^{n,N}\cup V_{g,u+1\to u+1,e}^{n,N}\cup V_{g,u\to u+1,o}^{n,N}\cup V_{g,u+1\to u+1,o}^{n,N},\;0\le u\le 1\right\}\eqsp,\\
+%X_{q}^{n,N}                   & = \left\{X_{i,j};\;(i,j)\in V_{g,q\to q+1,e}^{n,N}\cup V_{g,q+1\to q+1,e}^{n,N}\cup V_{g,q\to q+1,o}^{n,N}\cup V_{g,q+1\to q+1,o}^{n,N}\right\} \eqsp,\\
+%X_{\mathsf{end}}^{n,N} & = X_{\cA_{n,N}}\setminus (X_{\mathsf{beg}}^{n,N}\cup\cup_{q=2}^{\ordermax{n}{N}} X_{q}^{n,N} )\eqsp.
+%\end{align*}
 
 As the support of all probability densities in $\Pi$ is included in $(\varepsilon,1]$, for all $x\in\{0,1\}$, all $\pi\in\Pi$ and all $v_1,v_2 \in \mathrm{supp}(\pi)$ , 
 \begin{equation}
@@ -368,31 +375,32 @@ As the support of all probability densities in $\Pi$ is included in $(\varepsilo
 
 \begin{lemma}
 \label{lem:minorization}
-For all $n,N$, conditional  $(X_{2:\ordermax{n}{N}}^{n,N},X_{\mathsf{end}}^{n,N})$, $(V_{q}^{n,N})_{q=\ordermax{n}{N}}^2$ is a Markov chain with transition kernel given, for all $1\le q \le \ordermax{n}{N}-1$ and all measurable set $A$, by:
+For all $n,N$, %conditional  $(X_{2:\ordermax{n}{N}}^{n,N},X_{\mathsf{end}}^{n,N})$, $(V_{q}^{n,N})_{q=\ordermax{n}{N}}^2$ is a Markov chain with transition kernel given, 
+ for all $1\le q \le \ordermax{n}{N}$ and all measurable set $A$:
 %\[
 %\mathbb{P}\left(V^{n,N}_{p,\ordermax{n}{N}}\in A\middle|V^{n,N}_{p,\mathsf{end}},X_{2:\ordermax{n}{N}}^{n,N},X_{\mathsf{end}}^{n,N}\right) = 
 %\]
 \[
-\mathbb{P}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1},X_{2:\ordermax{n}{N}}^{n,N},X_{\mathsf{end}}^{n,N}\right) = \mathbb{P}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1},X^{n,N}_{2:q-1},X^{n,N}_{q\to q+1}\right)\eqsp.
+\mathbb{P}_{\pi}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1:\ordermax{n}{N}+1},X_{2:\ordermax{n}{N}}^{n,N}\right) = \mathbb{P}_{\pi}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1},X^{n,N}_{2:q-1},X^{n,N}_{q- q+1}\right)\eqsp,
 \]
-In addition,  for all $1\le q \le \ordermax{n}{N}-1$ there exists a measure $\mu^{n,N}_{\pi,q}$ such that:
+where $X^{n,N}_{q- q+1} = X^{n,N}_{q- q+1,e}\cup X^{n,N}_{q- q+1,o}$. In addition,  for all $1\le q \le \ordermax{n}{N}$ there exists a measure $\mu^{n,N}_{\pi,q}$ such that:
 \[
-\mathbb{P}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1},X_{2:\ordermax{n}{N}}^{n,N},X_{\mathsf{end}}^{n,N}\right)\ge \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{n,N}_{q\to q+1}\right)} \mu^{n,N}_{\pi,q}(A)\eqsp.
+\mathbb{P}_{\pi}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1},X_{2:\ordermax{n}{N}}^{n,N}\right)\ge \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{n,N}_{q- q+1}\right)} \mu^{n,N}_{\pi,q}(A)\eqsp.
 \] 
 \end{lemma}
 %By \eqref{eq:bound:likelihood}, Lemma~\ref{lem:minorization}
 \begin{proof}
-For all $1\le q \le \ordermax{n}{N}-1$ define $X^{n,N}_{q\to q+1} = \{X_{i,j};\;(i,j)\in V^{n,N}_{g,q\to q+1,e}\cup V^{n,N}_{g,q\to q+1,o}\}$. Using the graphical model displayed in Figure~\ref{}, 
+For all $n,N$, for all $1\le q \le \ordermax{n}{N}$ and all measurable set $A$:
 \begin{align*}
-\mathbb{P}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1},X_{2:\ordermax{n}{N}}^{n,N},X_{\mathsf{end}}^{n,N}\right) &\\
- &\hspace{-4.2cm}= \mathbb{P}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1},X^{n,N}_{2:q-1},X^{n,N}_{q\to q+1}\right)\eqsp,\\
- &\hspace{-4.2cm}= \frac{\int \1_{A}(v^{n,N}_{q})\pi(\rmd v^{n,N}_{q})\prod_{X_{i,j}\in X^{n,N}_{q\to q+1}}\condlik(X_{i,j},v_{\{i,j\}})p_{\pi}^{n,N}(X^{n,N}_{2:q-1}|v^{n,N}_{q})}{\int \pi(\rmd v^{n,N}_{q})\prod_{X_{i,j}\in X^{n,N}_{q\to q+1}}\condlik(X_{i,j},v_{\{i,j\}})p_{\pi}^{n,N}(X^{n,N}_{2:q-1}|v^{n,N}_{q})}\eqsp.
+\mathbb{P}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1:\ordermax{n}{N}+1},X_{2:\ordermax{n}{N}}^{n,N}\right) &\\
+ &\hspace{-3.2cm}= \mathbb{P}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1},X^{n,N}_{2:q-1},X^{n,N}_{q- q+1}\right)\eqsp,\\
+ &\hspace{-3.2cm}= \frac{\int \1_{A}(v^{n,N}_{q})\pi(\rmd v^{n,N}_{q})\prod_{X_{i,j}\in X^{n,N}_{q- q+1}}\condlik(X_{i,j},v_{\{i,j\}})p_{\pi}^{n,N}(X^{n,N}_{2:q-1}|v^{n,N}_{q})}{\int \pi(\rmd v^{n,N}_{q})\prod_{X_{i,j}\in X^{n,N}_{q- q+1}}\condlik(X_{i,j},v_{\{i,j\}})p_{\pi}^{n,N}(X^{n,N}_{2:q-1}|v^{n,N}_{q})}\eqsp.
 \end{align*}
-As for all $x\in\{0,1\}$ and all $\varepsilon\le v_1,v_2\le 1$, $\varepsilon(1+\varepsilon)^{-1}\le \condlik(X_{i,j},v_{\{i,j\}})\le 1$,
-\begin{multline*}
-\mathbb{P}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1},X_{2:\ordermax{n}{N}}^{n,N},X_{\mathsf{end}}^{n,N}\right)\\
-\ge \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{n,N}_{q\to q+1}\right)}\frac{\int \1_{A}(\rmd v^{n,N}_{q})\pi(v^{n,N}_{q})p_{\pi}^{n,N}(X^{n,N}_{2:q-1}|v^{n,N}_{q})}{\int \pi(\rmd v^{n,N}_{q})p_{\pi}^{n,N}(X^{n,N}_{2:q-1}|v^{n,N}_{q})}\eqsp. 
-\end{multline*}
+By \eqref{eq:bound:likelihood},
+\[
+\mathbb{P}\left(V^{n,N}_{q}\in A\middle|V^{n,N}_{q+1},X_{2:\ordermax{n}{N}}^{n,N}\right)
+\ge \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{n,N}_{q- q+1}\right)}\frac{\int \1_{A}(\rmd v^{n,N}_{q})\pi(v^{n,N}_{q})p_{\pi}^{n,N}(X^{n,N}_{2:q-1}|v^{n,N}_{q})}{\int \pi(\rmd v^{n,N}_{q})p_{\pi}^{n,N}(X^{n,N}_{2:q-1}|v^{n,N}_{q})}\eqsp. 
+\]
 The proof is then completed by choosing:
 \[
 \mu^{n,N}_{\pi,q}(A) = \frac{\int \1_{A}(v^{n,N}_{q})\pi(\rmd v^{n,N}_{q})p_{\pi}^{n,N}(X^{n,N}_{2:q-1}|v^{n,N}_{q})}{\int \pi(\rmd v^{n,N}_{q})p_{\pi}^{n,N}(X^{n,N}_{2:q-1}|v^{n,N}_{q})}\eqsp. 
@@ -410,16 +418,20 @@ The proof is then completed by choosing:
 %\end{equation}
 
 
-For all $2\le q < \ordermax{n}{N}$, the conditional distribution of $V_{q}^{n,N}$ given $(X_{q:\ordermax{n}{N}}^{n,N},X_{\mathsf{end}}^{n,N})$ may be written, for all measurable set $A$, by:
+For all $2\le q \le \ordermax{n}{N}$, all distribution $\lambda$ on $(\varepsilon,1]^{\card(V_{\ordermax{n}{N}}^{n,N})}$ and all measurable set $A$ define:
+\begin{equation}
+\phi^{n,N}_{q,\lambda}(A) = \frac{\int \1_{A}(v_{q}^{n,N})\left\{\prod_{u=q}^{\ordermax{n}{N}}\prod_{X_{i,j}\in X^{n,N}_{u}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\left\{\prod_{u=q}^{\ordermax{n}{N}-1}\pi(\rmd v^{n,N}_{u})\right\}\lambda(\rmd v^{n,N}_{\ordermax{n}{N}})}{\int \left\{\prod_{u=q}^{\ordermax{n}{N}}\prod_{X_{i,j}\in X^{n,N}_{u}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\left\{\prod_{u=q}^{\ordermax{n}{N}-1}\pi(\rmd v^{n,N}_{u})\right\}\lambda(\rmd v^{n,N}_{\ordermax{n}{N}})}\eqsp.\label{eq:filt}\\
+\end{equation}
+Then, for all $2\le q \le \ordermax{n}{N}$, the conditional distribution of $V_{q}^{n,N}$ given $X_{q:\ordermax{n}{N}}^{n,N}$ may be written, for all measurable set $A$:
 \begin{align*}
-\bP\left(V_{q}^{n,N}\in A \middle | X_{q:\ordermax{n}{N}}^{n,N},X_{\mathsf{end}}^{n,N}\right) &= \frac{\int \1_{A}(v_{q}^{n,N})\left\{\prod_{u=q}^{\ordermax{n}{N}}\pi(\rmd v^{n,N}_{u})\prod_{X_{i,j}\in X^{n,N}_{u}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\pi(\rmd v^{n,N}_{\mathsf{end}})\prod_{X_{i,j}\in X^{n,N}_{\mathsf{end}}}\condlik(X_{i,j},v_{\{i,j\}})}{\int \left\{\prod_{u=q}^{\ordermax{n}{N}}\pi(\rmd v^{n,N}_{u})\prod_{X_{i,j}\in X^{n,N}_{u}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\pi(\rmd v^{n,N}_{\mathsf{end}})\prod_{X_{i,j}\in X^{n,N}_{\mathsf{end}}}\condlik(X_{i,j},v_{\{i,j\}})}\eqsp,\\
- &= \phi^{n,N}_{q,\widetilde{\pi}}(A)\eqsp,
+\bP\left(V_{q}^{n,N}\in A \middle | X_{q:\ordermax{n}{N}}^{n,N}\right) %= \frac{\int \1_{A}(v_{q}^{n,N})\left\{\prod_{u=q}^{\ordermax{n}{N}}\pi(\rmd v^{n,N}_{u})\prod_{X_{i,j}\in X^{n,N}_{u}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\pi(\rmd v^{n,N}_{\mathsf{end}})\prod_{X_{i,j}\in X^{n,N}_{\mathsf{end}}}\condlik(X_{i,j},v_{\{i,j\}})}{\int \left\{\prod_{u=q}^{\ordermax{n}{N}}\pi(\rmd v^{n,N}_{u})\prod_{X_{i,j}\in X^{n,N}_{u}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\pi(\rmd v^{n,N}_{\mathsf{end}})\prod_{X_{i,j}\in X^{n,N}_{\mathsf{end}}}\condlik(X_{i,j},v_{\{i,j\}})}\eqsp,\\
+ = \phi^{n,N}_{q,\widetilde{\pi}}(A)\eqsp,
 \end{align*}
-where, for any distribution $\lambda$ on $(\varepsilon,1]^{\card(V_{\ordermax{n}{N}}^{n,N})}$,  
-\begin{align}
-\phi^{n,N}_{q,\lambda}(A) &= \frac{\int \1_{A}(v_{q}^{n,N})\left\{\prod_{u=q}^{\ordermax{n}{N}}\prod_{X_{i,j}\in X^{n,N}_{u}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\left\{\prod_{u=q}^{\ordermax{n}{N}-1}\pi(\rmd v^{n,N}_{u})\right\}\lambda(\rmd v^{n,N}_{\ordermax{n}{N}})}{\int \left\{\prod_{u=q}^{\ordermax{n}{N}}\prod_{X_{i,j}\in X^{n,N}_{u}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\left\{\prod_{u=q}^{\ordermax{n}{N}-1}\pi(\rmd v^{n,N}_{u})\right\}\lambda(\rmd v^{n,N}_{\ordermax{n}{N}})}\eqsp,\label{eq:filt}\\
- \widetilde{\pi}_{\mathsf{end}}^{n,N}(A) &= \frac{\int \1_A(v_{\ordermax{n}{N}}^{n,N}) \pi(\rmd v_{\ordermax{n}{N}}^{n,N})\pi(\rmd v_{\mathsf{end}}^{n,N})\prod_{X_{i,j}\in X^{n,N}_{\mathsf{end}}}\condlik\left(X_{i,j};v_{\{i,j\}}\right)}{\int \pi(\rmd v_{\ordermax{n}{N}}^{n,N})\pi(\rmd v_{\mathsf{end}}^{n,N})\prod_{X_{i,j}\in X^{n,N}_{\mathsf{end}}}\condlik\left(X_{i,j};v_{\{i,j\}}\right)}\eqsp.\label{eq:lastdist}
-\end{align}
+where, 
+\begin{equation}
+ \widetilde{\pi}_{\ordermax{n}{N}}^{n,N}(A) = \frac{\int \1_A(v_{\ordermax{n}{N}}^{n,N}) \pi(\rmd v_{\ordermax{n}{N}}^{n,N})\pi(\rmd v_{\ordermax{n}{N}+1}^{n,N})\prod_{X_{i,j}\in X^{n,N}_{\ordermax{n}{N}}}\condlik\left(X_{i,j};v_{\{i,j\}}\right)}{\int \pi(\rmd v_{\ordermax{n}{N}}^{n,N})\pi(\rmd v_{\ordermax{n}{N}+1}^{n,N})\prod_{X_{i,j}\in X^{n,N}_{\ordermax{n}{N}}}\condlik\left(X_{i,j};v_{\{i,j\}}\right)}\eqsp.\label{eq:lastdist}
+ \end{equation}
+
 %For all $1\le k < n$ and all probability density function $\lambda$ on $\bar C_{\param}$, denote by $\phi^{n,k}_{\lambda,\param}$ the probability density of the conditional distribution of $\bar v_k$ given $(\bar X_n,\ldots,\bar X_k)$ when the state $\bar v_{n+1}$ has probability density function $\lambda$ on $\bar C_{\param}$. Note that for all $1\le k \le n < m$,
 %\begin{align*}
 %\phi^{m,k}_{\lambda,\param}\left(\bar v_{k}\right) &= \frac{\int \lambda(\bar v_{m+1})\prod_{i = m}^k\bar G(\bar X_i; \bar v_{i+1},\bar v_i) \bar \pi_{\param}(\bar v_i)\mu(\rmd \bar v_{m+1:k+1})}{\int \lambda(\bar v_{m+1})\prod_{i = m}^k\bar G(\bar X_i; \bar v_{i+1},\bar v_i) \bar \pi_{\param}(\bar v_i)\mu(\rmd \bar v_{m+1:k})} = \phi^{n,k}_{\eta^{m,n}_{\lambda,\param},\param}\left(\bar v_{k}\right)\eqsp,
@@ -457,67 +469,67 @@ where, for any distribution $\lambda$ on $(\varepsilon,1]^{\card(V_{\ordermax{n}
 \label{lem:exp:forget}
 For all $n,N$, $\pi\in\Pi$,
 \begin{align}
-\left|\log p_{\pi}^{n,N}\left(X_{\mathsf{end}}^{n,N}\right)\right|&\le \card\left(X_{\mathsf{end}}^{n,N}\right)\log \left(1+\frac{1}{\varepsilon}\right)\eqsp,\label{eq:bound:beg}\\
-\left|\log p_{\pi}^{n,N}\left(X_{\mathsf{beg}}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{2:\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{\mathsf{beg}}^{n,N}\right)\log \left(1+\frac{1}{\varepsilon}\right)\label{eq:bound:end}\eqsp.
+\left|\log p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{\ordermax{n}{N}}^{n,N}\right)\log \left(1+\frac{1}{\varepsilon}\right)\eqsp,\label{eq:bound:beg}\\
+\left|\log p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{2:\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{0}^{n,N}\right)\log \left(1+\frac{1}{\varepsilon}\right)\label{eq:bound:end}\eqsp.
 \end{align}
-In addition,  for all $\ell>1$,  $2\le q\le \ordermax{n}{N}$ and all $\pi\in\Pi$,
+In addition,  for all $\ell>1$,  $2\le q< \ordermax{n}{N}$ and all $\pi\in\Pi$,
 \begin{multline}
-\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{q+1:\ordermax{n}{N}}^{n,N}\right) - \log p_{\pi}^{n,N+\ell}\left(X_{q}^{(n,N+\ell)}\middle|X_{\mathsf{end}}^{n,N+\ell},X_{q+1:\ordermax{n}{N+\ell}}^{n,N+\ell}\right) \right|\\
-\leq \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{n,N}_{q}\right)}\rho_{\varepsilon}^{\ordermax{n}{N}-q-2} \eqsp,\label{eq:bound:forget}
+\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) - \log p_{\pi}^{n,N+\ell}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}}^{n,N+\ell}\right) \right|\\
+\leq \left(1+\frac{1}{\varepsilon}\right)^{\card\left(X^{n,N}_{q}\right)}\rho_{\varepsilon}^{\ordermax{n}{N}-q-2} \eqsp,\label{eq:bound:forget}
 \end{multline}
 where
 \begin{equation}
 \label{eq:defrho}
-\rho_{\varepsilon} = 1-\left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{n,N}_{q\to q+1}\right)}\eqsp.
+\rho_{\varepsilon} = 1-\left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{n,N}_{q- q+1}\right)}\eqsp.
 \end{equation}
 In addition,
 \begin{equation}
 \label{eq:bound:loglik}
-\sup_{\pi\in\Pi;\;q\le \ordermax{n}{N}}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{q+1:\ordermax{n}{N}}^{n,N}\right)\right|\le \card\left(X_{q}^{n,N}\right)\log \left(1+\frac{1}{\varepsilon}\right)\eqsp. 
+\sup_{\pi\in\Pi;\;q< \ordermax{n}{N}}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right)\right|\le \card\left(X_{q}^{n,N}\right)\log \left(1+\frac{1}{\varepsilon}\right)\eqsp. 
 \end{equation}
 \end{lemma}
 
 \begin{proof}
 Note that for the last observations:
 \[
-\log p_{\pi}^{n,N}\left(X_{\mathsf{end}}^{n,N}\right) = \int \pi\left(v_{\mathsf{end}}^{n,N}\right) \prod_{X_{i,j}\in X_{\mathsf{end}}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\rmd v_{\mathsf{end}}^{n,N}\eqsp,
+p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right) = \int \pi\left(\rmd v_{\ordermax{n}{N}}^{n,N}\right) \pi\left(\rmd v_{\ordermax{n}{N}+1}^{n,N}\right) \prod_{X_{i,j}\in X_{\ordermax{n}{N}}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp,
 \]
 By \eqref{eq:bound:likelihood},
 \[
- \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X_{\mathsf{end}}^{n,N}\right)}\le p_{\pi}^{n,N}\left(X_{\mathsf{end}}^{n,N}\right)  \le 1\eqsp,
+ \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X_{\ordermax{n}{N}}^{n,N}\right)}\le p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right)  \le 1\eqsp,
 \]
-which completes the proof of \eqref{eq:bound:beg}.
+which completes the proof of \eqref{eq:bound:beg}. On the other hand,
 \begin{align*}
-p_{\pi}^{n,N}\left(X_{\mathsf{beg}}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{2:\ordermax{n}{N}}^{n,N}\right) &= \int p_{\pi}^{n,N}\left(X_{\mathsf{beg}}^{n,N},v_{\mathsf{beg}}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{2:\ordermax{n}{N}}^{n,N}\right)\rmd v_{\mathsf{beg}}^{n,N}\eqsp,\\
-&=\int p_{\pi}^{n,N}\left(v_{\mathsf{beg}}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{2:\ordermax{n}{N}}^{n,N}\right) p_{\pi}^{n,N}\left(X_{\mathsf{beg}}^{n,N}\middle|v_{\mathsf{beg}}^{n,N}\right)\rmd v_{\mathsf{beg}}^{n,N}\eqsp,\\
-&=\int p_{\pi}^{n,N}\left(v_{\mathsf{beg}}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{2:\ordermax{n}{N}}^{n,N}\right) \prod_{X_{i,j}\in X_{\mathsf{beg}}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\rmd v_{\mathsf{beg}}^{n,N}\eqsp,\\
+p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{2:\ordermax{n}{N}}^{n,N}\right) &= \int p_{\pi}^{n,N}\left(X_{0}^{n,N},v_{0}^{n,N},v_{1}^{n,N}\middle|X_{2:\ordermax{n}{N}}^{n,N}\right)\rmd v_{0}^{n,N}\rmd v_{1}^{n,N}\eqsp,\\
+&=\int p_{\pi}^{n,N}\left(v_{0}^{n,N},v_{1}^{n,N}\middle|X_{2:\ordermax{n}{N}}^{n,N}\right) p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|v_{0}^{n,N},v_{1}^{n,N}\right)\rmd v_{0}^{n,N}\rmd v_{1}^{n,N}\eqsp,\\
+&=\int p_{\pi}^{n,N}\left(v_{0}^{n,N},v_{1}^{n,N}\middle|X_{2:\ordermax{n}{N}}^{n,N}\right) \prod_{X_{i,j}\in X_{0}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\rmd v_{0}^{n,N}\rmd v_{1}^{n,N}\eqsp.
 \end{align*}
 By \eqref{eq:bound:likelihood},
 \[
- \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X_{\mathsf{beg}}^{n,N}\right)}\le p_{\pi}^{n,N}\left(X_{\mathsf{beg}}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{2:\ordermax{n}{N}}^{n,N}\right) \le 1\eqsp,
+ \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X_{0}^{n,N}\right)}\le p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{2:\ordermax{n}{N}}^{n,N}\right) \le 1\eqsp,
 \]
-so that \eqref{eq:bound:end} holds. By \eqref{eq:filt} and \eqref{eq:lastdist}, for all $2\le q\le \ordermax{n}{N}$,
+so that \eqref{eq:bound:end} holds. By \eqref{eq:filt} and \eqref{eq:lastdist}, for all $2\le q< \ordermax{n}{N}$,
 \begin{equation}
 \label{eq:incremental:lik}
-p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{q+1:\ordermax{n}{N}}^{n,N}\right) = \phi^{n,N}_{q+1,\widetilde{\pi}^{n,N}_\mathsf{end}}\left[\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right]\eqsp.
+p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) = \phi^{n,N}_{q+1,\widetilde{\pi}^{n,N}_\mathsf{end}}\left[\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right]\eqsp.
 \end{equation}
 Therefore,
 \begin{multline*}
-\left|p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{q+1:\ordermax{n}{N}}^{n,N}\right) - p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{\mathsf{end}}^{(n,N+\ell)},X_{q+1:\ordermax{n}{N+\ell}}^{(n,N+\ell)}\right) \right|\\
-= \left| \left(\phi^{n,N}_{q+1,\widetilde{\pi}^{n,N}_\mathsf{end}}-\phi^{n,N}_{q+1,\widetilde{\pi}^{n,N+\ell}_\mathsf{end}}\right)\left[\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right]\right|\eqsp.
+\left|p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) - p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}}^{(n,N+\ell)}\right) \right|\\
+= \left| \left(\phi^{n,N}_{q+1,\widetilde{\pi}^{n,N}_{\ordermax{n}{N}}}-\phi^{n,N}_{q+1,\widetilde{\pi}^{n,N+\ell}_{\ordermax{n}{N}}}\right)\left[\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right]\right|\eqsp.
 \end{multline*}
 Then, by Lemma~\ref{lem:minorization},
 \begin{align*}
-\left|p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{q+1:\ordermax{n}{N}}^{n,N}\right) -  p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{\mathsf{end}}^{(n,N+\ell)},X_{q+1:\ordermax{n}{N+\ell}}^{(n,N+\ell)}\right) \right|&\\
-&\hspace{-9cm}\leq \rho_{\epsilon}^{\ordermax{n}{N}-q-2} \sup_{v^{n,N}_{q+1}}\left|\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right|\eqsp,\\
-&\hspace{-9cm}\le\rho_{\epsilon}^{\ordermax{n}{N}-q-2} \eqsp,
+\left|p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) -  p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}}^{(n,N+\ell)}\right) \right|&\\
+&\hspace{-4.5cm}\leq \rho_{\epsilon}^{\ordermax{n}{N}-q-2} \sup_{v^{n,N}_{q+1}}\left|\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right|\eqsp,\\
+&\hspace{-4.5cm}\le\rho_{\epsilon}^{\ordermax{n}{N}-q-2} \eqsp,
 \end{align*}
 where $\rho_{\epsilon}$ is defined by \eqref{eq:defrho}. \eqref{eq:bound:forget} is then a direct consequence of \eqref{eq:bound:likelihood}, \eqref{eq:incremental:lik} and the fact that 
 for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$.
 The inequality \eqref{eq:bound:loglik} follows from \eqref{eq:incremental:lik} and \eqref{eq:bound:likelihood}. 
 \end{proof}
 
-By Lemma~\ref{lem:exp:forget}, the sequence $(\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{\mathsf{end}}^{n,N},X_{q+1:\ordermax{n}{N}}^{n,N}\right))_{N\ge 1}$ converges uniformly in $\pi\in\Pi$, $\Pstar$-a.s. Denote by $\ell^q_{\infty}$ this limit. 
+By Lemma~\ref{lem:exp:forget}, the sequence $(\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right))_{N\ge 1}$ converges uniformly in $\pi\in\Pi$, $\Pstar$-a.s. Denote by $\ell^q_{\infty}$ this limit. 
 
 %Then, by Lemma~\ref{lem:uniformforgetting}, $\Pstar$-a.s.,
 %\begin{align*}

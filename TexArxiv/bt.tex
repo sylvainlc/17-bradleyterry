@@ -34,25 +34,25 @@ so that $\bP(X_{i,j}=x|v_{\{i,j\}})=k(x,v_{\{i,j\}})$. In our model, $v=(v_i)_{i
 \subsection{Round-robin days in BTT and early learning task}
 In this paper, we do not assume that all the pairs meet once and we describe in this section the round-robin algorithm that gives at each time $t\in[N]$ the pairs that face each others. At time $t=1$, the players are disposed according to Figure~\ref{fig:robin:day1}. Each player faces the one in front of him, that is $2i-1$ faces $2i$, for all $i\in[N/2]$. 
 
-\begin{figure}
+\begin{figure}[h!]
 \begin{subfigure}{\textwidth}
   \centering
   \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{main}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
 \tikzstyle{box}=[rectangle, draw=black!100]
 \node[main, fill = black!10] (v1){$1$ };
 \node[main] (v3) [right=of v1] {$3$ };
 \node[main] (v5) [right=of v3] {$5$ };
-\node[main] (v7) [right=of v5] {{\small$2i-1$}};
-\node[main] (v9) [right=of v7] {{\small$N-3$}};
-\node[main] (v11) [right=of v9] {{\small$N-1$}};
+\node[main] (v7) [right=of v5] {${\scriptscriptstyle 2i-1}$};
+\node[main] (v9) [right=of v7] {${\scriptscriptstyle N-3}$};
+\node[main] (v11) [right=of v9] {${\scriptscriptstyle N-1}$};
 \node[main] (v2) [below=of v1] {$2$};
 \node[main] (v4) [below=of v3] {$4$};
 \node[main] (v6) [below=of v5] {$6$};
-\node[main] (v8) [below=of v7] {{\small$2i$}};
-\node[main] (v10) [below=of v9] {{\small$N-2$}};
-\node[main] (v12) [below=of v11] {{\small$N$}};
+\node[main] (v8) [below=of v7] {${\scriptscriptstyle 2i}$};
+\node[main] (v10) [below=of v9] {${\scriptscriptstyle N-2}$};
+\node[main] (v12) [below=of v11] {${\scriptscriptstyle N}$};
 \draw (v1) -- (v2);
 \draw (v3) -- (v4);
 \draw (v5) -- (v6);
@@ -73,21 +73,21 @@ In this paper, we do not assume that all the pairs meet once and we describe in 
 \begin{subfigure}{\textwidth}
   \centering
   \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{main}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
 \tikzstyle{box}=[rectangle, draw=black!100]
 \node[main, fill = black!10] (v1){$1$ };
 \node[main] (v3) [right=of v1] {$3$ };
 \node[main] (v5) [right=of v3] {$5$ };
-\node[main] (v7) [right=of v5] {{\small$2i-1$}};
-\node[main] (v9) [right=of v7] {{\small$N-3$}};
-\node[main] (v11) [right=of v9] {{\small$N-1$}};
+\node[main] (v7) [right=of v5] {${\scriptscriptstyle 2i-1}$};
+\node[main] (v9) [right=of v7] {${\scriptscriptstyle N-3}$};
+\node[main] (v11) [right=of v9] {${\scriptscriptstyle N-1}$};
 \node[main] (v2) [below=of v1] {$2$};
 \node[main] (v4) [below=of v3] {$4$};
 \node[main] (v6) [below=of v5] {$6$};
-\node[main] (v8) [below=of v7] {{\small$2i$}};
-\node[main] (v10) [below=of v9] {{\small$N-2$}};
-\node[main] (v12) [below=of v11] {{\small$N$}};
+\node[main] (v8) [below=of v7] {${\scriptscriptstyle 2i}$};
+\node[main] (v10) [below=of v9] {${\scriptscriptstyle N-2}$};
+\node[main] (v12) [below=of v11] {${\scriptscriptstyle N}$};
 \path (v2) edge [connect] (v3);   
 \path (v4) edge [connect] (v2);  
 \path (v3) edge [connect] (v5);  
@@ -109,21 +109,21 @@ In this paper, we do not assume that all the pairs meet once and we describe in 
 \begin{subfigure}{\textwidth}
 \centering
 \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{main}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
 \tikzstyle{box}=[rectangle, draw=black!100]
 \node[main, fill = black!10] (v1){$1$ };
 \node[main] (v3) [right=of v1] {$2$ };
 \node[main] (v5) [right=of v3] {$3$ };
-\node[main] (v7) [right=of v5] {{\small$2i-1$}};
-\node[main] (v9) [right=of v7] {{\small$N-5$}};
-\node[main] (v11) [right=of v9] {{\small$N-3$}};
+\node[main] (v7) [right=of v5] {${\scriptscriptstyle 2i-1}$};
+\node[main] (v9) [right=of v7] {${\scriptscriptstyle N-5}$};
+\node[main] (v11) [right=of v9] {${\scriptscriptstyle N-3}$};
 \node[main] (v2) [below=of v1] {$4$};
 \node[main] (v4) [below=of v3] {$6$};
 \node[main] (v6) [below=of v5] {$8$};
-\node[main] (v8) [below=of v7] {{\small$2i$}};
-\node[main] (v10) [below=of v9] {{\small$N$}};
-\node[main] (v12) [below=of v11] {{\small$N-1$}};
+\node[main] (v8) [below=of v7] {${\scriptscriptstyle 2i}$};
+\node[main] (v10) [below=of v9] {${\scriptscriptstyle N}$};
+\node[main] (v12) [below=of v11] {${\scriptscriptstyle N-1}$};
 \draw (v1) -- (v2);
 \draw (v3) -- (v4);
 \draw (v5) -- (v6);
@@ -253,6 +253,261 @@ Define, for all $q\ge 1$,
 V_{q,e}^{n,N}= V_{q}^{n,N}\cap \cE\quad\mbox{and}\quad V_{q,o}^{n,N}= V_{q}^{n,N}\cap \cO\eqsp.
 \]
 Finally, $\cV^{n,N}=\{V_0^{n,N},V_{\ordermax{n}{N}+1}^{n,N},V_{q,e}^{n,N},V_{q,o}^{n,N},q=1,\ldots,\ordermax{n}{N}\}$.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 8mm, thick, draw =black!80, node distance = 4mm]
+\tikzstyle{V6}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,palegreen,bottom color=palegreen!30,top color= white, text=violet]
+\tikzstyle{V5}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,burntblue,bottom color=burntblue!30,top color= white, text=violet]
+\tikzstyle{V4}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,burntgreen,bottom color=burntgreen!30,top color= white, text=violet]
+\tikzstyle{V3}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,lavander,bottom color=lavander!30,top color= white, text=violet]
+\tikzstyle{V2}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,burntorange,bottom color=burntorange!30,top color= white, text=violet]
+\tikzstyle{V1}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,violet,bottom color=violet!30,top color= white, text=violet]
+
+\tikzstyle{legend_V1}=[node distance = 5mm,rectangle, rounded corners, thin,bottom color=violet!30, ,top color= white,
+                           violet, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.7cm]
+\tikzstyle{legend_V2}=[node distance = 8.8mm,rectangle, rounded corners, thin,bottom color=burntorange!30, ,top color= white,
+                           burntorange, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.7cm]
+\tikzstyle{legend_V3}=[node distance = 8.8mm,rectangle, rounded corners, thin,bottom color=lavander!30, ,top color= white,
+                           lavander, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.7cm]      
+\tikzstyle{legend_V4}=[node distance = 8.8mm,rectangle, rounded corners, thin,bottom color=burntgreen!30, ,top color= white,
+                           burntgreen, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.6cm]                                                                                 
+\tikzstyle{legend_V5}=[node distance = 8.8mm,rectangle, rounded corners, thin,bottom color=burntblue!30, ,top color= white,
+                           burntblue, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.6cm]     
+\tikzstyle{legend_V6}=[node distance = 4.8mm,rectangle, rounded corners, thin,bottom color=palegreen!30, ,top color= white,
+                           palegreen, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.6cm]                                                             
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{box}=[rectangle, draw=black!100]
+\node[main, fill = black!10] (v1){$1$ };
+\node[V2] (v3) [right=of v1] {$3$ };
+\node[V2] (v5) [right=of v3] {$5$ };
+\node[V3] (v7) [right=of v5] {$7$ };
+\node[V3] (v9) [right=of v7] {$9$ };
+%\node[main] (v11) [right=of v9] {$11$ };
+%\node[main] (v13) [right=of v11] {$13$ };
+%\node[main] (v7) [right=of v5] {{\small$2i-1$}};
+%\node[main] (v9) [right=of v7] {{\small$N-5$}};
+%\node[main] (v11) [right=of v9] {{\small$N-3$}};
+\node[V1] (v2) [below=of v1] {$2$};
+\node[V1] (v4) [below=of v3] {$4$};
+\node[V1] (v6) [below=of v5] {$6$};
+\node[V2] (v8) [below=of v7] {$8$};
+\node[V2] (v10) [below=of v9] {$10$};
+\node[V3] (v12) [right=of v10] {$12$};
+\node[V3] (v14) [right=of v12] {$14$};
+\node[V4] (v16) [right=of v14] {${\scriptscriptstyle N-6}$};
+\node[V4] (v18) [right=of v16] {${\scriptscriptstyle N-4}$};
+\node[V5] (v20) [right=of v18] {${\scriptscriptstyle N-2}$};
+\node[V5] (v22) [right=of v20] {${\scriptscriptstyle N}$};
+\node[V5] (v11) [above=of v16] {${\scriptscriptstyle N-7}$};
+\node[V5] (v13) [above=of v18] {${\scriptscriptstyle N-5}$};
+\node[V6] (v15) [above=of v20] {${\scriptscriptstyle N-3}$};
+\node[V6] (v17) [above=of v22] {${\scriptscriptstyle N-1}$};
+%\node[main] (v8) [below=of v7] {{\small$2i$}};
+%\node[main] (v10) [below=of v9] {{\small$N$}};
+%\node[main] (v12) [below=of v11] {{\small$N-1$}};
+%\draw (v1) -- (v2);
+%\draw (v3) -- (v4);
+%\draw (v5) -- (v6);
+%\draw (v7) -- (v8);
+%\draw (v9) -- (v10);  
+%\draw (v11) -- (v12);     
+\path (v14) -- node[auto=false]{\ldots}  (v16); 
+\path (v9) -- node[auto=false]{\ldots}  (v11); 
+%\path (v7) -- node[auto=false]{\ldots}  (v9); 
+%\path (v6) -- node[auto=false]{\ldots}  (v8); 
+%\path (v8) -- node[auto=false]{\ldots}  (v10);    
+\node[legend_V1] [below=of v4] {\small{\textsc{$V_1^{3,N}$}}};
+\node[legend_V2] [below right=of v6] {\small{\textsc{$V_2^{3,N}$}}};
+\node[legend_V3] [below right=of v10] {\small{\textsc{$V_3^{3,N}$}}};
+\node[legend_V4] [below right=of v14] {\small{\textsc{$V_{\ordermax{3}{N}-1}^{3,N}$}}};
+\node[legend_V5] (leg) [below right=of v18] {\small{\textsc{$V_{\ordermax{3}{N}}^{3,N}$}}};
+\node[legend_V6] [above right =of v15] {\small{\textsc{$V_{\ordermax{3}{N}+1}^{3,N}$}}};
+\end{tikzpicture}
+\caption{Elements of $\cV^{3,N}$, case $\remainder{3}{N} = 0$.}
+\label{fig:groups:r0}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 8mm, thick, draw =black!80, node distance = 4mm]
+\tikzstyle{V6}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,palegreen,bottom color=palegreen!30,top color= white, text=violet]
+\tikzstyle{V5}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,burntblue,bottom color=burntblue!30,top color= white, text=violet]
+\tikzstyle{V4}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,burntgreen,bottom color=burntgreen!30,top color= white, text=violet]
+\tikzstyle{V3}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,lavander,bottom color=lavander!30,top color= white, text=violet]
+\tikzstyle{V2}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,burntorange,bottom color=burntorange!30,top color= white, text=violet]
+\tikzstyle{V1}=[draw =black!80,circle,minimum size = 8mm, thick,node distance = 4mm,violet,bottom color=violet!30,top color= white, text=violet]
+
+\tikzstyle{legend_V1}=[node distance = 5mm,rectangle, rounded corners, thin,bottom color=violet!30, ,top color= white,
+                           violet, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.7cm]
+\tikzstyle{legend_V2}=[node distance = 8.8mm,rectangle, rounded corners, thin,bottom color=burntorange!30, ,top color= white,
+                           burntorange, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.7cm]
+\tikzstyle{legend_V3}=[node distance = 8.8mm,rectangle, rounded corners, thin,bottom color=lavander!30, ,top color= white,
+                           lavander, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.7cm]      
+\tikzstyle{legend_V4}=[node distance = 8.8mm,rectangle, rounded corners, thin,bottom color=burntgreen!30, ,top color= white,
+                           burntgreen, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.6cm]                                                                                 
+\tikzstyle{legend_V5}=[node distance = 8.8mm,rectangle, rounded corners, thin,bottom color=burntblue!30, ,top color= white,
+                           burntblue, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.6cm]     
+\tikzstyle{legend_V6}=[node distance = 4.8mm,rectangle, rounded corners, thin,bottom color=palegreen!30, ,top color= white,
+                           palegreen, fill= white, draw, text=violet,
+                           minimum width=1.2cm, minimum height=0.6cm]                                                             
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{box}=[rectangle, draw=black!100]
+\node[main, fill = black!10] (v1){$1$ };
+\node[V2] (v3) [right=of v1] {$3$ };
+\node[V2] (v5) [right=of v3] {$5$ };
+\node[V3] (v7) [right=of v5] {$7$ };
+\node[V3] (v9) [right=of v7] {$9$ };
+%\node[main] (v11) [right=of v9] {$11$ };
+%\node[main] (v13) [right=of v11] {$13$ };
+%\node[main] (v7) [right=of v5] {{\small$2i-1$}};
+%\node[main] (v9) [right=of v7] {{\small$N-5$}};
+%\node[main] (v11) [right=of v9] {{\small$N-3$}};
+\node[V1] (v2) [below=of v1] {$2$};
+\node[V1] (v4) [below=of v3] {$4$};
+\node[V1] (v6) [below=of v5] {$6$};
+\node[V2] (v8) [below=of v7] {$8$};
+\node[V2] (v10) [below=of v9] {$10$};
+\node[V3] (v12) [right=of v10] {$12$};
+\node[V3] (v14) [right=of v12] {$14$};
+\node[V4] (v24) [right=of v14] {${\scriptscriptstyle N-8}$};
+\node[V4] (v16) [right=of v24] {${\scriptscriptstyle N-6}$};
+\node[V5] (v18) [right=of v16] {${\scriptscriptstyle N-4}$};
+\node[V5] (v20) [right=of v18] {${\scriptscriptstyle N-2}$};
+\node[V6] (v22) [right=of v20] {${\scriptscriptstyle N}$};
+\node[V5] (v19) [above=of v24] {${\scriptscriptstyle N-9}$};
+\node[V5] (v11) [above=of v16] {${\scriptscriptstyle N-7}$};
+\node[V6] (v13) [above=of v18] {${\scriptscriptstyle N-5}$};
+\node[V6] (v15) [above=of v20] {${\scriptscriptstyle N-3}$};
+\node[V6] (v17) [above=of v22] {${\scriptscriptstyle N-1}$};
+%\node[main] (v8) [below=of v7] {{\small$2i$}};
+%\node[main] (v10) [below=of v9] {{\small$N$}};
+%\node[main] (v12) [below=of v11] {{\small$N-1$}};
+%\draw (v1) -- (v2);
+%\draw (v3) -- (v4);
+%\draw (v5) -- (v6);
+%\draw (v7) -- (v8);
+%\draw (v9) -- (v10);  
+%\draw (v11) -- (v12);     
+\path (v14) -- node[auto=false]{\ldots}  (v24); 
+\path (v9) -- node[auto=false]{\ldots}  (v19); 
+%\path (v7) -- node[auto=false]{\ldots}  (v9); 
+%\path (v6) -- node[auto=false]{\ldots}  (v8); 
+%\path (v8) -- node[auto=false]{\ldots}  (v10);    
+\node[legend_V1] [below=of v4] {\small{\textsc{$V_1^{3,N}$}}};
+\node[legend_V2] [below right=of v6] {\small{\textsc{$V_2^{3,N}$}}};
+\node[legend_V3] [below right=of v10] {\small{\textsc{$V_3^{3,N}$}}};
+\node[legend_V4] [below right=of v14] {\small{\textsc{$V_{\ordermax{3}{N}-1}^{3,N}$}}};
+\node[legend_V5] (leg) [below right=of v18] {\small{\textsc{$V_{\ordermax{3}{N}}^{3,N}$}}};
+\node[legend_V6] [above right =of v15] {\small{\textsc{$V_{\ordermax{3}{N}+1}^{3,N}$}}};
+\end{tikzpicture}
+\caption{Elements of $\cV^{3,N}$, case $\remainder{3}{N} = 1$.}
+\label{fig:groups:r1}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\tikzstyle{player}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 8mm]
+\tikzstyle{game}=[rectangle, minimum size = 9mm, thick, draw =black!80, node distance = 9mm]
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{box}=[rectangle, draw=black!100]
+\node[game, fill = black!10] (v1){$X^{n,N}_{0-1,e}$};
+\node[player] (v2) [below=of v1] {$V^{n,N}_{0}$};
+\node[game, fill = black!10] (v3) [below=of v2] {$X^{n,N}_{0-1,o}$};
+\node[player] (v4) [right=of v1] {$V^{n,N}_{1,e}$ };
+\node[player] (v5) [right=of v3] {$V^{n,N}_{1,o}$ };
+\node[game, fill = black!10] (v6) [above=of v4] {$X^{n,N}_{1-1,e}$};
+\node[game, fill = black!10] (v7) [below=of v5] {$X^{n,N}_{1-1,o}$};
+
+\path (v2) edge [connect] (v3);  
+\path (v2) edge [connect] (v1);  
+\path (v4) edge [connect] (v1);  
+\path (v4) edge [connect] (v6);  
+\path (v5) edge [connect] (v3);  
+\path (v5) edge [connect] (v7);  
+
+\node[game, fill = black!10] (v8) [below right =of v4,yshift=+.2cm] {$X^{n,N}_{1-2,e}$};
+\node[game, fill = black!10] (v9) [above right =of v5,yshift=-.2cm] {$X^{n,N}_{1-2,o}$};
+\node[player] (v10) [above right=of v8,yshift=-.2cm] {$V^{n,N}_{2,e}$};
+\node[player] (v11) [below right=of v9,yshift=+.2cm] {$V^{n,N}_{2,o}$};
+\node[game, fill = black!10] (v12) [above=of v10] {$X^{n,N}_{2-2,e}$};
+\node[game, fill = black!10] (v13) [below=of v11] {$X^{n,N}_{2-2,o}$};
+
+\path (v10) edge [connect] (v12);  
+\path (v10) edge [connect] (v8);  
+\path (v11) edge [connect] (v13);  
+\path (v11) edge [connect] (v9);  
+\path (v4) edge [connect] (v8);  
+\path (v5) edge [connect] (v9);  
+
+\node[player] (v14) [right=of v10,xshift=1.5cm] {$V^{n,N}_{\ordermax{n}{N},e}$};
+\node[player] (v15) [right=of v11,xshift=1.5cm] {$V^{n,N}_{\ordermax{n}{N},o}$};
+
+\path (v10) -- node[auto=false]{\ldots}  (v14); 
+\path (v11) -- node[auto=false]{\ldots}  (v15); 
+
+\node[game, fill = black!10] (v16) [above=of v14] {$X^{n,N}_{\ordermax{n}{N}-\ordermax{n}{N},e}$};
+\node[game, fill = black!10] (v17) [below=of v15] {$X^{n,N}_{\ordermax{n}{N}-\ordermax{n}{N},o}$};
+
+\path (v14) edge [connect] (v16);  
+\path (v15) edge [connect] (v17);  
+
+%\node[game, fill = black!10] (v18) [below left=of v14] {$X^{n,N}_{\ordermax{n}{N}-1-\ordermax{n}{N},e}$};
+\node[game, fill = black!10] (v18) [below right=of v14,yshift=.3cm] {$X^{n,N}_{\ordermax{n}{N}-\ordermax{n}{N}+1,e}$};
+\node[game, fill = black!10] (v19) [above right=of v15,yshift=-.3cm] {$X^{n,N}_{\ordermax{n}{N}-\ordermax{n}{N}+1,o}$};
+
+\path (v14) edge [connect] (v18);  
+\path (v15) edge [connect] (v19);  
+
+\node[player] (v20) [right=of v19,yshift=.6cm] {$V^{n,N}_{\ordermax{n}{N}+1}$};
+
+\path (v20) edge [connect] (v18);  
+\path (v20) edge [connect] (v19); 
+
+\node[game, fill = black!10] (v21) [above=of v20] {$X^{n,N}_{\ordermax{n}{N}+1-\ordermax{n}{N}+1}$};
+
+\path (v20) edge [connect] (v21); 
+
+%\node[player] (v5) [right=of v3] {$5$ };
+%\node[player] (v7) [right=of v5] {${\scriptscriptstyle 2i-1}$};
+%\node[player] (v9) [right=of v7] {${\scriptscriptstyle N-3}$};
+%\node[player] (v11) [right=of v9] {${\scriptscriptstyle N-1}$};
+%
+%\node[player] (v4) [below=of v3] {$4$};
+%\node[player] (v6) [below=of v5] {$6$};
+%\node[player] (v8) [below=of v7] {${\scriptscriptstyle 2i}$};
+%\node[player] (v10) [below=of v9] {${\scriptscriptstyle N-2}$};
+%\node[player] (v12) [below=of v11] {${\scriptscriptstyle N}$};
+%\path (v2) edge [connect] (v3);   
+%\path (v4) edge [connect] (v2);  
+%\path (v3) edge [connect] (v5);  
+%\path (v6) edge [connect] (v4); 
+%\path (v9) edge [connect] (v11); 
+%\path (v11) edge [connect] (v12);   
+%\path (v12) edge [connect] (v10);   
+%\path (v5) -- node[auto=false]{\ldots}  (v7); 
+%\path (v7) -- node[auto=false]{\ldots}  (v9); 
+%\path (v6) -- node[auto=false]{\ldots}  (v8); 
+%\path (v8) -- node[auto=false]{\ldots}  (v10);    
+\end{tikzpicture}
+\caption{Graphical model of the Round-robin algorithm.}
+\label{fig:robin:graphicalmodel}
+\end{figure}
 
 \subsubsection{Elements of $\cX^{n,N}$}
 

@@ -21,14 +21,15 @@ The Bradley-Terry model introduced in \cite{bradley:terry:1952,zemerlo:1929} is 
 \cite{hunter:2004}
 \section{Bradley-Terry tournament (BTT) in random environment}
 Consider a tournament involving an even number $N$ of players called $[N]=\{1,\ldots,N\}$. 
-During the tournament, players face each other at most once and, when $i$ faces $j$ for $1\le i \neq j\le N$, write $X_{i,j}=1$ if $i$ beats $j$ and $X_{i,j}=0$ if $j$ beats $i$, in particular $X_{i,j}=1-X_{j,i}$. With each player $1\le i\le N$ is associated an 'ability parameter' $v_i>0$ where $v=(v_i)_{i\in[N]}$ are assumed to be independent and identically distributed with unknown probability density function $\bayes$ with respect to the Lebesgue measure. Conditional on $v=(v_i)_{i\in[N]}$, the random variables $(X_{i,j})_{1\le i<j\le N}$ are independent and such that:
+During the tournament, players face each other at most once and, when $i$ faces $j$ for $1\le i \neq j\le N$, write $X_{i,j}=1$ if $i$ beats $j$ and $X_{i,j}=0$ if $j$ beats $i$, in particular $X_{i,j}=1-X_{j,i}$. With each player $1\le i\le N$ is associated an 'ability parameter' $v_i>0$ where $v=(v_i)_{i\in[N]}$ are assumed to be independent and identically distributed with unknown probability density function $\bayes$ with respect to the Lebesgue measure. Conditionally on $v=(v_i)_{i\in[N]}$, the random variables $(X_{i,j})_{1\le i<j\le N}$ are independent and such that:
 \[
 \bP(X_{i,j}=1|v) = \bP(X_{i,j}=1|v_i,v_j)=\frac{v_i}{v_i+v_j}\enspace.
 \]
 To ease notation, for every vector $a\in \bR^p$ and every subset $B\subset [p]=\{1,\ldots,p\}$, we denote by $a_{B}=\{a_i,\;i\in B\}$. Define, for all $x\in \{0,1\}$ and all $(v_1,v_2)\in(\bR_+^*)^2$, 
-\[
+\begin{equation}
+\label{eq:def:condlik}
 \condlik(x,v_{[2]})=\frac{v_1^xv_2^{1-x}}{v_1+v_2}\enspace,
-\]
+\end{equation}
 so that $\bP(X_{i,j}=x|v_{\{i,j\}})=k(x,v_{\{i,j\}})$. 
 %In our model, $v=(v_i)_{i\in [N]}$ is a vector in $\bR^N$ with i.i.d. entries with common unknown distribution $\bayes$ that is set once and for all before the tournament begins. 
 
@@ -411,7 +412,7 @@ Finally, $\cV^{n,N}=\{V_0^{n,N},V_{\ordermax{n}{N}+1}^{n,N},V_{q,e}^{n,N},V_{q,o
 \node[legend_V2] [below right=of v6,xshift= .3cm] {\small{\textsc{$V_2^{3,N}$}}};
 \node[legend_V3] [below right=of v10,xshift= .3cm] {\small{\textsc{$V_3^{3,N}$}}};
 \node[legend_V4] [below right=of v14,xshift= .8cm] {\small{\textsc{$V_{\ordermax{3}{N}-1}^{3,N}$}}};
-\node[legend_V5] (leg) [below right=of v18,xshift= .3cm] {\small{\textsc{$V_{\ordermax{3}{N}}^{3,N}$}}};
+\node[legend_V5] (leg) [below right=of v18,xshift= -.9cm] {\small{\textsc{$V_{\ordermax{3}{N}}^{3,N}$}}};
 \node[legend_V6] [above right =of v15,xshift= -1.2cm] {\small{\textsc{$V_{\ordermax{3}{N}+1}^{3,N}$}}};
 \end{tikzpicture}
 \caption{Elements of $\cV^{3,N}$, case $\remainder{3}{N} = 1$.}
@@ -612,7 +613,7 @@ The loglikelihood of the observations may be decomposed as follows:
 \[
 \log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right) = \log p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right) + \sum_{q=1}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) +  \log p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right)\eqsp.
 \]
-This section extends the analysis of the asymptotic properties of the maximum likelihood properties to Bradley-Terry models in random environment. For all $1\le q \le \ordermax{n}{N}$, this asymptotic behavior is established using the geometric decaying mixing rate of the conditional law of the $(V^{n,N}_{k})_{q< k < \ordermax{n}{N}}$ given the observations $X^{n,N}_{q+1:\ordermax{n}{N}}$ which is based on the graphical model displayed in Figure~\ref{fig:robin:graphicalmodel}.
+This section extends the analysis of the asymptotic properties of the maximum likelihood estimator to Bradley-Terry models in random environment. For all $1\le q \le \ordermax{n}{N}$, this asymptotic behavior is established using the geometric decaying mixing rate of the conditional law of the $(V^{n,N}_{k})_{q< k < \ordermax{n}{N}}$ given the observations $X^{n,N}_{q+1:\ordermax{n}{N}}$ which is based on the graphical model displayed in Figure~\ref{fig:robin:graphicalmodel}.
 %\begin{align*}
 %X_{\mathsf{beg}}^{n,N} & = \left\{X_{i,j};\;(i,j)\in V_{g,u\to u+1,e}^{n,N}\cup V_{g,u+1\to u+1,e}^{n,N}\cup V_{g,u\to u+1,o}^{n,N}\cup V_{g,u+1\to u+1,o}^{n,N},\;0\le u\le 1\right\}\eqsp,\\
 %X_{q}^{n,N}                   & = \left\{X_{i,j};\;(i,j)\in V_{g,q\to q+1,e}^{n,N}\cup V_{g,q+1\to q+1,e}^{n,N}\cup V_{g,q\to q+1,o}^{n,N}\cup V_{g,q+1\to q+1,o}^{n,N}\right\} \eqsp,\\
@@ -627,6 +628,14 @@ There exists $\varepsilon>0$ such that for all $x\in\{0,1\}$, all $\pi\in\Pi$ an
 \varepsilon(1+\varepsilon)^{-1}\le \condlik(x,v_{\{1,2\}})\le 1\eqsp.
 \end{equation}
 \end{hypH}
+Note that the forgetting properties established in this section are consequences of the graphical model given in Figure~\ref{fig:robin:graphicalmodel} and of the boundedness assumption H\ref{assum:strongmix} of the conditional likelihood of the observations. Therefore, the results of this section hold for any model describing the outcomes of paired comparisons where the 'players' meet according to the round-robin scheduling if the conditional likelihood of the observations are bounded above and away from from zero. They hold in particular in the following cases.
+\begin{enumerate}[-]
+\item {\em Bradley-Terry model}: when the function $\condlik$ is given by \eqref{eq:def:condlik} if for all $\pi \in\Pi$, $\mathrm{supp}(\pi) \subset (1,\varepsilon]$.
+\item \textcolor{red}{Other models}.
+\end{enumerate}
+
+
+
 %consequence of the fact that the support of all probability densities in $\Pi$ is included in $(\varepsilon,1]$ which implies that for all $x\in\{0,1\}$, all $\pi\in\Pi$ and all $v_1,v_2 \in \mathrm{supp}(\pi)$ , 
 %\begin{equation}
 %\label{eq:bound:likelihood}
@@ -640,7 +649,7 @@ There exists $\varepsilon>0$ such that for all $x\in\{0,1\}$, all $\pi\in\Pi$ an
 
 \begin{lemma}
 \label{lem:minorization}
-Assume that H\ref{assum:strongmix} holds. Then, for all $n,N$, $q\ge 1$, and all $\pi\Pi$, conditionally on the observations $(X_{q+1:\ordermax{n}{N}}^{n,N})$, $(V_{\ordermax{n}{N}}^{n,N},\ldots,V_q^{n,N})$ is a Markov chain.
+Assume that H\ref{assum:strongmix} holds. Then, for all $n,N$, $q\ge 1$, and all $\pi\in\Pi$, conditionally on the observations $(X_{q+1:\ordermax{n}{N}}^{n,N})$, $(V_{\ordermax{n}{N}}^{n,N},\ldots,V_q^{n,N})$ is a Markov chain.
 % chain with transition kernel given, 
 % for all $1\le q \le \ordermax{n}{N}$ and all measurable set $A$:
 %%\[
@@ -687,7 +696,7 @@ Lemma~\ref{lem:minorization} implies that for all $1\le q\le \ordermax{n}{N}$,
 p_{\pi}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}}\right) = \int p_{\pi}\left(\rmd v_{\ordermax{n}{N}}^{n,N}\middle | X^{n,N}_{q+1:\ordermax{n}{N}}\right) \prod_{k =\ordermax{n}{N}-1}^{q+1}\kernel^{n,N}_{\pi,k,q}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
 \times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp.
 \end{multline*}
-By Lemma~\ref{lem:minorization}, conditional on $X_{q+1:\ordermax{n}{N}}^{n,N}$, the backward Markov chain $(V_{\ordermax{n}{N}}^{n,N},\ldots,V_{q}^{n,N})$ admits the whole state space as a $1$-small set and the minorizing constant does not depend on the observations. Then, the asymptotic behavior of the normalized loglikelihood function may be analyzed by proving that, if the $\ell$ additional players are involved in the contest, the influence of the "initial" distributions $p_{\pi}^{n,N}(\rmd v_{\ordermax{n}{N}}|X^{n,N}_{q+1:\ordermax{n}{N}})$ and $p_{\pi}^{n,N}(\rmd v_{\ordermax{n}{N}}|X^{n,N+\ell}_{q+1:\ordermax{n}{N+\ell}})$ vanishes exponentially fast by \cite{lindvall:1992}.
+By Lemma~\ref{lem:minorization}, conditional on $X_{q+1:\ordermax{n}{N}}^{n,N}$, the backward Markov chain $(V_{\ordermax{n}{N}}^{n,N},\ldots,V_{q}^{n,N})$ admits the whole state space as a $1$-small set and the minorizing constant does not depend on the observations. Then, the asymptotic behavior of the normalized loglikelihood function may be analyzed by proving that, if $\ell>1$ additional players are involved in the contest, the influence of the "initial" distributions $p_{\pi}^{n,N}(\rmd v_{\ordermax{n}{N}}|X^{n,N}_{q+1:\ordermax{n}{N}})$ and $p_{\pi}^{n,N}(\rmd v_{\ordermax{n}{N}}|X^{n,N+\ell}_{q+1:\ordermax{n}{N+\ell}})$ vanishes exponentially fast by \cite{lindvall:1992}.
 
 %  For all $1\le q \le \ordermax{n}{N}$, all distribution $\lambda$ on $(\varepsilon,1]^{\card(V_{\ordermax{n}{N}}^{n,N})}$ and all measurable set $A$ define:
 %\begin{equation}
@@ -740,13 +749,13 @@ By Lemma~\ref{lem:minorization}, conditional on $X_{q+1:\ordermax{n}{N}}^{n,N}$,
 \label{lem:exp:forget}
 For all $n,N$, $\pi\in\Pi$,
 \begin{align}
-\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{\ordermax{n}{N}}^{n,N}\right)\log \left(1+\frac{1}{\varepsilon}\right)\eqsp,\label{eq:bound:beg}\\
-\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{0}^{n,N}\right)\log \left(1+\frac{1}{\varepsilon}\right)\label{eq:bound:end}\eqsp.
+\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{\ordermax{n}{N}}^{n,N}\right)\log \left(1+\varepsilon^{-1}\right)\eqsp,\label{eq:bound:beg}\\
+\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{0}^{n,N}\right)\log \left(1+\varepsilon^{-1}\right)\label{eq:bound:end}\eqsp.
 \end{align}
 In addition,  for all $\ell>1$,  $1\le q< \ordermax{n}{N}$ and all $\pi\in\Pi$,
 \begin{multline}
 \sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) - \log p_{\pi}^{n,N+\ell}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}}^{n,N+\ell}\right) \right|\\
-\leq \left(1+\frac{1}{\varepsilon}\right)^{\card\left(X^{n,N}_{q}\right)}\prod_{k=q+1}^{\ordermax{n}{N}-1}\rho_k(\varepsilon) \eqsp,\label{eq:bound:forget}
+\leq \left(1+\varepsilon^{-1}\right)^{\card\left(X^{n,N}_{q}\right)}\prod_{k=q+1}^{\ordermax{n}{N}-1}\rho_k(\varepsilon) \eqsp,\label{eq:bound:forget}
 \end{multline}
 where
 \begin{equation}
@@ -756,7 +765,7 @@ where
 In addition,
 \begin{equation}
 \label{eq:bound:loglik}
-\sup_{\pi\in\Pi;\;q< \ordermax{n}{N}}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right)\right|\le \card\left(X_{q}^{n,N}\right)\log \left(1+\frac{1}{\varepsilon}\right)\eqsp. 
+\sup_{\pi\in\Pi;\;q< \ordermax{n}{N}}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right)\right|\le \card\left(X_{q}^{n,N}\right)\log \left(1+\varepsilon^{-1}\right)\eqsp. 
 \end{equation}
 \end{lemma}
 
@@ -811,9 +820,37 @@ where $\rho_k(\epsilon)$ is defined by \eqref{eq:defrho}. \eqref{eq:bound:forget
 for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$.
 The inequality \eqref{eq:bound:loglik} follows from \eqref{eq:decomp:prod:kernel}. 
 \end{proof}
+\textcolor{red}{Encore une petite merdouille. Pour etre stationnaire on doit virer $X_{\ordermax{n}{N}}$ et $X_1$ qui ont des lois un peu differentes. Je vais ajuster partout, c'est une question de numerotation des observations, la preuve est ok il me semble}. In the sequel, the stationary observations $(X^{n,N}_{q})_{2\le q\le \ordermax{n}{N}-1}$ are extended to a stationary process $(X^{n,N}_{q})_{ q>1}$. By \eqref{eq:bound:forget}, the sequence $(\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}))_{N\ge 1}$ converges uniformly in $\pi\in\Pi$, $\Pstar$-a.s. Denote by $\ell^q_{\infty}(\pi)$ this limit. In addition, by \eqref{eq:bound:loglik}, this sequence is uniformly bounded and so is its limit $\ell^q_{\infty}(\pi)$. Note that
+\[
+\sup_{\pi\in\Pi}\;\frac{1}{\ordermax{n}{N}}\left|\sum_{q=2}^{\ordermax{n}{N}-2}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \sum_{q=2}^{\ordermax{n}{N}-2}\ell^q_{\infty}(\pi)\right| \le \frac{1}{\ordermax{n}{N}}\sum_{q=2}^{\ordermax{n}{N}-2}\prod_{k=q+1}^{\ordermax{n}{N}-1}\rho_k(\varepsilon)\eqsp.
+\]
+\textcolor{red}{A ajuster avec les cardinaux}
+By the ergodic theorem, for all $\pi\in\Pi$, $\Pstar$-a.s.  and in $\mathrm{L}^1(\Pstar)$,
+\[
+\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right) \limit{N} \kullback(\pi) = \E_{\bayes}\left[\ell^2_{\infty}(\pi)\right]\eqsp.
+\]
 
-By Lemma~\ref{lem:exp:forget}, the sequence $(\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right))_{N\ge 1}$ converges uniformly in $\pi\in\Pi$, $\Pstar$-a.s. Denote by $\ell^q_{\infty}$ this limit. 
+\section{Identifiability and consistency of the maximum likelihood estimator}
 
+\begin{proposition}
+\label{prop:max:likelihood}
+For all $\pi\in\Pi$, $\kullback(\pi)\le \kullback(\bayes)$ and $\kullback(\pi) = \kullback(\bayes)$ if and only if $\pi\in \mathcal{C}(\bayes)$.
+\end{proposition}
+
+\begin{proof}
+For all $\pi\in\Pi$, by the bounded Lebesgue convergence theorem and \eqref{eq:bound:loglik},
+\begin{align*}
+\kullback(\pi) &= \E_{\bayes}\left[\lim_{N\to \infty}\log p_{\pi}^{n,N}(X_{2}^{n,N}|X_{3:\ordermax{n}{N}-1}^{n,N})\right]\eqsp,\\ 
+&= \lim_{N\to \infty}\E_{\bayes}\left[\log p_{\pi}^{n,N}(X_{2}^{n,N}|X_{3:\ordermax{n}{N}-1}^{n,N})\right]\eqsp,\\
+&= \lim_{N\to \infty}\E_{\bayes}\left[\E_{\bayes}\left[\log p_{\pi}^{n,N}(X_{2}^{n,N}|X_{3:\ordermax{n}{N}-1}^{n,N})\middle|X_{3:\ordermax{n}{N}-1}^{n,N}\right]\right]\eqsp.
+\end{align*}
+Therefore, 
+\begin{align*}
+\kullback(\bayes) - \kullback(\pi) &=  \lim_{N\to \infty}\left\{\E_{\bayes}\left[\E_{\bayes}\left[\log p_{\bayes}^{n,N}(X_{2}^{n,N}|X_{3:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi}^{n,N}(X_{2}^{n,N}|X_{3:\ordermax{n}{N}-1}^{n,N})\middle|X_{3:\ordermax{n}{N}-1}^{n,N}\right]\right]\right\}\eqsp,\\
+&\ge 0\eqsp,
+\end{align*}
+as the inner term in the expectation is a Kullback-Liebler divergence and is therefore positive.
+\end{proof}
 %Then, by Lemma~\ref{lem:uniformforgetting}, $\Pstar$-a.s.,
 %\begin{align*}
 %\sup_{\param\in\paramset}\left|\ell^n_{\pi_{\param},\param}\left(\bar X_{1},\ldots,\bar X_{n}\right) - \sum_{k=1}^{n-1}\ell^k_{\infty}(\param)\right| &\\

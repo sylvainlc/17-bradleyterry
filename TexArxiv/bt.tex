@@ -302,7 +302,7 @@ Finally, $\cV^{n,N}=\{V_0^{n,N},V_{\ordermax{n}{N}+1}^{n,N},V_{q,e}^{n,N},V_{q,o
 \node[V2] (v10) [below=of v9] {$10$};
 \node[V3] (v12) [right=of v10] {$12$};
 \node[V3] (v14) [right=of v12] {$14$};
-\node[V4] (v16) [right=of v14] {${\scriptscriptstyle N-6}$};
+\node[V4] (v16) [right=of v14,xshift= .5cm] {${\scriptscriptstyle N-6}$};
 \node[V4] (v18) [right=of v16] {${\scriptscriptstyle N-4}$};
 \node[V5] (v20) [right=of v18] {${\scriptscriptstyle N-2}$};
 \node[V5] (v22) [right=of v20] {${\scriptscriptstyle N}$};
@@ -325,11 +325,11 @@ Finally, $\cV^{n,N}=\{V_0^{n,N},V_{\ordermax{n}{N}+1}^{n,N},V_{q,e}^{n,N},V_{q,o
 %\path (v6) -- node[auto=false]{\ldots}  (v8); 
 %\path (v8) -- node[auto=false]{\ldots}  (v10);    
 \node[legend_V1] [below=of v4] {\small{\textsc{$V_1^{3,N}$}}};
-\node[legend_V2] [below right=of v6] {\small{\textsc{$V_2^{3,N}$}}};
-\node[legend_V3] [below right=of v10] {\small{\textsc{$V_3^{3,N}$}}};
-\node[legend_V4] [below right=of v14] {\small{\textsc{$V_{\ordermax{3}{N}-1}^{3,N}$}}};
-\node[legend_V5] (leg) [below right=of v18] {\small{\textsc{$V_{\ordermax{3}{N}}^{3,N}$}}};
-\node[legend_V6] [above right =of v15] {\small{\textsc{$V_{\ordermax{3}{N}+1}^{3,N}$}}};
+\node[legend_V2] [below right=of v6,xshift= .3cm] {\small{\textsc{$V_2^{3,N}$}}};
+\node[legend_V3] [below right=of v10,xshift= .3cm] {\small{\textsc{$V_3^{3,N}$}}};
+\node[legend_V4] [below right=of v14,xshift= .8cm] {\small{\textsc{$V_{\ordermax{3}{N}-1}^{3,N}$}}};
+\node[legend_V5] (leg) [below right=of v18,xshift= .3cm] {\small{\textsc{$V_{\ordermax{3}{N}}^{3,N}$}}};
+\node[legend_V6] [above right =of v15,xshift= -.6cm] {\small{\textsc{$V_{\ordermax{3}{N}+1}^{3,N}$}}};
 \end{tikzpicture}
 \caption{Elements of $\cV^{3,N}$, case $\remainder{3}{N} = 0$.}
 \label{fig:groups:r0}
@@ -366,11 +366,11 @@ Finally, $\cV^{n,N}=\{V_0^{n,N},V_{\ordermax{n}{N}+1}^{n,N},V_{q,e}^{n,N},V_{q,o
                            minimum width=1.2cm, minimum height=0.6cm]                                                             
 \tikzstyle{connect}=[-latex, thick]
 \tikzstyle{box}=[rectangle, draw=black!100]
-\node[main, fill = black!10] (v1){$1$ };
-\node[V2] (v3) [right=of v1] {$3$ };
-\node[V2] (v5) [right=of v3] {$5$ };
-\node[V3] (v7) [right=of v5] {$7$ };
-\node[V3] (v9) [right=of v7] {$9$ };
+\node[main, fill = black!10] (v1){$1$} ;
+\node[V2] (v3) [right=of v1] {$3$};
+\node[V2] (v5) [right=of v3] {$5$};
+\node[V3] (v7) [right=of v5] {$7$};
+\node[V3] (v9) [right=of v7] {$9$};
 %\node[main] (v11) [right=of v9] {$11$ };
 %\node[main] (v13) [right=of v11] {$13$ };
 %\node[main] (v7) [right=of v5] {{\small$2i-1$}};
@@ -383,7 +383,7 @@ Finally, $\cV^{n,N}=\{V_0^{n,N},V_{\ordermax{n}{N}+1}^{n,N},V_{q,e}^{n,N},V_{q,o
 \node[V2] (v10) [below=of v9] {$10$};
 \node[V3] (v12) [right=of v10] {$12$};
 \node[V3] (v14) [right=of v12] {$14$};
-\node[V4] (v24) [right=of v14] {${\scriptscriptstyle N-8}$};
+\node[V4] (v24) [right=of v14,xshift= .5cm] {${\scriptscriptstyle N-8}$};
 \node[V4] (v16) [right=of v24] {${\scriptscriptstyle N-6}$};
 \node[V5] (v18) [right=of v16] {${\scriptscriptstyle N-4}$};
 \node[V5] (v20) [right=of v18] {${\scriptscriptstyle N-2}$};
@@ -408,11 +408,11 @@ Finally, $\cV^{n,N}=\{V_0^{n,N},V_{\ordermax{n}{N}+1}^{n,N},V_{q,e}^{n,N},V_{q,o
 %\path (v6) -- node[auto=false]{\ldots}  (v8); 
 %\path (v8) -- node[auto=false]{\ldots}  (v10);    
 \node[legend_V1] [below=of v4] {\small{\textsc{$V_1^{3,N}$}}};
-\node[legend_V2] [below right=of v6] {\small{\textsc{$V_2^{3,N}$}}};
-\node[legend_V3] [below right=of v10] {\small{\textsc{$V_3^{3,N}$}}};
-\node[legend_V4] [below right=of v14] {\small{\textsc{$V_{\ordermax{3}{N}-1}^{3,N}$}}};
-\node[legend_V5] (leg) [below right=of v18] {\small{\textsc{$V_{\ordermax{3}{N}}^{3,N}$}}};
-\node[legend_V6] [above right =of v15] {\small{\textsc{$V_{\ordermax{3}{N}+1}^{3,N}$}}};
+\node[legend_V2] [below right=of v6,xshift= .3cm] {\small{\textsc{$V_2^{3,N}$}}};
+\node[legend_V3] [below right=of v10,xshift= .3cm] {\small{\textsc{$V_3^{3,N}$}}};
+\node[legend_V4] [below right=of v14,xshift= .8cm] {\small{\textsc{$V_{\ordermax{3}{N}-1}^{3,N}$}}};
+\node[legend_V5] (leg) [below right=of v18,xshift= .3cm] {\small{\textsc{$V_{\ordermax{3}{N}}^{3,N}$}}};
+\node[legend_V6] [above right =of v15,xshift= -1.2cm] {\small{\textsc{$V_{\ordermax{3}{N}+1}^{3,N}$}}};
 \end{tikzpicture}
 \caption{Elements of $\cV^{3,N}$, case $\remainder{3}{N} = 1$.}
 \label{fig:groups:r1}

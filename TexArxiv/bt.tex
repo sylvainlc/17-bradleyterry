@@ -169,7 +169,7 @@ In this section, we assume that $N\to\infty$ and $n\ll N$.
 \subsection{Graphical model of the round-robin BTT}
 Let $G^{n,N}=(V^{n,N},E^{n,N})$ be the directed graph representing the conditional dependences between the variables $v$ and $X=(X_{i,j})_{(i,j)\in A_{n,N}}$. The set of vertices is a disjoint union $V^{n,N}=\cV^{n,N}\cup \cX^{n,N}$ where $\cV^{n,N}$ is a partition of $(v_i)_{i\in[N]}$ and $\cX^{n,N}$ is a partition of $(X_{i,j})_{(i,j)\in A_{n,N}}$. 
 
-\subsubsection{The elements of $\cV^{n,N}$}
+\subsubsection{Elements of $\cV^{n,N}$}
 Let $G_0^{n,N}$ be the undirected graph with vertices $(v_i)_{i\in[N]}$ and edges $(X_{i,j})_{ (i,j)\in A_{n,N}}$, that is the graph where the nodes are the players and an edge is drawn between individuals who play together. $G_0^{n,N}$ is endowed with the graph distance $d^{n,N}_0$, that is $d^{n,N}_0(v_i,v_j)$ is the minimal length of a path between the nodes $v_i$ and $v_j$ in $G_0^{n,N}$. One can write $(v_i)_{i\in[N]}=\{v_1\}\cup\cup_{q=1}^{N}V^{n,N}_{q}$, where, for any $q\in[N]$, $V^{n,N}_{q}$ is the set of $v_i$ such that $d^{n,N}_0(v_1,v_i)=q$. Lemma~\ref{lem:ElementsAtDistanceq} describes the elements in the sets $V_{q}^{n,N}$, $q\ge 1$. 
 \begin{lemma}\label{lem:ElementsAtDistanceq} Assume that $2\le n<N/4$ and let $N/2-1= \ordermax{n}{N}(n-1)+\remainder{n}{N}$ where $0\le \remainder{n}{N}<n-1$. Define $V_{0}^{n,N}=\{v_1\}$. One has
 \begin{equation}\label{def:V1}
@@ -511,42 +511,44 @@ Finally, $\cV^{n,N}=\{V_0^{n,N},V_{\ordermax{n}{N}+1}^{n,N},V_{q,e}^{n,N},V_{q,o
 \end{figure}
 
 \subsubsection{Elements of $\cX^{n,N}$}
-
-Let us first build 
+The outcomes of the games involving the first player are decomposed as:
 \[
-X_{0-1,e}^{n,N}=\{X_{1,4x} : x=1,\ldots,\PE{n/2}\}=\{X_{1,i} : v_i\in V_{1,e}^{n,N}\},\qquad X_{0-1,o}^{n,N}=\{X_{1,i} : v_i\in V_{1,o}^{n,N}\}\enspace.
+X_{0\link1,e}^{n,N}=\{X_{1,4x} : x=1,\ldots,\PE{n/2}\}=\{X_{1,i} : v_i\in V_{1,e}^{n,N}\}\quad\mbox{and}\quad X_{0\link 1,o}^{n,N}=\{X_{1,i} : v_i\in V_{1,o}^{n,N}\}\enspace.
 \]
-In words, for any $X_{i,j}\in X_{0-1,o}^{n,N}$, $X_{i,j}$ denotes the result of the game of $v_1$ (that is of all elements of $V_{0}^{n,N}$) against its opponent (in $V_{1}^{n,N}$) at time $t$ when $t$ is odd. Let us now describe the games involving players in $V_{1}^{n,N}$ against opponents that are both differents from $1$. Start with the games between players in $V_{1}^{n,N}$ and let 
+For any $X_{i,j}\in X_{0\link 1,o}^{n,N}$, $X_{i,j}$ denotes the result of the game of $v_1$ (that is of all elements of $V_{0}^{n,N}$) against its opponent (in $V_{1}^{n,N}$) at time $t$ when $t$ is odd. Games involving players in $V_{1}^{n,N}$ against opponents that are both different from $1$ are described as follows.
+\begin{enumerate}[-]
+\item  Games between players in $V_{1}^{n,N}$ denoted by: 
 \begin{gather*}
-X_{1-1,e}^{n,N}=\{X_{4x,4y} : (x,y)\in [\PE{n/2}], x< y\}=\{X_{i,j} : v_i,v_j\in V_{1,e}^{n,N},i<j\}\enspace,\\
-X_{1-1,o}^{n,N}=\{X_{i,j} : v_i,v_j\in V_{1,o}^{n,N},i<j\}\enspace. 
+X_{1\link1,e}^{n,N}=\{X_{4x,4y} : (x,y)\in [\PE{n/2}], x< y\}=\{X_{i,j} : v_i,v_j\in V_{1,e}^{n,N},i<j\}\enspace,\\
+X_{1\link1,o}^{n,N}=\{X_{i,j} : v_i,v_j\in V_{1,o}^{n,N},i<j\}\enspace. 
 \end{gather*}
-One can check that there is no game between any $v_i\in V_{1,e}^{n,N}$ and an opponent $v_j\in V_{q,o}^{n,N}$ for any $q\ge 1$. 
-%The same property holds if we reverse the roles of $e$ and $o$. 
-In particular there is no game between any $v_i\in V_{1,e}^{n,N}$ and an opponent $v_j\in V_{1,o}^{n,N}$.  Therefore, $X_{1-1,e}^{n,N}\cup X_{1-1,o}^{n,N}$ describes all games between players in $V_{1}^{n,N}$. 
-
-Let us now describe the games between $i\in V_{1}^{n,N}$ and $j\in V_{2}^{n,N}$. Let 
+Note that there is no game between any $v_i\in V_{1,e}^{n,N}$ and an opponent $v_j\in V_{q,o}^{n,N}$ for any $q\ge 1$. In particular, there is no game between any $v_i\in V_{1,e}^{n,N}$ and an opponent $v_j\in V_{1,o}^{n,N}$.  Therefore, $X_{1\link1,e}^{n,N}\cup X_{1\link1,o}^{n,N}$ describes all games between players in $V_{1}^{n,N}$. 
+\item Games between $i\in V_{1}^{n,N}$ and $j\in V_{2}^{n,N}$. Let 
 \begin{align*}
-&X_{1-2,e}^{n,N}=\{X_{4y-1-4k,4y} : y\in [\PE{n/2}], k<y\}\cup\{X_{4x,4y} : x\in[\PE{n/4}], y\in[\PE{n/2}+1,n-x]\}\\
+&X_{1\link2,e}^{n,N}=\{X_{4y-1-4k,4y} : y\in [\PE{n/2}], k<y\}\cup\{X_{4x,4y} : x\in[\PE{n/4}], y\in[\PE{n/2}+1,n-x]\}\\
 &=\{X_{i,j} : v_i\in V_{1,e}^{n,N},v_j\in V_{2,e}^{n,N},j\in 2\bZ+1,j>i\}\cup\{X_{i,j} : v_i\in V_{1,e}^{n,N},v_j\in V_{2,e}^{n,N},j\in 2\bZ\cap [4n-i]\}\enspace,\\
-&X_{1-2,o}^{n,N}=\{X_{i,j} : v_i\in V_{1,o}^{n,N},v_j\in V_{2,o}^{n,N},j\in 2\bZ+1,j>i\}\cup\{X_{i,j} : v_i\in V_{1,o}^{n,N},v_j\in V_{2,o}^{n,N},j\in 2\bZ\cap [4n-i]\}\enspace.
+&X_{1\link2,o}^{n,N}=\{X_{i,j} : v_i\in V_{1,o}^{n,N},v_j\in V_{2,o}^{n,N},j\in 2\bZ+1,j>i\}\cup\{X_{i,j} : v_i\in V_{1,o}^{n,N},v_j\in V_{2,o}^{n,N},j\in 2\bZ\cap [4n-i]\}\enspace.
 \end{align*}
-Again these are all games between a $v_i\in V_{1}^{n,N}$ and $v_j\in V_{2}^{n,N}$.
-
-Now, for any $q\in [2,\ordermax{n}{N}]$, we can describe the games between players $i$ and $j$ both in $V_{q}^{n,N}$. One can use \eqref{eq:Opponents} to check that
+\end{enumerate}
+By \eqref{eq:Opponents}, for any $q\in [2,\ordermax{n}{N}]$, games between players $i$ and $j$ both in $V_{q}^{n,N}$ are:
 \begin{align}
- \notag X_{q- q,e}^{n,N}&=\{X_{i,j} : v_i\in V_{q,e}^{n,N},i\in 2\bZ+1, v_j\in V_{q,e}^{n,N},j\in 2\bZ\}\enspace,\\
-\label{Def:Vqtoq}  X_{q- q,o}^{n,N}&=\{X_{i,j} : v_i\in V_{q,o}^{n,N},i\in 2\bZ+1, v_j\in V_{q,o}^{n,N},j\in 2\bZ\}\enspace.
+ \notag X_{q \link q,e}^{n,N}&=\{X_{i,j} : v_i\in V_{q,e}^{n,N},i\in 2\bZ+1, v_j\in V_{q,e}^{n,N},j\in 2\bZ\}\enspace,\\
+\label{Def:Vqtoq}  X_{q\link q,o}^{n,N}&=\{X_{i,j} : v_i\in V_{q,o}^{n,N},i\in 2\bZ+1, v_j\in V_{q,o}^{n,N},j\in 2\bZ\}\enspace.
 \end{align}
-Eq~\eqref{eq:Opponents} shows also that there is no game between $v_i\in V_{q,e}^{n,N}$ and $v_j\in V_{q,o}^{n,N}$. 
-
-Let us give the games between a player $v_i\in V_{q}^{n,N}$ and a $v_j\in V_{q+1}^{n,N}$, for all $q\in[2,\ordermax{n}{N}-1]$.
+Note that \eqref{eq:Opponents} shows also that there is no game between $v_i\in V_{q,e}^{n,N}$ and $v_j\in V_{q,o}^{n,N}$. For all $q\in[2,\ordermax{n}{N}-1]$ and all $v_i\in V_{q}^{n,N}$ and $v_j\in V_{q+1}^{n,N}$, 
 \begin{align*}
-X_{q- q+1,e}^{n,N}=&\{X_{i,j} : v_i\in V_{q,e}^{n,N},i\in(2\bZ+1),v_j\in V_{q+1,e}^{n,N}j\in 2\bZ\cap [i+4n-3]\}\\
-&\cup\{X_{i,j} : v_i\in V_{q,e}^{n,N},i\in 2\bZ,v_j\in V_{q+1,e}^{n,N},j\in 2\bZ+1\cap [i]\}\enspace,\\
-X_{q- q+1,o}^{n,N}=&\{X_{i,j} : v_i\in V_{q,o}^{n,N},i\in(2\bZ+1),v_j\in V_{q+1,o}^{n,N},j\in2\bZ\cap [i+4n-3]\}\\
-&\cup\{X_{i,j} : v_i\in V_{q,o}^{n,N},i\in2\bZ,v_j\in V_{q+1,o}^{n,N},j\in( 2\bZ+1)\cap [i]\}\enspace.
+X_{q\link q+1,e}^{n,N}=&\{X_{i,j} : v_i\in V_{q,e}^{n,N},i\in(2\bZ+1),v_j\in V_{q+1,e}^{n,N}j\in 2\bZ\cap [i+4n-3]\}\\
+&\hspace{3cm}\cup\{X_{i,j} : v_i\in V_{q,e}^{n,N},i\in 2\bZ,v_j\in V_{q+1,e}^{n,N},j\in 2\bZ+1\cap [i]\}\enspace,\\
+X_{q\link q+1,o}^{n,N}=&\{X_{i,j} : v_i\in V_{q,o}^{n,N},i\in(2\bZ+1),v_j\in V_{q+1,o}^{n,N},j\in2\bZ\cap [i+4n-3]\}\\
+&\hspace{3cm}\cup\{X_{i,j} : v_i\in V_{q,o}^{n,N},i\in2\bZ,v_j\in V_{q+1,o}^{n,N},j\in( 2\bZ+1)\cap [i]\}\enspace.
 \end{align*}
+Finally, denote by $X_{\ordermax{n}{N}\link\ordermax{n}{N}+1,e}$ (respectively $X_{\ordermax{n}{N}\link\ordermax{n}{N}+1,e}$) the games between players in $V_{\ordermax{n}{N},e}^{n,N}$ and $V_{\ordermax{n}{N}+1}^{n,N}$ (respectively between players in $V_{\ordermax{n}{N},o}^{n,N}$ and $V_{\ordermax{n}{N}+1}^{n,N}$) and by $X_{\ordermax{n}{N}+1\link\ordermax{n}{N}+1}$ all games between players in $V_{\ordermax{n}{N}+1}^{n,N}$. Define
+\begin{multline*}
+\cX^{n,N}=\{(X_{q\link q,e}^{n,N})_{q\in\{1,\ldots,\ordermax{n}{N}\}},(X_{q\link q,o}^{n,N})_{q\in\{1,\ldots,\ordermax{n}{N}\}},(X_{q\link q+1,e}^{n,N})_{q\in\{0,\ldots,\ordermax{n}{N}-1\}},\\
+(X_{q \link q+1,o}^{n,N})_{q\in\{0,\ldots,\ordermax{n}{N}-1\}},X_{\ordermax{n}{N}\link\ordermax{n}{N}+1,e},X_{\ordermax{n}{N}\link\ordermax{n}{N}+1,e},X_{\ordermax{n}{N}+1\link\ordermax{n}{N}+1}\}\enspace. 
+\end{multline*}
+%Finally, to obtain the graphical model of dependences in the round-robin Bradley-Terry tournament, we simply draw an edge from a cell $V\in \cV^{n,N}$ toward a cell $X\in \cX^{n,N}$ every time that a game in $X$ involves a player in $V$. 
+Figure~\ref{fig:robin:graphicalmodel} displays the graphical model of the round-robin scheduling.
 
 \subsubsection{Cardinality of the cells}
 It is easy to check that 
@@ -604,10 +606,10 @@ Now,
 %\]
 Consider the following notations, for $0\le q \le \ordermax{n}{N}-1$,
 \begin{align*}
-%X_{0}^{n,N} & = X_{0-1,e}^{n,N}\cup X_{1-1,e}^{n,N}\cup X_{0-1,o}^{n,N}\cup X_{1-1,e}^{n,N}\eqsp,\\
-X_{q}^{n,N}                   & = X_{q- q+1,e}^{n,N}\cup X_{q+1-q+1,e}^{n,N}\cup X_{q-q+1,o}^{n,N}\cup X_{q+1 - q+1,o}^{n,N}\eqsp,\\
-X^{n,N}_{q- q+1} &= X^{n,N}_{q- q+1,e}\cup X^{n,N}_{q- q+1,o}\eqsp,\\
-X_{\ordermax{n}{N}}^{n,N} = X_{\ordermax{n}{N}-\ordermax{n}{N}+1}^{n,N} & = X_{\ordermax{n}{N} - \ordermax{n}{N} +1,e}^{n,N}\cup X_{\ordermax{n}{N}+1-\ordermax{n}{N}+1}^{n,N}\cup X_{\ordermax{n}{N}-\ordermax{n}{N}+1,o}^{n,N}\eqsp.
+%X_{0}^{n,N} & = X_{0\link1,e}^{n,N}\cup X_{1\link1,e}^{n,N}\cup X_{0\link1,o}^{n,N}\cup X_{1\link1,e}^{n,N}\eqsp,\\
+X_{q}^{n,N}                   & = X_{q \link q+1,e}^{n,N}\cup X_{q+1\link q+1,e}^{n,N}\cup X_{q\link q+1,o}^{n,N}\cup X_{q+1 \link q+1,o}^{n,N}\eqsp,\\
+X^{n,N}_{q\link q+1} &= X^{n,N}_{q\link q+1,e}\cup X^{n,N}_{q\link q+1,o}\eqsp,\\
+X_{\ordermax{n}{N}}^{n,N} = X_{\ordermax{n}{N}\link\ordermax{n}{N}+1}^{n,N} & = X_{\ordermax{n}{N} \link \ordermax{n}{N} +1,e}^{n,N}\cup X_{\ordermax{n}{N}+1\link\ordermax{n}{N}+1}^{n,N}\cup X_{\ordermax{n}{N}\link\ordermax{n}{N}+1,o}^{n,N}\eqsp.
 \end{align*}
 The loglikelihood of the observations may be decomposed as follows:
 \[
@@ -625,12 +627,12 @@ This mixing rate is obtained under the following assumption.
 There exists $\varepsilon>0$ such that for all $x\in\{0,1\}$, all $\pi\in\Pi$ and all $v_1,v_2 \in \mathrm{supp}(\pi)$ , 
 \begin{equation}
 \label{eq:bound:likelihood}
-\varepsilon(1+\varepsilon)^{-1}\le \condlik(x,v_{\{1,2\}})\le 1\eqsp.
+\varepsilon\le \condlik(x,v_{\{1,2\}})\le 1\eqsp.
 \end{equation}
 \end{hypH}
-Note that the forgetting properties established in this section are consequences of the graphical model given in Figure~\ref{fig:robin:graphicalmodel} and of the boundedness assumption H\ref{assum:strongmix} of the conditional likelihood of the observations. Therefore, the results of this section hold for any model describing the outcomes of paired comparisons where the 'players' meet according to the round-robin scheduling if the conditional likelihood of the observations are bounded above and away from from zero. They hold in particular in the following cases.
+Note that the forgetting properties established in this section are consequences of the graphical model given in Figure~\ref{fig:robin:graphicalmodel} and of the boundedness assumption H\ref{assum:strongmix} of the conditional likelihood of the observations. Therefore, the results of this section hold for any model describing the outcomes of paired comparisons where the 'players' meet according to the round-robin scheduling if the conditional likelihood of the observations are bounded above and away from zero \textcolor{red}{on peut dire que la borne sup à $1$ est assez naturelle dès qu'on a des $x$ discrets, ce qui va quand même souvent nous intéresser}. They hold in particular in the following cases.
 \begin{enumerate}[-]
-\item {\em Bradley-Terry model}: when the function $\condlik$ is given by \eqref{eq:def:condlik} if for all $\pi \in\Pi$, $\mathrm{supp}(\pi) \subset (1,\varepsilon]$.
+\item {\em Bradley-Terry model}: when the function $\condlik$ is given by \eqref{eq:def:condlik} if for all $\pi \in\Pi$, $\mathrm{supp}(\pi) \subset (\delta,1]$, then H\ref{assum:strongmix} hods with $\varepsilon=\delta(1+\delta)^{-1}$.
 \item \textcolor{red}{Other models}.
 \end{enumerate}
 
@@ -661,7 +663,7 @@ Assume that H\ref{assum:strongmix} holds. Then, for all $n,N$, $q\ge 1$, and all
 In addition,  the transition kernels $(\kernel^{n,N}_{\pi,k,q})_{q< k <\ordermax{n}{N}}$ are such that, for all $q< k < \ordermax{n}{N}$, there exists a measure $\mu^{n,N}_{\pi,k,q}$ satisfying for all measurable set $A$:
 \begin{align*}
 \kernel^{n,N}_{\pi,k,q}(V^N_{k+1},A) = \mathbb{P}_{\pi}\left(V^{n,N}_{k}\in A\middle|V^{n,N}_{k+1:\ordermax{n}{N}},X_{q+1:\ordermax{n}{N}}^{n,N}\right)  &= \mathbb{P}_{\pi}\left(V^{n,N}_{k}\in A\middle|V^{n,N}_{k+1},X_{q+1:\ordermax{n}{N}}^{n,N}\right)\eqsp,\\
-&\ge \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{n,N}_{k- k+1}\right)} \mu^{n,N}_{\pi,k,q}(A)\eqsp.
+&\ge \varepsilon^{\card\left(X^{n,N}_{k\link k+1}\right)} \mu^{n,N}_{\pi,k,q}(A)\eqsp.
 \end{align*}
 \end{lemma}
 %By \eqref{eq:bound:likelihood}, Lemma~\ref{lem:minorization}
@@ -669,13 +671,13 @@ In addition,  the transition kernels $(\kernel^{n,N}_{\pi,k,q})_{q< k <\ordermax
 The Markov property is a direct consequence of the graphical model given in Figure~\ref{fig:robin:graphicalmodel}. Then, for all $n,N$, for all $q< k < \ordermax{n}{N}$ and all measurable set $A$:
 \begin{align*}
 \mathbb{P}\left(V^{n,N}_{k}\in A\middle|V^{n,N}_{k+1:\ordermax{n}{N}},X_{q+1:\ordermax{n}{N}}^{n,N}\right) &\\
- &\hspace{-3.2cm}= \mathbb{P}\left(V^{n,N}_{k}\in A\middle|V^{n,N}_{k+1},X^{n,N}_{q+1:k-1},X^{n,N}_{k- k+1}\right)\eqsp,\\
- &\hspace{-3.2cm}= \frac{\int \1_{A}(v^{n,N}_{k})\pi(\rmd v^{n,N}_{k})\prod_{X_{i,j}\in X^{n,N}_{k- k+1}}\condlik(X_{i,j},v_{\{i,j\}})p_{\pi}^{n,N}(X^{n,N}_{q+1:k-1}|v^{n,N}_{k})}{\int \pi(\rmd v^{n,N}_{k})\prod_{X_{i,j}\in X^{n,N}_{k- k+1}}\condlik(X_{i,j},v_{\{i,j\}})p_{\pi}^{n,N}(X^{n,N}_{q+1:k-1}|v^{n,N}_{k})}\eqsp,
+ &\hspace{-3.2cm}= \mathbb{P}\left(V^{n,N}_{k}\in A\middle|V^{n,N}_{k+1},X^{n,N}_{q+1:k-1},X^{n,N}_{k\link k+1}\right)\eqsp,\\
+ &\hspace{-3.2cm}= \frac{\int \1_{A}(v^{n,N}_{k})\pi(\rmd v^{n,N}_{k})\prod_{X_{i,j}\in X^{n,N}_{k\link k+1}}\condlik(X_{i,j},v_{\{i,j\}})p_{\pi}^{n,N}(X^{n,N}_{q+1:k-1}|v^{n,N}_{k})}{\int \pi(\rmd v^{n,N}_{k})\prod_{X_{i,j}\in X^{n,N}_{k\link k+1}}\condlik(X_{i,j},v_{\{i,j\}})p_{\pi}^{n,N}(X^{n,N}_{q+1:k-1}|v^{n,N}_{k})}\eqsp,
 \end{align*}
 with the conventions $X_{q+1:q} = \emptyset$ and $p_{\pi}^{n,N}(X^{n,N}_{q+1:q}|v^{n,N}_{q+1})$ being the constant function which equals one. By \eqref{eq:bound:likelihood},
 \[
 \mathbb{P}\left(V^{n,N}_{k}\in A\middle|V^{n,N}_{k+1},X_{q+1:\ordermax{n}{N}}^{n,N}\right)
-\ge \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{n,N}_{k- k+1}\right)}\frac{\int \1_{A}(\rmd v^{n,N}_{k})\pi(v^{n,N}_{k})p_{\pi}^{n,N}(X^{n,N}_{q+1:k-1}|v^{n,N}_{k})}{\int \pi(\rmd v^{n,N}_{k})p_{\pi}^{n,N}(X^{n,N}_{q+1:k-1}|v^{n,N}_{k})}\eqsp. 
+\ge \varepsilon^{\card\left(X^{n,N}_{k\link k+1}\right)}\frac{\int \1_{A}(\rmd v^{n,N}_{k})\pi(v^{n,N}_{k})p_{\pi}^{n,N}(X^{n,N}_{q+1:k-1}|v^{n,N}_{k})}{\int \pi(\rmd v^{n,N}_{k})p_{\pi}^{n,N}(X^{n,N}_{q+1:k-1}|v^{n,N}_{k})}\eqsp. 
 \]
 The proof is then completed by choosing:
 \[
@@ -696,7 +698,7 @@ Lemma~\ref{lem:minorization} implies that for all $1\le q\le \ordermax{n}{N}$,
 p_{\pi}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}}\right) = \int p_{\pi}\left(\rmd v_{\ordermax{n}{N}}^{n,N}\middle | X^{n,N}_{q+1:\ordermax{n}{N}}\right) \prod_{k =\ordermax{n}{N}-1}^{q+1}\kernel^{n,N}_{\pi,k,q}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
 \times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp.
 \end{multline*}
-By Lemma~\ref{lem:minorization}, conditional on $X_{q+1:\ordermax{n}{N}}^{n,N}$, the backward Markov chain $(V_{\ordermax{n}{N}}^{n,N},\ldots,V_{q}^{n,N})$ admits the whole state space as a $1$-small set and the minorizing constant does not depend on the observations. Then, the asymptotic behavior of the normalized loglikelihood function may be analyzed by proving that, if $\ell>1$ additional players are involved in the contest, the influence of the "initial" distributions $p_{\pi}^{n,N}(\rmd v_{\ordermax{n}{N}}|X^{n,N}_{q+1:\ordermax{n}{N}})$ and $p_{\pi}^{n,N}(\rmd v_{\ordermax{n}{N}}|X^{n,N+\ell}_{q+1:\ordermax{n}{N+\ell}})$ vanishes exponentially fast by \cite{lindvall:1992}.
+By Lemma~\ref{lem:minorization}, conditionally on $X_{q+1:\ordermax{n}{N}}^{n,N}$, the backward Markov chain $(V_{\ordermax{n}{N}}^{n,N},\ldots,V_{q}^{n,N})$ admits the whole state space as a $1$-small set and the minorizing constant does not depend on the observations. Then, the asymptotic behavior of the normalized loglikelihood function may be analyzed by proving that, if $\ell>1$ additional players are involved in the contest, the influence of the "initial" distributions $p_{\pi}^{n,N}(\rmd v_{\ordermax{n}{N}}|X^{n,N}_{q+1:\ordermax{n}{N}})$ and $p_{\pi}^{n,N}(\rmd v_{\ordermax{n}{N}}|X^{n,N+\ell}_{q+1:\ordermax{n}{N+\ell}})$ vanishes exponentially fast by \cite{lindvall:1992}.
 
 %  For all $1\le q \le \ordermax{n}{N}$, all distribution $\lambda$ on $(\varepsilon,1]^{\card(V_{\ordermax{n}{N}}^{n,N})}$ and all measurable set $A$ define:
 %\begin{equation}
@@ -749,23 +751,23 @@ By Lemma~\ref{lem:minorization}, conditional on $X_{q+1:\ordermax{n}{N}}^{n,N}$,
 \label{lem:exp:forget}
 For all $n,N$, $\pi\in\Pi$,
 \begin{align}
-\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{\ordermax{n}{N}}^{n,N}\right)\log \left(1+\varepsilon^{-1}\right)\eqsp,\label{eq:bound:beg}\\
-\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{0}^{n,N}\right)\log \left(1+\varepsilon^{-1}\right)\label{eq:bound:end}\eqsp.
+\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{\ordermax{n}{N}}^{n,N}\right)\log \left(\varepsilon^{-1}\right)\eqsp,\label{eq:bound:beg}\\
+\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{0}^{n,N}\right)\log \left(\varepsilon^{-1}\right)\label{eq:bound:end}\eqsp.
 \end{align}
 In addition,  for all $\ell>1$,  $1\le q< \ordermax{n}{N}$ and all $\pi\in\Pi$,
 \begin{multline}
 \sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) - \log p_{\pi}^{n,N+\ell}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}}^{n,N+\ell}\right) \right|\\
-\leq \left(1+\varepsilon^{-1}\right)^{\card\left(X^{n,N}_{q}\right)}\prod_{k=q+1}^{\ordermax{n}{N}-1}\rho_k(\varepsilon) \eqsp,\label{eq:bound:forget}
+\leq \varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-1}\rho_k(\varepsilon) \eqsp,\label{eq:bound:forget}
 \end{multline}
 where
 \begin{equation}
 \label{eq:defrho}
-\rho_k(\varepsilon) = 1-\left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X^{n,N}_{k- k+1}\right)}\eqsp.
+\rho_k(\varepsilon) = 1- \varepsilon^{\card(X^{n,N}_{k\link k+1})}\eqsp.
 \end{equation}
 In addition,
 \begin{equation}
 \label{eq:bound:loglik}
-\sup_{\pi\in\Pi;\;q< \ordermax{n}{N}}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right)\right|\le \card\left(X_{q}^{n,N}\right)\log \left(1+\varepsilon^{-1}\right)\eqsp. 
+\sup_{\pi\in\Pi;\;q< \ordermax{n}{N}}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right)\right|\le \card\left(X_{q}^{n,N}\right)\log \left(\varepsilon^{-1}\right)\eqsp. 
 \end{equation}
 \end{lemma}
 
@@ -776,17 +778,17 @@ p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right) = \int \pi\left(\rmd v_{\ord
 \]
 By \eqref{eq:bound:likelihood},
 \[
- \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X_{\ordermax{n}{N}}^{n,N}\right)}\le p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right)  \le 1\eqsp,
+\varepsilon^{\card(X_{\ordermax{n}{N}}^{n,N})}\le p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right)  \le 1\eqsp,
 \]
 which completes the proof of \eqref{eq:bound:beg}. On the other hand,
 \begin{align*}
-p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) &= \int p_{\pi}^{n,N}\left(X_{0}^{n,N},v_{0}^{n,N},v_{1}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right)\rmd v_{0}^{n,N}\rmd v_{1}^{n,N}\eqsp,\\
-&=\int p_{\pi}^{n,N}\left(v_{0}^{n,N},v_{1}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|v_{0}^{n,N},v_{1}^{n,N}\right)\rmd v_{0}^{n,N}\rmd v_{1}^{n,N}\eqsp,\\
-&=\int p_{\pi}^{n,N}\left(v_{0}^{n,N},v_{1}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) \prod_{X_{i,j}\in X_{0}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\rmd v_{0}^{n,N}\rmd v_{1}^{n,N}\eqsp.
+p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) &= \int p_{\pi}^{n,N}\left(X_{0}^{n,N},v_{0}^{n,N},v_{1}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right)\pi(\rmd v_{0}^{n,N})\pi(\rmd v_{1}^{n,N})\\
+&=\int p_{\pi}^{n,N}\left(v_{0}^{n,N},v_{1}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|v_{0}^{n,N},v_{1}^{n,N}\right)\pi(\rmd v_{0}^{n,N})\pi(\rmd v_{1}^{n,N})\\
+&=\int p_{\pi}^{n,N}\left(v_{0}^{n,N},v_{1}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) \prod_{X_{i,j}\in X_{0}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\pi(\rmd v_{0}^{n,N})\pi(\rmd v_{1}^{n,N})\eqsp.
 \end{align*}
 By \eqref{eq:bound:likelihood},
 \[
- \left(\frac{\varepsilon}{1+\varepsilon}\right)^{\card\left(X_{0}^{n,N}\right)}\le p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) \le 1\eqsp,
+\varepsilon^{\card\left(X_{0}^{n,N}\right)}\le p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) \le 1\eqsp,
 \]
 so that \eqref{eq:bound:end} holds. For the last term note that by Lemma~\ref{lem:minorization},  
 \begin{multline}
@@ -813,7 +815,7 @@ p_{\pi}^{n,N+\ell}\left(X^{n,N+\ell}_{q}\middle|X^{n,N+\ell}_{q+1:\ordermax{n}{N
 Then, by Lemma~\ref{lem:minorization} and \cite{lindvall:1992}, combining \eqref{eq:decomp:prod:kernel} and \eqref{eq:decomp:prod:kernel:plus} yields:
 \begin{align*}
 \left|p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) -  p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}}^{(n,N+\ell)}\right) \right|&\\
-&\hspace{-3.5cm}\leq \left(\prod_{q+1}^{\ordermax{n}{N}-1}\rho_k(\epsilon)\right) \sup_{v^{n,N}_{q+1}}\left|\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right|\eqsp,\\
+&\hspace{-3.5cm}\leq \left(\prod_{q+1}^{\ordermax{n}{N}-1}\rho_k(\epsilon)\right) \sup_{v^{n,N}_{q+1}}\left|\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right|\\
 &\hspace{-3.5cm}\le \prod_{q+1}^{\ordermax{n}{N}-1}\rho_k(\epsilon)\eqsp,
 \end{align*}
 where $\rho_k(\epsilon)$ is defined by \eqref{eq:defrho}. \eqref{eq:bound:forget} is then a direct consequence of \eqref{eq:decomp:prod:kernel}, \eqref{eq:decomp:prod:kernel:plus} and the fact that 
@@ -849,7 +851,7 @@ Therefore,
 \kullback(\bayes) - \kullback(\pi) &=  \lim_{N\to \infty}\left\{\E_{\bayes}\left[\E_{\bayes}\left[\log p_{\bayes}^{n,N}(X_{2}^{n,N}|X_{3:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi}^{n,N}(X_{2}^{n,N}|X_{3:\ordermax{n}{N}-1}^{n,N})\middle|X_{3:\ordermax{n}{N}-1}^{n,N}\right]\right]\right\}\eqsp,\\
 &\ge 0\eqsp,
 \end{align*}
-as the inner term in the expectation is a Kullback-Liebler divergence and is therefore positive.
+as the inner term in the expectation is a Kullback-Leibler divergence and is therefore positive.
 \end{proof}
 %Then, by Lemma~\ref{lem:uniformforgetting}, $\Pstar$-a.s.,
 %\begin{align*}

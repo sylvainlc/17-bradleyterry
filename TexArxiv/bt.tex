@@ -19,45 +19,112 @@
 The Bradley-Terry model introduced in \cite{bradley:terry:1952,zemerlo:1929} is a popular approach to describe the outcomes of paired comparisons in a contest involving $N$ players, written $\{1,\ldots,N\}$. For all $1\le i \ne j\le N$, the odds that $i$ beats $j$ is $v_i/(v_i+v_j)$ where $(v_i)_{1\le i\le N}$ are positive numbers representing the 'abilities' or 'overall skills' of  the players. This model has been generalized in many directions and applied to a wide range of experimental data, see for instance \cite{stigler:1994} to quantify the intellectual influence between statistical journals...
 \cite{hastie:tibshirani:1998}
 \cite{hunter:2004}
-\section{Bradley-Terry tournament (BTT) in random environment}
+
+\section{Graphical model and uniform convergence of the likelihood function}
+\label{sec:graphical:model}
+%\section{Bradley-Terry tournament (BTT) in random environment}
 Consider a tournament involving an even number $N$ of players called $[N]=\{1,\ldots,N\}$. 
-During the tournament, players face each other at most once and, when $i$ faces $j$ for $1\le i \neq j\le N$, write $X_{i,j}=1$ if $i$ beats $j$ and $X_{i,j}=0$ if $j$ beats $i$, in particular $X_{i,j}=1-X_{j,i}$. With each player $1\le i\le N$ is associated an 'ability parameter' $v_i>0$ where $v=(v_i)_{i\in[N]}$ are assumed to be independent and identically distributed with unknown probability density function $\bayes$ with respect to the Lebesgue measure. Conditionally on $v=(v_i)_{i\in[N]}$, the random variables $(X_{i,j})_{1\le i<j\le N}$ are independent and such that:
+During the tournament, players face each other at most once (but It is not assumed that all pairs meet once) and, when $i$ faces $j$ for $1\le i \neq j\le N$, write $X_{i,j}=1$ if $i$ beats $j$ and $X_{i,j}=0$ if $j$ beats $i$, in particular $X_{i,j}=1-X_{j,i}$. With each player $1\le i\le N$ is associated an 'ability parameter' $v_i>0$ where $v=(v_i)_{i\in[N]}$ are assumed to be independent and identically distributed with unknown probability density function $\bayes$ with respect to the Lebesgue measure. Conditionally on $v=(v_i)_{i\in[N]}$, the random variables $(X_{i,j})_{1\le i<j\le N}$ are independent and such that the conditional distribution of $X_{i,j}$ is given by $\condlik: \{0,1\}\times\rset_+^\star\times\rset_+^\star\to\rset_+$:
 \[
-\bP(X_{i,j}=1|v) = \bP(X_{i,j}=1|v_i,v_j)=\frac{v_i}{v_i+v_j}\enspace.
+\bP(X_{i,j}=1|v) = \bP(X_{i,j}=1|v_i,v_j)=\condlik(x,v_{\{i,j\}})\enspace,
 \]
-To ease notation, for every vector $a\in \bR^p$ and every subset $B\subset [p]=\{1,\ldots,p\}$, we denote by $a_{B}=\{a_i,\;i\in B\}$. Define, for all $x\in \{0,1\}$ and all $(v_1,v_2)\in(\bR_+^*)^2$, 
+where for every vector $a\in \bR^p$ and every subset $B\subset [p]=\{1,\ldots,p\}$, $a_{B}=\{a_i,\;i\in B\}$. 
+This framework encompasses the following standard settings.
+\begin{enumerate}[-]
+\item In the Bradley-Terry model of \cite{bradley:terry:1952,zemerlo:1929}, for all $x\in \{0,1\}$ and all $(v_1,v_2)\in(\bR_+^*)^2$, 
 \begin{equation}
 \label{eq:def:condlik}
-\condlik(x,v_{[2]})=\frac{v_1^xv_2^{1-x}}{v_1+v_2}\enspace,
+\condlik(x,v_{[2]})=\frac{v_1^xv_2^{1-x}}{v_1+v_2}\enspace.
 \end{equation}
-so that $\bP(X_{i,j}=x|v_{\{i,j\}})=k(x,v_{\{i,j\}})$. 
-%In our model, $v=(v_i)_{i\in [N]}$ is a vector in $\bR^N$ with i.i.d. entries with common unknown distribution $\bayes$ that is set once and for all before the tournament begins. 
+\end{enumerate}  
+In this paper, it is assumed that the results of $n$ games are available and the distribution $\bayes$ is estimated using this data set. The time $n$ is assumed to be much smaller than $N$ this problem is therefore referred to as the ``early learning task". The set of couples $(i,j)\in[N]^2$, with $i<j$ such that $i$ has played $j$ before time $n$ is denoted by $\cA_{n,N}$, in other words, the data set is $\cD_{n,N}=\{(X_{i,j})_{(i,j)\in \cA_{n,N}}\}$.
 
 
-\subsection{Round-robin days in BTT and early learning task}
-In this paper, it is not assumed that all the pairs meet once, each contestant meets others in turn according to  the round-robin scheduling that gives at each time $t\in[N]$ the pairs that face each others. At time $t=1$, this algorithm pairs the players off according to Figure~\ref{fig:robin:day1}. Each player faces the one in front of him, that is $2i-1$ faces $2i$, for all $i\in[N/2]$. At time $t=2$, a player is fixed and all the others are rotated clockwise as described in Figure~\ref{fig:robin:move}. Player $1$ does not move, $2$ takes the place of $3$, each odd integer $2i-1<N-1$ takes the place of $2i+1$, $N-1$ takes the place of $N$ and each even integer $2i>2$ takes the place of $2(i-1)$. Once they moved, each player faces the opponent in front of him. At time $t\ge 2$, each player moves once according to the round-robin algorithm and plays the opponent in front of him as displayed in Figure~\ref{fig:robin:day2}. Each time $t\in\bN$ is called a day of the tournament. It is well known that, at day $N$, all players have faced each other once. 
+Let $G^{n,N}=(V^{n,N},E^{n,N})$ be the directed graph representing the conditional dependences between the variables $v$ and $X=(X_{i,j})_{(i,j)\in \cA_{n,N}}$. The set of vertices is a disjoint union $V^{n,N}=\cV^{n,N}\cup \cX^{n,N}$ where $\cV^{n,N}$ is a partition of $(v_i)_{i\in[N]}$ and $\cX^{n,N}$ is a partition of $(X_{i,j})_{(i,j)\in \cA_{n,N}}$. Let $G_0^{n,N}$ be the undirected graph with vertices $(v_i)_{i\in[N]}$ and edges $(X_{i,j})_{ (i,j)\in \cA_{n,N}}$, that is the graph where the nodes are the players and an edge is drawn between individuals who play together. $G_0^{n,N}$ is endowed with the graph distance $d^{n,N}_0$, that is $d^{n,N}_0(v_i,v_j)$ is the minimal length of a path between the nodes $v_i$ and $v_j$ in $G_0^{n,N}$. Write $(v_i)_{i\in[N]}=\{v_1\}\cup\cup_{q=1}^{N}V^{n,N}_{q}$, where, for any $q\in[N]$, $V^{n,N}_{q}$ is the set of $v_i$ such that $d^{n,N}_0(v_1,v_i)=q$. Lemma~\ref{lem:ElementsAtDistanceq} describes the elements in the sets $V_{q}^{n,N}$, $q\ge 1$, when players meet according to the round-robin scheduling. 
 
-In this paper, it is assumed that the results of $n$ games are available and the distribution $\bayes$ is estimated using this data set. The time $n$ is assumed to be much smaller than $N$ this problem is therefore referred to as the ``early learning task". The set of couples $(i,j)\in[N]^2$, with $i<j$ such that $i$ has played $j$ before time $n$ is denoted by $\cA_{n,N}$, in other words, the data set is $\cD_{n,N}=\{(X_{i,j})_{(i,j)\in A_{n,N}}\}$.
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\tikzstyle{player}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 8mm]
+\tikzstyle{game}=[rectangle, minimum size = 9mm, thick, draw =black!80, node distance = 9mm]
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{box}=[rectangle, draw=black!100]
+\node[player] (v0){$V^{n,N}_{0}$};
+\node[game, fill = black!10] (X01) [above right =of v0] {$X^{n,N}_{0\link1}$};
+\node[player] (v1) [below right=of X01] {$V^{n,N}_{1,e}$ };
+\node[game, fill = black!10] (X1) [below=of v1] {$X^{n,N}_{1\link1}$};
+
+\path (v0) edge [connect] (X01);  
+\path (v1) edge [connect] (X01);  
+\path (v1) edge [connect] (X1);  
+
+\node[game, fill = black!10] (X12) [above right =of v1] {$X^{n,N}_{1\link2}$};
+\node[player] (v2) [below right=of X12] {$V^{n,N}_{2}$ };
+\node[game, fill = black!10] (X2) [below=of v2] {$X^{n,N}_{2\link2}$};
+
+\path (v1) edge [connect] (X12);  
+\path (v2) edge [connect] (X12);  
+\path (v2) edge [connect] (X2);  
+
+\node[player] (vq) [right=of v2,xshift = .7cm] {$V^{n,N}_{\ordermax{n}{N}}$ };
+\node[game, fill = black!10] (Xq) [below=of vq] {$X^{n,N}_{\ordermax{n}{N}\link\ordermax{n}{N}}$};
+
+\path (v2) -- node[auto=false]{\ldots}  (vq); 
+\path (vq) edge [connect] (Xq); 
+
+
+\node[game, fill = black!10] (Xq1) [above right =of vq] {$X^{n,N}_{\ordermax{n}{N}\link\ordermax{n}{N}+1}$};
+\node[player] (vq1) [below right=of Xq1] {$V^{n,N}_{\ordermax{n}{N}+1}$ };
+\node[game, fill = black!10] (Xq1q1) [below =of vq1] {$X^{n,N}_{\ordermax{n}{N}+1\link\ordermax{n}{N}+1}$};
+
+
+\path (vq1) edge [connect] (Xq1); 
+\path (vq) edge [connect] (Xq1); 
+\path (vq1) edge [connect] (Xq1q1); 
+
+\end{tikzpicture}
+\caption{Graphical model of the Round-robin algorithm.}
+\label{fig:generic:graphicalmodel}
+\end{figure}
+
+
+
+Let $\Pi$ denote a set of densities $\pi$ on $\bR_+^*$. For technical reasons, every $\pi\in\Pi$ assumed to be supported in $[\epsilon,1]$ for some $\epsilon>0$. The log-likelihood of the observations is defined, for all $\pi\in\Pi$, by:
+\[
+\Lo{\cD_{n,N}}{\pi}:=-\log\cro{p^{\pi}(X_{A_{n,N}})},\quad \text{where}\quad p^{\pi}(X_{A_{n,N}})=\int  \pa{\prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})}\pi^{\otimes N}(dv)\enspace.
+\]
+Our estimator is then any maximum likelihood estimator (MLE):
+\[
+\MLE\in \arg\min_{\pi\in\Pi}\{\Lo{\cD_{n,N}}{\pi}\}\enspace.
+\]
+We shall often forget the dependence of the log-likelihood in the data set $\cD_{n,N}$ and write $\loss{\pi}=\Lo{\cD_{n,N}}{\pi}$.
+
+
+\section{Application to the round-robin scheduling}
+
+
+
+In this section, each contestant meets others in turn according to  the round-robin scheduling that gives at each time $t\in[N]$ the pairs that face each others. At time $t=1$, this algorithm pairs the players off according to Figure~\ref{fig:robin:day1}. Each player faces the one in front of him, that is $2i-1$ faces $2i$, for all $i\in[N/2]$. At time $t=2$, a player is fixed and all the others are rotated clockwise as described in Figure~\ref{fig:robin:move}. Player $1$ does not move, $2$ takes the place of $3$, each odd integer $2i-1<N-1$ takes the place of $2i+1$, $N-1$ takes the place of $N$ and each even integer $2i>2$ takes the place of $2(i-1)$. Once they moved, each player faces the opponent in front of him. At time $t\ge 2$, each player moves once according to the round-robin algorithm and plays the opponent in front of him as displayed in Figure~\ref{fig:robin:day2}. Each time $t\in\bN$ is called a day of the tournament. It is well known that, at day $N$, all players have faced each other once. 
 
 \begin{figure}[h!]
 \begin{subfigure}{\textwidth}
   \centering
   \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
 \tikzstyle{box}=[rectangle, draw=black!100]
-\node[main, fill = black!10] (v1){$1$ };
-\node[main] (v3) [right=of v1] {$3$ };
-\node[main] (v5) [right=of v3] {$5$ };
-\node[main] (v7) [right=of v5] {${\scriptscriptstyle 2i-1}$};
-\node[main] (v9) [right=of v7] {${\scriptscriptstyle N-3}$};
-\node[main] (v11) [right=of v9] {${\scriptscriptstyle N-1}$};
-\node[main] (v2) [below=of v1] {$2$};
-\node[main] (v4) [below=of v3] {$4$};
-\node[main] (v6) [below=of v5] {$6$};
-\node[main] (v8) [below=of v7] {${\scriptscriptstyle 2i}$};
-\node[main] (v10) [below=of v9] {${\scriptscriptstyle N-2}$};
-\node[main] (v12) [below=of v11] {${\scriptscriptstyle N}$};
+\node[main, fill = black!10] (v1){$v_1$ };
+\node[main] (v3) [right=of v1] {$v_3$ };
+\node[main] (v5) [right=of v3] {$v_5$ };
+\node[main] (v7) [right=of v5] {${v_{2i-1}}$};
+\node[main] (v9) [right=of v7] {${v_{N-3}}$};
+\node[main] (v11) [right=of v9] {${v_{N-1}}$};
+\node[main] (v2) [below=of v1] {$v_2$};
+\node[main] (v4) [below=of v3] {$v_4$};
+\node[main] (v6) [below=of v5] {$v_6$};
+\node[main] (v8) [below=of v7] {${v_{2i}}$};
+\node[main] (v10) [below=of v9] {${v_{N-2}}$};
+\node[main] (v12) [below=of v11] {${v_{N}}$};
 \draw (v1) -- (v2);
 \draw (v3) -- (v4);
 \draw (v5) -- (v6);
@@ -73,26 +140,26 @@ In this paper, it is assumed that the results of $n$ games are available and the
 \label{fig:robin:day1}
 \end{subfigure}
 
-\vspace{.5cm}
+\vspace{.7cm}
 
 \begin{subfigure}{\textwidth}
   \centering
   \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
 \tikzstyle{box}=[rectangle, draw=black!100]
-\node[main, fill = black!10] (v1){$1$ };
-\node[main] (v3) [right=of v1] {$3$ };
-\node[main] (v5) [right=of v3] {$5$ };
-\node[main] (v7) [right=of v5] {${\scriptscriptstyle 2i-1}$};
-\node[main] (v9) [right=of v7] {${\scriptscriptstyle N-3}$};
-\node[main] (v11) [right=of v9] {${\scriptscriptstyle N-1}$};
-\node[main] (v2) [below=of v1] {$2$};
-\node[main] (v4) [below=of v3] {$4$};
-\node[main] (v6) [below=of v5] {$6$};
-\node[main] (v8) [below=of v7] {${\scriptscriptstyle 2i}$};
-\node[main] (v10) [below=of v9] {${\scriptscriptstyle N-2}$};
-\node[main] (v12) [below=of v11] {${\scriptscriptstyle N}$};
+\node[main, fill = black!10] (v1){$v_1$ };
+\node[main] (v3) [right=of v1] {$v_3$ };
+\node[main] (v5) [right=of v3] {$v_5$ };
+\node[main] (v7) [right=of v5] {${v_{2i-1}}$};
+\node[main] (v9) [right=of v7] {${v_{N-3}}$};
+\node[main] (v11) [right=of v9] {${v_{N-1}}$};
+\node[main] (v2) [below=of v1] {$v_2$};
+\node[main] (v4) [below=of v3] {$v_4$};
+\node[main] (v6) [below=of v5] {$v_6$};
+\node[main] (v8) [below=of v7] {${v_{2i}}$};
+\node[main] (v10) [below=of v9] {${v_{N-2}}$};
+\node[main] (v12) [below=of v11] {${v_{N}}$};
 \path (v2) edge [connect] (v3);   
 \path (v4) edge [connect] (v2);  
 \path (v3) edge [connect] (v5);  
@@ -109,26 +176,26 @@ In this paper, it is assumed that the results of $n$ games are available and the
 \label{fig:robin:move}
 \end{subfigure}
 
-\vspace{.5cm}
+\vspace{.7cm}
 
 \begin{subfigure}{\textwidth}
 \centering
 \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 9mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
 \tikzstyle{connect}=[-latex, thick]
 \tikzstyle{box}=[rectangle, draw=black!100]
-\node[main, fill = black!10] (v1){$1$ };
-\node[main] (v3) [right=of v1] {$2$ };
-\node[main] (v5) [right=of v3] {$3$ };
-\node[main] (v7) [right=of v5] {${\scriptscriptstyle 2i-1}$};
-\node[main] (v9) [right=of v7] {${\scriptscriptstyle N-5}$};
-\node[main] (v11) [right=of v9] {${\scriptscriptstyle N-3}$};
-\node[main] (v2) [below=of v1] {$4$};
-\node[main] (v4) [below=of v3] {$6$};
-\node[main] (v6) [below=of v5] {$8$};
-\node[main] (v8) [below=of v7] {${\scriptscriptstyle 2i}$};
-\node[main] (v10) [below=of v9] {${\scriptscriptstyle N}$};
-\node[main] (v12) [below=of v11] {${\scriptscriptstyle N-1}$};
+\node[main, fill = black!10] (v1){$v_1$ };
+\node[main] (v3) [right=of v1] {$v_2$ };
+\node[main] (v5) [right=of v3] {$v_3$ };
+\node[main] (v7) [right=of v5] {${v_{2i-1}}$};
+\node[main] (v9) [right=of v7] {${v_{N-5}}$};
+\node[main] (v11) [right=of v9] {${v_{N-3}}$};
+\node[main] (v2) [below=of v1] {$v_4$};
+\node[main] (v4) [below=of v3] {$v_6$};
+\node[main] (v6) [below=of v5] {$v_8$};
+\node[main] (v8) [below=of v7] {${v_{2i}}$};
+\node[main] (v10) [below=of v9] {${v_{N}}$};
+\node[main] (v12) [below=of v11] {${v_{N-1}}$};
 \draw (v1) -- (v2);
 \draw (v3) -- (v4);
 \draw (v5) -- (v6);
@@ -146,21 +213,6 @@ In this paper, it is assumed that the results of $n$ games are available and the
 \caption{First two days using the round-robin algorithm.}
 \label{fig:fig}
 \end{figure}
-
-\subsection{Estimation of the environment distribution}
-Let $\Pi$ denote a set of densities $\pi$ on $\bR_+^*$. For technical reasons, every $\pi\in\Pi$ assumed to be supported in $[\epsilon,1]$ for some $\epsilon>0$. The log-likelihood of the observations is defined, for all $\pi\in\Pi$, by:
-\[
-\Lo{\cD_{n,N}}{\pi}:=-\log\cro{p^{\pi}(X_{A_{n,N}})},\quad \text{where}\quad p^{\pi}(X_{A_{n,N}})=\int  \pa{\prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})}\pi^{\otimes N}(dv)\enspace.
-\]
-Our estimator is then any maximum likelihood estimator (MLE):
-\[
-\MLE\in \arg\min_{\pi\in\Pi}\{\Lo{\cD_{n,N}}{\pi}\}\enspace.
-\]
-We shall often forget the dependence of the log-likelihood in the data set $\cD_{n,N}$ and write $\loss{\pi}=\Lo{\cD_{n,N}}{\pi}$.
-
-%\begin{enumerate}
-%\item On pourrait supposer que toutes les lois sont a support dans un meme compact plutot que dans $[\epsilon,1]$, c'est equivalent par invariance par changement d'echelle.
-%\end{enumerate}
 
 \section{Exponential forgetting in the early learning problem}
 

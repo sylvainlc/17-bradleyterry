@@ -38,7 +38,7 @@ This framework encompasses the following standard settings.
 \condlik(x,v_{[2]})=\frac{v_1^xv_2^{1-x}}{v_1+v_2}\enspace.
 \end{equation}
 \end{enumerate}  
-In this paper, it is assumed that the results of $n$ games are available and the distribution $\bayes$ is estimated using this data set. The time $n$ is assumed to be much smaller than $N$ this problem is therefore referred to as the ``early learning task". The set of couples $(i,j)\in[N]^2$, with $i<j$ such that $i$ has played $j$ before time $n$ is denoted by $\cA_{n,N}$, in other words, the data set is $\cD_{n,N}=\{(X_{i,j})_{(i,j)\in \cA_{n,N}}\}$.
+In this paper, it is assumed that the results of $n$ games are available and the distribution $\bayes$ is estimated using this data set. The time horizon $n$ is assumed to be much smaller than $N$, this problem is therefore referred to as the ``early learning task". The set of couples $(i,j)\in[N]^2$, with $i<j$ such that $i$ has played $j$ before time $n$ is denoted by $\cA_{n,N}$.%, in other words, the data set is $\cD_{n,N}=\{(X_{i,j})_{(i,j)\in \cA_{n,N}}\}$.
 
 
 Let $G^{n,N}=(V^{n,N},E^{n,N})$ be the directed graph representing the conditional dependences between the variables $v$ and $X=(X_{i,j})_{(i,j)\in \cA_{n,N}}$. The set of vertices is a disjoint union $V^{n,N}=\cV^{n,N}\cup \cX^{n,N}$ where $\cV^{n,N}$ is a partition of $(v_i)_{i\in[N]}$ and $\cX^{n,N}$ is a partition of $(X_{i,j})_{(i,j)\in \cA_{n,N}}$. Let $G_0^{n,N}$ be the undirected graph with vertices $(v_i)_{i\in[N]}$ and edges $(X_{i,j})_{ (i,j)\in \cA_{n,N}}$, that is the graph where the nodes are the players and an edge is drawn between individuals who play together. $G_0^{n,N}$ is endowed with the graph distance $d^{n,N}_0$, that is $d^{n,N}_0(v_i,v_j)$ is the minimal length of a path between the nodes $v_i$ and $v_j$ in $G_0^{n,N}$. Write $(v_i)_{i\in[N]}=\{v_1\}\cup\cup_{q=1}^{N}V^{n,N}_{q}$, where, for any $q\in[N]$, $V^{n,N}_{q}$ is the set of $v_i$ such that $d^{n,N}_0(v_1,v_i)=q$. Lemma~\ref{lem:ElementsAtDistanceq} describes the elements in the sets $V_{q}^{n,N}$, $q\ge 1$, when players meet according to the round-robin scheduling. On the other hand, writing $\ordermax{n}{N}+1$ the greatest value of the graph distance when each of the $N$ contestants is involved in $n$ games, the observations are decomposed as follows.
@@ -156,19 +156,29 @@ On the other hand, for all $0\le k <q$,
 \kernel^{n,N}_{\pi,k,q}(V^N_{k+1},A) = \mathbb{P}_{\pi}\left(V^{n,N}_{k}\in A\middle|V^{n,N}_{k+1:\ordermax{n}{N}-1},X_{q:\ordermax{n}{N}-1}^{n,N}\right) = \pi(A)\eqsp.
 \]
 \end{lemma}
+Let $\|\cdot\|_{\mathsf{tv}}$ denotes the total variation distance between measures. By Lemma~\ref{lem:minorization}, for all measures $\mu_1$, $\mu_2$, any bounded measurable function $f$ and any $q\le k < \ordermax{n}{N}-1$,
+\begin{align*}
+\left|\int \mu_1 (\rmd x)\kernel^{n,N}_{\pi,k,q}(x,\rmd y)f(y) - \int \mu_2 (\rmd x)\kernel^{n,N}_{\pi,k,q}(x,\rmd y)f(y) \right|&\le \left(1-\varepsilon^{\card\left(X^{n,N}_{k\link k+1}\right)}\right)\|\mu_1-\mu_2\|_{\mathsf{tv}}\|f\|_{\infty}\eqsp,\\
+&\le \left(1-\varepsilon^{\card\left(X^{n,N}_{k\link k+1}\right)}\right)\|f\|_{\infty}\eqsp.
+\end{align*}
+Then by induction,
+\begin{multline}
+\label{eq:exp:forgetting}
+\left|\int \left\{\mu_1(\rmd v^{n,N}_{\ordermax{n}{N}-1})-\mu_2(\rmd v^{n,N}_{\ordermax{n}{N}-1})\right\} \kernel^{n,N}_{\pi,\ordermax{n}{N}-2,q}(v_{\ordermax{n}{N}-1}^{n,N},\rmd v_{\ordermax{n}{N}-2}^{n,N})\ldots\kernel^{n,N}_{\pi,k,q}(v_{k+1}^{n,N},\rmd v_k^{n,N})f(v_k^{n,N})\right|\\
+\le \|f\|_{\infty}\prod_{j=k}^{\ordermax{n}{N}-2}\left(1-\varepsilon^{\card\left(X^{n,N}_{k\link k+1}\right)}\right)\eqsp.
+\end{multline}
+This result is the pivotal tool to obtain the uniform convergence of the loglikelihood of the observations obtained in Section~\ref{sec:likelihood}.
+%Let $\Pi$ denote a set of probability densities $\pi$ on $\bR_+^*$. 
 
-
-Let $\Pi$ denote a set of probability densities $\pi$ on $\bR_+^*$. 
-
-\section{Uniform convergence of the round-robin scheduling based loglikelihood}
+\section{Uniform convergence of the loglikelihood}
 \label{sec:likelihood}
-The log-likelihood of the observations is given, for all $\pi\in\Pi$, by:
+The loglikelihood of the observations is given, for all $\pi\in\Pi$, by:
 \[
-\Lo{\cD_{n,N}}{\pi}:=-\log\cro{p^{\pi}(X_{\cA_{n,N}})},\quad \text{where}\quad p^{\pi}(X_{\cA_{n,N}})=\int  \pa{\prod_{(i,j)\in \cA_{n,N}}k(X_{i,j},v_{\{i,j\}})}\pi^{\otimes N}(dv)\enspace.
+\Lo{n,N}{\pi} =-\log\cro{p^{n,N}_{\pi}(X_{\cA_{n,N}})},\quad \text{where}\quad p^{n,N}_{\pi}(X_{\cA_{n,N}})=\int  \pa{\prod_{(i,j)\in \cA_{n,N}}k(X_{i,j},v_{\{i,j\}})}\pi^{\otimes N}(dv)\enspace.
 \]
 $\MLE$ is is defined as any maximum likelihood estimator (MLE):
 \[
-\MLE\in \arg\min_{\pi\in\Pi}\{\Lo{\cD_{n,N}}{\pi}\}\enspace.
+\MLE^{n,N}\in \arg\min_{\pi\in\Pi}\{\Lo{n,N}{\pi}\}\enspace.
 \]
 %We shall often forget the dependence of the log-likelihood in the data set $\cD_{n,N}$ and write $\loss{\pi}=\Lo{\cD_{n,N}}{\pi}$.
 %For all $n,N$ define $\ordermax{n}{N}$ by:
@@ -181,7 +191,8 @@ $\MLE$ is is defined as any maximum likelihood estimator (MLE):
 %\[
 %p_{\pi}^{n,N}\left(\cD_{n,N}\right) = \int \prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})\pi^{\otimes N}(\rmd v) \eqsp.
 %\]
-As described in Section~\ref{sec:round:robin}, when the players meet according to the round-robin algorithm, $X_{2:\ordermax{n}{N}-1}^{n,N}$ is a stationary sequence while the observations $X_{0}^{n,N}$, $X_{1}^{n,N}$, $X_{\ordermax{n}{N}}^{n,N}$ do not behave similarly. Therefore, the loglikelihood of the observations may be decomposed as follows:
+This section details the asymptotic properties of the loglikelihood function when the data set $X_{\cA_{n,N}}$ is obtained using the round-robin algorithm described in Section~\ref{sec:round:robin}.  
+As described in Section~\ref{sec:round:robin}, when the players meet according to the round-robin scheduling, $X_{2:\ordermax{n}{N}-1}^{n,N}$ is a stationary sequence while the observations $X_{0}^{n,N}$, $X_{1}^{n,N}$, $X_{\ordermax{n}{N}}^{n,N}$ do not behave similarly as contestants in $V^{n,N}_{1}$ and in $V^{n,N}_{\ordermax{n}{N}}$ play a specific role. Therefore, the loglikelihood of the observations may be decomposed as follows:
 \[
 \log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right) = \log p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right) + \sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right)\eqsp.
 \]
@@ -200,7 +211,6 @@ p_{\pi}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) = \
 \times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp.
 \end{multline*}
 By Lemma~\ref{lem:minorization}, conditionally on $X_{q+1:\ordermax{n}{N}-1}^{n,N}$, the backward Markov chain $(V_{\ordermax{n}{N}-1}^{n,N},\ldots,V_{q}^{n,N})$ admits the whole state space as a $1$-small set and the minorizing constant does not depend on the observations. Then, the asymptotic behavior of the normalized loglikelihood function may be analyzed by proving that, if $\ell>1$ additional players are involved in the contest, the influence of the "initial" distributions $p_{\pi}^{n,N}(\rmd v_{\ordermax{n}{N}-1}|X^{n,N}_{q+1:\ordermax{n}{N}-1})$ and $p_{\pi}^{n,N+\ell}(\rmd v_{\ordermax{n}{N}-1}|X^{n,N+\ell}_{q+1:\ordermax{n}{N+\ell}-1})$ vanishes exponentially fast by \cite{lindvall:1992}.
-
 %  For all $1\le q \le \ordermax{n}{N}$, all distribution $\lambda$ on $(\varepsilon,1]^{\card(V_{\ordermax{n}{N}}^{n,N})}$ and all measurable set $A$ define:
 %\begin{equation}
 %\phi^{n,N}_{q,\lambda}(A) = \frac{\int \1_{A}(v_{q}^{n,N})\left\{\prod_{u=q}^{\ordermax{n}{N}}\prod_{X_{i,j}\in X^{n,N}_{u}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\left\{\prod_{u=q}^{\ordermax{n}{N}-1}\pi(\rmd v^{n,N}_{u})\right\}\lambda(\rmd v^{n,N}_{\ordermax{n}{N}})}{\int \left\{\prod_{u=q}^{\ordermax{n}{N}}\prod_{X_{i,j}\in X^{n,N}_{u}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\left\{\prod_{u=q}^{\ordermax{n}{N}-1}\pi(\rmd v^{n,N}_{u})\right\}\lambda(\rmd v^{n,N}_{\ordermax{n}{N}})}\eqsp.\label{eq:filt}\\
@@ -214,7 +224,6 @@ By Lemma~\ref{lem:minorization}, conditionally on $X_{q+1:\ordermax{n}{N}-1}^{n,
 %\begin{equation}
 % \widetilde{\pi}_{\ordermax{n}{N}}^{n,N}(A) = \frac{\int \1_A(v_{\ordermax{n}{N}}^{n,N}) \pi(\rmd v_{\ordermax{n}{N}}^{n,N})\pi(\rmd v_{\ordermax{n}{N}+1}^{n,N})\prod_{X_{i,j}\in X^{n,N}_{\ordermax{n}{N}}}\condlik\left(X_{i,j};v_{\{i,j\}}\right)}{\int \pi(\rmd v_{\ordermax{n}{N}}^{n,N})\pi(\rmd v_{\ordermax{n}{N}+1}^{n,N})\prod_{X_{i,j}\in X^{n,N}_{\ordermax{n}{N}}}\condlik\left(X_{i,j};v_{\{i,j\}}\right)}\eqsp.\label{eq:lastdist}
 % \end{equation}
-
 %For all $1\le k < n$ and all probability density function $\lambda$ on $\bar C_{\param}$, denote by $\phi^{n,k}_{\lambda,\param}$ the probability density of the conditional distribution of $\bar v_k$ given $(\bar X_n,\ldots,\bar X_k)$ when the state $\bar v_{n+1}$ has probability density function $\lambda$ on $\bar C_{\param}$. Note that for all $1\le k \le n < m$,
 %\begin{align*}
 %\phi^{m,k}_{\lambda,\param}\left(\bar v_{k}\right) &= \frac{\int \lambda(\bar v_{m+1})\prod_{i = m}^k\bar G(\bar X_i; \bar v_{i+1},\bar v_i) \bar \pi_{\param}(\bar v_i)\mu(\rmd \bar v_{m+1:k+1})}{\int \lambda(\bar v_{m+1})\prod_{i = m}^k\bar G(\bar X_i; \bar v_{i+1},\bar v_i) \bar \pi_{\param}(\bar v_i)\mu(\rmd \bar v_{m+1:k})} = \phi^{n,k}_{\eta^{m,n}_{\lambda,\param},\param}\left(\bar v_{k}\right)\eqsp,
@@ -247,24 +256,24 @@ By Lemma~\ref{lem:minorization}, conditionally on $X_{q+1:\ordermax{n}{N}-1}^{n,
 %\[
 %\eta^{n,N}_{\lambda,\ell}: \bar v_{n+1} \mapsto \frac{\int \lambda(\bar v_{m+1})\bar G(\bar X_m; \bar v_{m+1},\bar v_m)\prod_{i = m}^{n+2} \bar \pi_{\param}(\bar v_i) \bar G(\bar X_{i-1}; \bar v_{i},\bar v_{i-1}) \mu(\rmd \bar v_{m+1:n+2})}{\int \lambda(\bar v_{m+1})\bar G(\bar X_m; \bar v_{m+1},\bar v_m)\prod_{i = m}^{n+2} \bar \pi_{\param}(\bar v_i) \bar G(\bar X_{i-1}; \bar v_{i},\bar v_{i-1}) \mu(\rmd \bar v_{m+1:n+1})}\eqsp.
 %\]
-
+In the following, the convention  $\prod_{k=\ell}^{m}a_k = 1$ for any $(a_{\ell},\ldots,a_m)$ and any $\ell>m$, is used.
 \begin{lemma}
 \label{lem:exp:forget}
-For all $n,N$, $\pi\in\Pi$,
+Assume that H\ref{assum:strongmix} holds. For all $n,N$, $\pi\in\Pi$,
 \begin{align}
 %\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{\ordermax{n}{N}}^{n,N}\right)\log \left(\varepsilon^{-1}\right)\eqsp,\label{eq:bound:beg}\\
 %\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right)\right|&\le \card\left(X_{0}^{n,N}\right)\log \left(\varepsilon^{-1}\right)\label{eq:bound:end}\eqsp.
 \sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right)\right|&\le \card\left(X_{0}^{n,N}\cup X_{1}^{n,N}\cup X_{\ordermax{n}{N}}^{n,N}\right)\log \left(\varepsilon^{-1}\right)\label{eq:bound:end}\eqsp.
 \end{align}
-In addition,  for all $\ell>1$,  $2\le q< \ordermax{n}{N}-1$ and all $\pi\in\Pi$,
+In addition,  for all even number $\ell>1$,  $2\le q\le \ordermax{n}{N}-1$ and all $\pi\in\Pi$,
 \begin{multline}
 \sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \log p_{\pi}^{n,N+\ell}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}-1}^{n,N+\ell}\right) \right|\\
-\leq \varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho_k(\varepsilon) \eqsp,\label{eq:bound:forget}
+\leq \varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\varepsilon) \eqsp,\label{eq:bound:forget}
 \end{multline}
-where
+where 
 \begin{equation}
 \label{eq:defrho}
-\rho_k(\varepsilon) = 1- \varepsilon^{\card(X^{n,N}_{k\link k+1})}\eqsp.
+\rho^{n,N}_k(\varepsilon) = 1- \varepsilon^{\card(X^{n,N}_{k\link k+1})}\eqsp.
 \end{equation}
 In addition,
 \begin{equation}
@@ -301,7 +310,7 @@ By \eqref{eq:bound:likelihood},
 \[
 \varepsilon^{\card\left(Z^{n,N}\right)}\le p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right)  \le 1\eqsp,
 \]
-so that \eqref{eq:bound:end} holds. To prove \eqref{eq:bound:forget}, note that by Lemma~\ref{lem:minorization},  
+so that \eqref{eq:bound:end} holds. To prove \eqref{eq:bound:forget}, for $2\le q< \ordermax{n}{N}-1$, note that by Lemma~\ref{lem:minorization},  
 \begin{multline}
 \label{eq:decomp:prod:kernel}
 p_{\pi}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) = \int p_{\pi}\left(\rmd v_{\ordermax{n}{N}-1}^{n,N}\middle | X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) \prod_{k =\ordermax{n}{N}-2}^{q+1}\kernel^{n,N}_{\pi,k,q+1}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
@@ -323,24 +332,33 @@ p_{\pi}^{n,N+\ell}\left(X^{n,N+\ell}_{q}\middle|X^{n,N+\ell}_{q+1:\ordermax{n}{N
 %\left|p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) - p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}}^{(n,N+\ell)}\right) \right|\\
 %= \left| \left(\phi^{n,N}_{q+1,\widetilde{\pi}^{n,N}_{\ordermax{n}{N}}}-\phi^{n,N}_{q+1,\widetilde{\pi}^{n,N+\ell}_{\ordermax{n}{N}}}\right)\left[\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right]\right|\eqsp.
 %\end{multline*}
-Then, by Lemma~\ref{lem:minorization} and \cite{lindvall:1992}, combining \eqref{eq:decomp:prod:kernel} and \eqref{eq:decomp:prod:kernel:plus} yields:
+Then, by Lemma~\ref{lem:minorization} and \eqref{eq:exp:forgetting}, combining \eqref{eq:decomp:prod:kernel} and \eqref{eq:decomp:prod:kernel:plus} yields:
 \begin{align*}
 \left|p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) -  p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}-1}^{(n,N+\ell)}\right) \right|&\\
-&\hspace{-3.5cm}\leq \left(\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho_k(\epsilon)\right) \sup_{v^{n,N}_{q+1}}\left|\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right|\\
-&\hspace{-3.5cm}\le \prod_{k=q+1}^{\ordermax{n}{N}-2}\rho_k(\epsilon)\eqsp,
+&\hspace{-3.5cm}\leq \left(\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\epsilon)\right) \sup_{v^{n,N}_{q+1}}\left|\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right|\\
+&\hspace{-3.5cm}\le \prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\epsilon)\eqsp,
 \end{align*}
-where $\rho_k(\epsilon)$ is defined by \eqref{eq:defrho}. \eqref{eq:bound:forget} is then a direct consequence of \eqref{eq:decomp:prod:kernel}, \eqref{eq:decomp:prod:kernel:plus} and the fact that 
-for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$.
+where $\rho^{n,N}_k(\epsilon)$ is defined by \eqref{eq:defrho}. \eqref{eq:bound:forget} is then a direct consequence of \eqref{eq:decomp:prod:kernel}, \eqref{eq:decomp:prod:kernel:plus} and the fact that 
+for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$. The inequality is straightforward for $q = \ordermax{n}{N}-1$ (the upper bound being 1).
 The inequality \eqref{eq:bound:loglik} follows from \eqref{eq:decomp:prod:kernel}. 
 \end{proof}
-In the sequel, the stationary observations $(X^{n,N}_{q})_{2\le q\le \ordermax{n}{N}-1}$ are extended to a stationary process $(X^{n,N}_{q})_{ q>1}$. By \eqref{eq:bound:forget}, the sequence $(\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}))_{N\ge 1}$ converges uniformly in $\pi\in\Pi$, $\Pstar$-a.s. Denote by $\ell^q_{\infty}(\pi)$ this limit. In addition, by \eqref{eq:bound:loglik}, this sequence is uniformly bounded and so is its limit $\ell^q_{\infty}(\pi)$. Note that
+In the sequel, the stationary observations $(X^{n,N}_{q})_{2\le q\le \ordermax{n}{N}-1}$ are extended to a stationary process $(X^{n,N}_{q})_{ q>1}$. The asymptotic properties of the loglikelihood functions is established under the additional following assumptions.
+\begin{hypH}
+\label{assum:sum:rho}
+The scheduling algorithm used to define the opponents is such that for any $n\ge 1$,
 \[
-\sup_{\pi\in\Pi}\;\frac{1}{\ordermax{n}{N}}\left|\sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \sum_{q=2}^{\ordermax{n}{N}-1}\ell^q_{\infty}(\pi)\right| \le \frac{1}{\ordermax{n}{N}}\sum_{q=2}^{\ordermax{n}{N}-1}\varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho_k(\varepsilon)\eqsp.
+ \frac{1}{\ordermax{n}{N}}\sum_{q=2}^{\ordermax{n}{N}-1}\varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\varepsilon)\limit{N} 0\quad \Pstar\mbox{-a.s.}
+\]
+\end{hypH}
+\textcolor{red}{Comments for the round-robin algorithm}.
+By \eqref{eq:bound:forget}, the sequence $(\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}))_{N\ge 1}$ converges uniformly in $\pi\in\Pi$, $\Pstar$-a.s. Denote by $\ell^{\infty}_{q,n}(\pi)$ this limit. In addition, by \eqref{eq:bound:loglik}, this sequence is uniformly bounded and so is its limit $\ell^{\infty}_{q,n}(\pi)$. Note that
+\[
+\sup_{\pi\in\Pi}\;\frac{1}{\ordermax{n}{N}}\left|\sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \sum_{q=2}^{\ordermax{n}{N}-1}\ell^{\infty}_{q,n}(\pi)\right| \le \frac{1}{\ordermax{n}{N}}\sum_{q=2}^{\ordermax{n}{N}-1}\varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\varepsilon)\eqsp.
 \]
 \textcolor{red}{A ajuster avec les cardinaux}
 By the ergodic theorem, for all $\pi\in\Pi$, $\Pstar$-a.s.  and in $\mathrm{L}^1(\Pstar)$,
 \[
-\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right) \limit{N} \kullback(\pi) = \E_{\bayes}\left[\ell^2_{\infty}(\pi)\right]\eqsp.
+\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right) \limit{N} \kullback(\pi) = \E_{\bayes}\left[\ell^{\infty}_{2,n}(\pi)\right]\eqsp.
 \]
 
 \section{Identifiability and consistency of the maximum likelihood estimator}

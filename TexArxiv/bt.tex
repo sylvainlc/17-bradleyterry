@@ -24,10 +24,10 @@ The Bradley-Terry model introduced in \cite{bradley:terry:1952,zemerlo:1929} is 
 \label{sec:graphical:model}
 %\section{Bradley-Terry tournament (BTT) in random environment}
 Consider a tournament involving an even number $N$ of players called $[N]=\{1,\ldots,N\}$. 
-During the tournament, players face each other at most once (but It is not assumed that all pairs meet once) and, when $i$ faces $j$ for $1\le i \neq j\le N$, write $X_{i,j}=1$ if $i$ beats $j$ and $X_{i,j}=0$ if $j$ beats $i$, in particular $X_{i,j}=1-X_{j,i}$. With each player $1\le i\le N$ is associated an 'ability parameter' $v_i>0$ where $v=(v_i)_{i\in[N]}$ are assumed to be independent and identically distributed with unknown probability density function $\bayes$ with respect to the Lebesgue measure. Conditionally on $v=(v_i)_{i\in[N]}$, the random variables $(X_{i,j})_{1\le i<j\le N}$ are independent and such that the conditional distribution of $X_{i,j}$ is given by $\condlik: \{0,1\}\times\rset_+^\star\times\rset_+^\star\to\rset_+$:
+During the tournament, players face each other at most once (but It is not assumed that all pairs meet once) and, when $i$ faces $j$ for $1\le i \neq j\le N$, write $X_{i,j}=1$ if $i$ beats $j$ and $X_{i,j}=0$ if $j$ beats $i$, in particular $X_{i,j}=1-X_{j,i}$. With each player $1\le i\le N$ is associated an 'ability parameter' $v_i>0$. Let $\Pi$ be a set of probability densities with respect to the Lebesgue measure on $\bR_+^*$. For all $\pi\in\Pi$, define the probability distribution $\bP_\pi$ such that the $v=(v_i)_{i\in[N]}$ are independent and identically distributed with probability density function $\pi$. Conditionally on $v=(v_i)_{i\in[N]}$, the random variables $(X_{i,j})_{1\le i<j\le N}$ are independent and such that the conditional distribution of $X_{i,j}$ is given by $\condlik: \{0,1\}\times\rset_+^\star\times\rset_+^\star\to\rset_+$:
 \begin{equation}
 \label{eq:conditional:ind}
-\bP(X_{i,j}=1|v) = \bP(X_{i,j}=1|v_i,v_j)=\condlik(x,v_{\{i,j\}})\enspace,
+\bP_{\pi}(X_{i,j}=1|v) = \bP_{\pi}(X_{i,j}=1|v_i,v_j)=\condlik(x,v_{\{i,j\}})\enspace,
 \end{equation}
 where for every vector $a\in \bR^p$ and every subset $B\subset [p]=\{1,\ldots,p\}$, $a_{B}=\{a_i,\;i\in B\}$. 
 This framework encompasses the following standard settings.
@@ -55,13 +55,13 @@ X_{\ordermax{n}{N}}^{n,N} = X_{\ordermax{n}{N}\link\ordermax{n}{N}+1}^{n,N} & = 
 \end{align*}
 The elements $(X^{n,N}_{q+1\link q+1},X^{n,N}_{q\link q+1})_{0\le q \le \ordermax{n}{N}}$ are described in the case of the round-robin scheduling in Section~\ref{sec:round:robin}.
 Using these decompositions of the players and of the games, by \eqref{eq:conditional:ind} the joint distribution of 
-$(V_q^{n,N})_{0\le q\le \ordermax{n}{N}+1}$ and $(X^{n,N}_{q+1\link q+1},X^{n,N}_{q\link q+1})_{0\le q \le \ordermax{n}{N}}$ may be factorized using the conditional independence between some subsets of these variables. For all $0\le q \le \ordermax{n}{N}$,
+$(V_q^{n,N})_{0\le q\le \ordermax{n}{N}+1}$ and $(X^{n,N}_{q+1\link q+1},X^{n,N}_{q\link q+1})_{0\le q \le \ordermax{n}{N}}$ may be factorized using the conditional independence between some subsets of these variables. For all $0\le q \le \ordermax{n}{N}$, and all $\pi\in\Pi$,
 \[
-\bP\left(X^{n,N}_{q+1\link q+1}\middle| v,X^{n,N}_{0:q-1},X_{q \link q+1}^{n,N}\right) = \bP\left(X^{n,N}_{q+1\link q+1}\middle| V^{n,N}_{q+1}\right)=\prod_{X_{i,j}\in X^{n,N}_{q+1\link q+1}}\condlik\left(X_{i,j},v_{\{i,j\}}\right)
+\bP_{\pi}\left(X^{n,N}_{q+1\link q+1}\middle| v,X^{n,N}_{0:q-1},X_{q \link q+1}^{n,N}\right) = \bP_{\pi}\left(X^{n,N}_{q+1\link q+1}\middle| V^{n,N}_{q+1}\right)=\prod_{X_{i,j}\in X^{n,N}_{q+1\link q+1}}\condlik\left(X_{i,j},v_{\{i,j\}}\right)
 \]
 and
 \[
-\bP\left(X^{n,N}_{q\link q+1}\middle| v,X^{n,N}_{0:q-1}\right) = \bP\left(X^{n,N}_{q\link q+1}\middle| V^{n,N}_{q},V^{n,N}_{q+1}\right)=\prod_{X_{i,j}\in X^{n,N}_{q\link q+1}}\condlik\left(X_{i,j},v_{\{i,j\}}\right)\eqsp.
+\bP_{\pi}\left(X^{n,N}_{q\link q+1}\middle| v,X^{n,N}_{0:q-1}\right) = \bP_{\pi}\left(X^{n,N}_{q\link q+1}\middle| V^{n,N}_{q},V^{n,N}_{q+1}\right)=\prod_{X_{i,j}\in X^{n,N}_{q\link q+1}}\condlik\left(X_{i,j},v_{\{i,j\}}\right)\eqsp.
 \]
 The graphical model given in Figure~\ref{fig:generic:graphicalmodel} offers an economic representation of all these conditional independences. For all $1\le q \le \ordermax{n}{N}+1$ any path between $X^{n,N}_{q\link q}$ and other vertices except $V_q^{n,N}$ goes through $V_q^{n,N}$ which means that $X^{n,N}_{q\link q}$ is independent of all other nodes given $V_q^{n,N}$. In this case, conditional independence is interpreted as graph separation. Similarly, for all $0\le q \le \ordermax{n}{N}$ any path between $X^{n,N}_{q\link q+1}$ and other vertices except $V_q^{n,N}$ and $V_{q+1}^{n,N}$ goes through $V_{q}^{n,N}$ or $V_{q+1}^{n,N}$ which means that $X^{n,N}_{q\link q+1}$ is independent of all other nodes given $V_q^{n,N}$ and $V_{q+1}^{n,N}$.
 
@@ -106,7 +106,7 @@ The graphical model given in Figure~\ref{fig:generic:graphicalmodel} offers an e
 \path (vq1) edge [connect] (Xq1q1); 
 
 \end{tikzpicture}
-\caption{Graphical model of the Round-robin algorithm.}
+\caption{Graphical model of a paired comparisons based contest.}
 \label{fig:generic:graphicalmodel}
 \end{figure}
 The analysis of the asymptotic properties of the maximum likelihood estimator to Bradley-Terry models in random environment is established using the geometric decaying mixing rate of the conditional law of the players $(V^{n,N}_{k})_{0\le k \le \ordermax{n}{N}+1}$ given the observations $X^{n,N}_{q:\ordermax{n}{N}-1}$ for any $0\le q< \ordermax{n}{N}$.
@@ -130,9 +130,6 @@ Note that the forgetting properties established in this section are consequences
 \item {\em Bradley-Terry model}: when the function $\condlik$ is given by \eqref{eq:def:condlik} if for all $\pi \in\Pi$, $\mathrm{supp}(\pi) \subset (\delta,1]$, then H\ref{assum:strongmix} hods with $\varepsilon=\delta(1+\delta)^{-1}$.
 \item \textcolor{red}{Other models}.
 \end{enumerate}
-
-
-
 %consequence of the fact that the support of all probability densities in $\Pi$ is included in $(\varepsilon,1]$ which implies that for all $x\in\{0,1\}$, all $\pi\in\Pi$ and all $v_1,v_2 \in \mathrm{supp}(\pi)$ , 
 %\begin{equation}
 %\label{eq:bound:likelihood}
@@ -143,7 +140,7 @@ Note that the forgetting properties established in this section are consequences
 %\label{assum:strongmix}
 %There exist $0<\sigma_-<\sigma_+<\infty$ such that for all $\pi\in\Pi$ and all $v\in [\varepsilon,1]$, $\sigma_-\le \pi(v)\le\sigma_+$.
 %\end{hypH}
-
+Lemma~\ref{lem:minorization} is proved in Section~\ref{sec:proofs}.
 \begin{lemma}
 \label{lem:minorization}
 Assume that H\ref{assum:strongmix} holds. Then, for all $n,N$, $q\ge 0$, and all $\pi\in\Pi$, conditionally on the observations $(X_{q:\ordermax{n}{N}-1}^{n,N})$, $(V_{\ordermax{n}{N}-1}^{n,N},\ldots,V_0^{n,N})$ is a Markov chain. In addition,  the transition kernels $(\kernel^{n,N}_{\pi,k,q})_{q\le k <\ordermax{n}{N}-1}$ are such that, for all $q\le k < \ordermax{n}{N}-1$, there exists a measure $\mu^{n,N}_{\pi,k,q}$ satisfying for all measurable set $A$:
@@ -156,6 +153,14 @@ On the other hand, for all $0\le k <q$,
 \kernel^{n,N}_{\pi,k,q}(V^N_{k+1},A) = \mathbb{P}_{\pi}\left(V^{n,N}_{k}\in A\middle|V^{n,N}_{k+1:\ordermax{n}{N}-1},X_{q:\ordermax{n}{N}-1}^{n,N}\right) = \pi(A)\eqsp.
 \]
 \end{lemma}
+\begin{remark}
+\label{rem:forgetting:robin}
+In the case of the round-robin scheduling, it is proved in Section~\ref{sec:round:robin} that if  $n = 2p+1$ with $p\ge 0$ then $\card(X^{n,N}_{k\link k+1}) = 2p(p+1)$ and  if  $n = 2(p+1)$ with $p\ge 0$ then $\card(X^{n,N}_{k\link k+1}) = 2(p+1)^2$ for $0 \le q\le  k <\ordermax{n}{N}-1$. In this case, there exists a constant $c>0$ such that  for all $0\le q\le k < \ordermax{n}{N}-1$ and for all measurable set $A$:
+\[
+\kernel^{n,N}_{\pi,k,q}(V^N_{k+1},A)  \ge \varepsilon^{cn^2} \mu^{n,N}_{\pi,k,q}(A)\eqsp.
+\]
+Therefore, the minorization constant does not depend on $N$.
+\end{remark}
 Let $\|\cdot\|_{\mathsf{tv}}$ denotes the total variation distance between measures. By Lemma~\ref{lem:minorization}, for all measures $\mu_1$, $\mu_2$, any bounded measurable function $f$ and any $q\le k < \ordermax{n}{N}-1$,
 \begin{align*}
 \left|\int \mu_1 (\rmd x)\kernel^{n,N}_{\pi,k,q}(x,\rmd y)f(y) - \int \mu_2 (\rmd x)\kernel^{n,N}_{\pi,k,q}(x,\rmd y)f(y) \right|&\le \left(1-\varepsilon^{\card\left(X^{n,N}_{k\link k+1}\right)}\right)\|\mu_1-\mu_2\|_{\mathsf{tv}}\|f\|_{\infty}\eqsp,\\
@@ -168,7 +173,7 @@ Then by induction,
 \le \|f\|_{\infty}\prod_{j=k}^{\ordermax{n}{N}-2}\left(1-\varepsilon^{\card\left(X^{n,N}_{k\link k+1}\right)}\right)\eqsp.
 \end{multline}
 This result is the pivotal tool to obtain the uniform convergence of the loglikelihood of the observations obtained in Section~\ref{sec:likelihood}.
-%Let $\Pi$ denote a set of probability densities $\pi$ on $\bR_+^*$. 
+%
 
 \section{Uniform convergence of the loglikelihood}
 \label{sec:likelihood}
@@ -191,7 +196,114 @@ $\MLE$ is is defined as any maximum likelihood estimator (MLE):
 %\[
 %p_{\pi}^{n,N}\left(\cD_{n,N}\right) = \int \prod_{(i,j)\in A_{n,N}}k(X_{i,j},v_{\{i,j\}})\pi^{\otimes N}(\rmd v) \eqsp.
 %\]
-This section details the asymptotic properties of the loglikelihood function when the data set $X_{\cA_{n,N}}$ is obtained using the round-robin algorithm described in Section~\ref{sec:round:robin}.  
+This section details the asymptotic properties of the loglikelihood function when the data set $X_{\cA_{n,N}}$ is obtained using the round-robin algorithm described in Section~\ref{sec:round:robin}.  Each contestant meets others in turn according to  the round-robin scheduling that gives at each time $t\in[N]$ the pairs that face each others. At time $t=1$, this algorithm pairs the players off according to Figure~\ref{fig:robin:day1}. Each player faces the one in front of him, that is $2i-1$ faces $2i$, for all $i\in[N/2]$. At time $t=2$, a player is fixed and all the others are rotated clockwise as described in Figure~\ref{fig:robin:move}. Player $1$ does not move, $2$ takes the place of $3$, each odd integer $2i-1<N-1$ takes the place of $2i+1$, $N-1$ takes the place of $N$ and each even integer $2i>2$ takes the place of $2(i-1)$. Once they moved, each player faces the opponent in front of him. At time $t\ge 2$, each player moves once according to the round-robin algorithm and plays the opponent in front of him as displayed in Figure~\ref{fig:robin:day2}. Each time $t\in\bN$ is called a day of the tournament: at day $N$, all players have faced each other once. 
+
+\begin{figure}[h!]
+\begin{subfigure}{\textwidth}
+  \centering
+  \begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{box}=[rectangle, draw=black!100]
+\node[main, fill = black!10] (v1){$v_1$ };
+\node[main] (v3) [right=of v1] {$v_3$ };
+\node[main] (v5) [right=of v3] {$v_5$ };
+\node[main] (v7) [right=of v5] {${v_{2i-1}}$};
+\node[main] (v9) [right=of v7] {${v_{N-3}}$};
+\node[main] (v11) [right=of v9] {${v_{N-1}}$};
+\node[main] (v2) [below=of v1] {$v_2$};
+\node[main] (v4) [below=of v3] {$v_4$};
+\node[main] (v6) [below=of v5] {$v_6$};
+\node[main] (v8) [below=of v7] {${v_{2i}}$};
+\node[main] (v10) [below=of v9] {${v_{N-2}}$};
+\node[main] (v12) [below=of v11] {${v_{N}}$};
+\draw (v1) -- (v2);
+\draw (v3) -- (v4);
+\draw (v5) -- (v6);
+\draw (v7) -- (v8);
+\draw (v9) -- (v10);  
+\draw (v11) -- (v12);     
+\path (v5) -- node[auto=false]{\ldots}  (v7); 
+\path (v7) -- node[auto=false]{\ldots}  (v9); 
+\path (v6) -- node[auto=false]{\ldots}  (v8); 
+\path (v8) -- node[auto=false]{\ldots}  (v10);    
+\end{tikzpicture}
+\caption{Round-robin, day $1$.}
+\label{fig:robin:day1}
+\end{subfigure}
+
+\vspace{.7cm}
+
+\begin{subfigure}{\textwidth}
+  \centering
+  \begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{box}=[rectangle, draw=black!100]
+\node[main, fill = black!10] (v1){$v_1$ };
+\node[main] (v3) [right=of v1] {$v_3$ };
+\node[main] (v5) [right=of v3] {$v_5$ };
+\node[main] (v7) [right=of v5] {${v_{2i-1}}$};
+\node[main] (v9) [right=of v7] {${v_{N-3}}$};
+\node[main] (v11) [right=of v9] {${v_{N-1}}$};
+\node[main] (v2) [below=of v1] {$v_2$};
+\node[main] (v4) [below=of v3] {$v_4$};
+\node[main] (v6) [below=of v5] {$v_6$};
+\node[main] (v8) [below=of v7] {${v_{2i}}$};
+\node[main] (v10) [below=of v9] {${v_{N-2}}$};
+\node[main] (v12) [below=of v11] {${v_{N}}$};
+\path (v2) edge [connect] (v3);   
+\path (v4) edge [connect] (v2);  
+\path (v3) edge [connect] (v5);  
+\path (v6) edge [connect] (v4); 
+\path (v9) edge [connect] (v11); 
+\path (v11) edge [connect] (v12);   
+\path (v12) edge [connect] (v10);   
+\path (v5) -- node[auto=false]{\ldots}  (v7); 
+\path (v7) -- node[auto=false]{\ldots}  (v9); 
+\path (v6) -- node[auto=false]{\ldots}  (v8); 
+\path (v8) -- node[auto=false]{\ldots}  (v10);    
+\end{tikzpicture}
+\caption{Round-robin, first move.}
+\label{fig:robin:move}
+\end{subfigure}
+
+\vspace{.7cm}
+
+\begin{subfigure}{\textwidth}
+\centering
+\begin{tikzpicture}
+\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
+\tikzstyle{connect}=[-latex, thick]
+\tikzstyle{box}=[rectangle, draw=black!100]
+\node[main, fill = black!10] (v1){$v_1$ };
+\node[main] (v3) [right=of v1] {$v_2$ };
+\node[main] (v5) [right=of v3] {$v_3$ };
+\node[main] (v7) [right=of v5] {${v_{2i-1}}$};
+\node[main] (v9) [right=of v7] {${v_{N-5}}$};
+\node[main] (v11) [right=of v9] {${v_{N-3}}$};
+\node[main] (v2) [below=of v1] {$v_4$};
+\node[main] (v4) [below=of v3] {$v_6$};
+\node[main] (v6) [below=of v5] {$v_8$};
+\node[main] (v8) [below=of v7] {${v_{2i}}$};
+\node[main] (v10) [below=of v9] {${v_{N}}$};
+\node[main] (v12) [below=of v11] {${v_{N-1}}$};
+\draw (v1) -- (v2);
+\draw (v3) -- (v4);
+\draw (v5) -- (v6);
+\draw (v7) -- (v8);
+\draw (v9) -- (v10);  
+\draw (v11) -- (v12);     
+\path (v5) -- node[auto=false]{\ldots}  (v7); 
+\path (v7) -- node[auto=false]{\ldots}  (v9); 
+\path (v6) -- node[auto=false]{\ldots}  (v8); 
+\path (v8) -- node[auto=false]{\ldots}  (v10);    
+\end{tikzpicture}
+\caption{Round-robin, day $2$.}
+\label{fig:robin:day2}
+\end{subfigure}
+\caption{First two days using the round-robin algorithm.}
+\end{figure}
 As described in Section~\ref{sec:round:robin}, when the players meet according to the round-robin scheduling, $X_{2:\ordermax{n}{N}-1}^{n,N}$ is a stationary sequence while the observations $X_{0}^{n,N}$, $X_{1}^{n,N}$, $X_{\ordermax{n}{N}}^{n,N}$ do not behave similarly as contestants in $V^{n,N}_{1}$ and in $V^{n,N}_{\ordermax{n}{N}}$ play a specific role. Therefore, the loglikelihood of the observations may be decomposed as follows:
 \[
 \log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right) = \log p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right) + \sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right)\eqsp.
@@ -256,7 +368,7 @@ By Lemma~\ref{lem:minorization}, conditionally on $X_{q+1:\ordermax{n}{N}-1}^{n,
 %\[
 %\eta^{n,N}_{\lambda,\ell}: \bar v_{n+1} \mapsto \frac{\int \lambda(\bar v_{m+1})\bar G(\bar X_m; \bar v_{m+1},\bar v_m)\prod_{i = m}^{n+2} \bar \pi_{\param}(\bar v_i) \bar G(\bar X_{i-1}; \bar v_{i},\bar v_{i-1}) \mu(\rmd \bar v_{m+1:n+2})}{\int \lambda(\bar v_{m+1})\bar G(\bar X_m; \bar v_{m+1},\bar v_m)\prod_{i = m}^{n+2} \bar \pi_{\param}(\bar v_i) \bar G(\bar X_{i-1}; \bar v_{i},\bar v_{i-1}) \mu(\rmd \bar v_{m+1:n+1})}\eqsp.
 %\]
-In the following, the convention  $\prod_{k=\ell}^{m}a_k = 1$ for any $(a_{\ell},\ldots,a_m)$ and any $\ell>m$, is used.
+In the following, the convention  $\prod_{k=\ell}^{m}a_k = 1$ for any $(a_{\ell},\ldots,a_m)$ and any $\ell>m$, is used. Lemma~\ref{lem:exp:forget} is proved in Section~\ref{sec:proofs}.
 \begin{lemma}
 \label{lem:exp:forget}
 Assume that H\ref{assum:strongmix} holds. For all $n,N$, $\pi\in\Pi$,
@@ -281,81 +393,41 @@ In addition,
 \sup_{\pi\in\Pi;\;q< \ordermax{n}{N}}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right)\right|\le \card\left(X_{q}^{n,N}\right)\log \left(\varepsilon^{-1}\right)\eqsp. 
 \end{equation}
 \end{lemma}
-
-\begin{proof}
-%Note that for the last observations:
-%\[
-%p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right) = \int \pi\left(\rmd v_{\ordermax{n}{N}}^{n,N}\right) \pi\left(\rmd v_{\ordermax{n}{N}+1}^{n,N}\right) \prod_{X_{i,j}\in X_{\ordermax{n}{N}}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp,
-%\]
-%By \eqref{eq:bound:likelihood},
-%\[
-%\varepsilon^{\card(X_{\ordermax{n}{N}}^{n,N})}\le p_{\pi}^{n,N}\left(X_{\ordermax{n}{N}}^{n,N}\right)  \le 1\eqsp,
-%\]
-%which completes the proof of \eqref{eq:bound:beg}. 
-%On the other hand,
-%\begin{align*}
-%p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) &= \int p_{\pi}^{n,N}\left(X_{0}^{n,N},v_{0}^{n,N},v_{1}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right)\pi(\rmd v_{0}^{n,N})\pi(\rmd v_{1}^{n,N})\\
-%&=\int p_{\pi}^{n,N}\left(v_{0}^{n,N},v_{1}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) p_{\pi}^{n,N}\left(X_{0}^{n,N}\middle|v_{0}^{n,N},v_{1}^{n,N}\right)\pi(\rmd v_{0}^{n,N})\pi(\rmd v_{1}^{n,N})\\
-%&=\int p_{\pi}^{n,N}\left(v_{0}^{n,N},v_{1}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) \prod_{X_{i,j}\in X_{0}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\pi(\rmd v_{0}^{n,N})\pi(\rmd v_{1}^{n,N})\eqsp.
-%\end{align*}
-Note that,
+\begin{remark}
+\label{rem:forgetting:likelihood}
+In the case of the round-robin scheduling, it is proved in Section~\ref{sec:round:robin} that if  $n = 2p+1$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2p(p+1) + 2p^2$ and  if  $n = 2(p+1)$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2(p+1)^2 + 2p(p+1)$, for $0 \le q\le \ordermax{n}{N}-1$. Then, by Remark~\ref{rem:forgetting:robin}, there exist $c_1,c2 >0$ such that for all even number $\ell>1$,  $2\le q\le \ordermax{n}{N}-1$ and all $\pi\in\Pi$,
 \begin{align*}
-p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right) &\\
-&\hspace{-3cm}= \int p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N},v_{0:2}^{n,N},v_{\ordermax{n}{N}:\ordermax{n}{N}+1}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right)\rmd v_{0:2}^{n,N}\rmd v_{\ordermax{n}{N}:\ordermax{n}{N}+1}^{n,N}\eqsp,\\
-&\hspace{-3cm}= \int p_{\pi}^{n,N}\left(v_{0:2}^{n,N},v_{\ordermax{n}{N}:\ordermax{n}{N}+1}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right)\left\{\prod_{X_{i,j}\in Z^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\rmd v_{0:2}^{n,N}\rmd v_{\ordermax{n}{N}:\ordermax{n}{N}+1}^{n,N}\eqsp,
-%&=\int p_{\pi}^{n,N}\left(v_{0}^{n,N},v_{1}^{n,N}\middle|X_{1:\ordermax{n}{N}}^{n,N}\right) \prod_{X_{i,j}\in X_{0}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\pi(\rmd v_{0}^{n,N})\pi(\rmd v_{1}^{n,N})\eqsp.
+\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \log p_{\pi}^{n,N+\ell}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}-1}^{n,N+\ell}\right) \right|&\\
+&\hspace{-2cm}\leq \varepsilon^{-c_1n^2}\prod_{k=q+1}^{\ordermax{n}{N}-2}\left(1-\varepsilon^{c_2n^2}\right) \eqsp,\\
+&\hspace{-2cm}\leq \varepsilon^{-c_1n^2}\left(1-\varepsilon^{c_2n^2}\right)^{\ordermax{n}{N}-q-2}\eqsp.
 \end{align*}
-where $Z^{n,N} = X_{0}^{n,N}\cup X_{1}^{n,N}\cup X_{\ordermax{n}{N}}^{n,N}$.
-By \eqref{eq:bound:likelihood},
+Similarly, there exists $c>0$ such that:
 \[
-\varepsilon^{\card\left(Z^{n,N}\right)}\le p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right)  \le 1\eqsp,
+\sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right)\right|\le cn^2\log \left(\varepsilon^{-1}\right)
 \]
-so that \eqref{eq:bound:end} holds. To prove \eqref{eq:bound:forget}, for $2\le q< \ordermax{n}{N}-1$, note that by Lemma~\ref{lem:minorization},  
-\begin{multline}
-\label{eq:decomp:prod:kernel}
-p_{\pi}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) = \int p_{\pi}\left(\rmd v_{\ordermax{n}{N}-1}^{n,N}\middle | X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) \prod_{k =\ordermax{n}{N}-2}^{q+1}\kernel^{n,N}_{\pi,k,q+1}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
-\times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})
-\end{multline}
-and since $X^{n,N}_{q+1:\ordermax{n}{N}-1}=X^{n,N+\ell}_{q+1:\ordermax{n}{N}-1}$,
-\begin{multline}
-\label{eq:decomp:prod:kernel:plus}
-p_{\pi}^{n,N+\ell}\left(X^{n,N+\ell}_{q}\middle|X^{n,N+\ell}_{q+1:\ordermax{n}{N+\ell}-1}\right) = \int p_{\pi}\left(\rmd v_{\ordermax{n}{N}-1}^{n,N}\middle | X^{n,N+\ell}_{q+1:\ordermax{n}{N+\ell}}\right) \prod_{k =\ordermax{n}{N}-2}^{q+1}\kernel^{n,N}_{\pi,k,q+1}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
-\times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp.
-\end{multline}
-%for all $1\le q< \ordermax{n}{N}$,
-%\begin{equation}
-%\label{eq:incremental:lik}
-%p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) = \phi^{n,N}_{q+1,\widetilde{\pi}^{n,N}_\mathsf{end}}\left[\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right]\eqsp.
-%\end{equation}
-%Therefore,
-%\begin{multline*}
-%\left|p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}}^{n,N}\right) - p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}}^{(n,N+\ell)}\right) \right|\\
-%= \left| \left(\phi^{n,N}_{q+1,\widetilde{\pi}^{n,N}_{\ordermax{n}{N}}}-\phi^{n,N}_{q+1,\widetilde{\pi}^{n,N+\ell}_{\ordermax{n}{N}}}\right)\left[\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right]\right|\eqsp.
-%\end{multline*}
-Then, by Lemma~\ref{lem:minorization} and \eqref{eq:exp:forgetting}, combining \eqref{eq:decomp:prod:kernel} and \eqref{eq:decomp:prod:kernel:plus} yields:
-\begin{align*}
-\left|p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) -  p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}-1}^{(n,N+\ell)}\right) \right|&\\
-&\hspace{-3.5cm}\leq \left(\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\epsilon)\right) \sup_{v^{n,N}_{q+1}}\left|\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right|\\
-&\hspace{-3.5cm}\le \prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\epsilon)\eqsp,
-\end{align*}
-where $\rho^{n,N}_k(\epsilon)$ is defined by \eqref{eq:defrho}. \eqref{eq:bound:forget} is then a direct consequence of \eqref{eq:decomp:prod:kernel}, \eqref{eq:decomp:prod:kernel:plus} and the fact that 
-for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$. The inequality is straightforward for $q = \ordermax{n}{N}-1$ (the upper bound being 1).
-The inequality \eqref{eq:bound:loglik} follows from \eqref{eq:decomp:prod:kernel}. 
-\end{proof}
+and 
+\[
+\sup_{\pi\in\Pi;\;q< \ordermax{n}{N}}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right)\right|\le cn^2\log \left(\varepsilon^{-1}\right)\eqsp.
+\]
+\end{remark}
+
 In the sequel, the stationary observations $(X^{n,N}_{q})_{2\le q\le \ordermax{n}{N}-1}$ are extended to a stationary process $(X^{n,N}_{q})_{ q>1}$. The asymptotic properties of the loglikelihood functions is established under the additional following assumptions.
 \begin{hypH}
 \label{assum:sum:rho}
 The scheduling algorithm used to define the opponents is such that for any $n\ge 1$,
 \[
- \frac{1}{\ordermax{n}{N}}\sum_{q=2}^{\ordermax{n}{N}-1}\varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\varepsilon)\limit{N} 0\quad \Pstar\mbox{-a.s.}
+ \frac{1}{\ordermax{n}{N}}\sum_{q=2}^{\ordermax{n}{N}-1}\varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\varepsilon)\limit{N} 0\quad \Pstar\mbox{-a.s.}\eqsp.
 \]
+where $c_1$ and $c_2$ are defined in Remark~\ref{rem:forgetting:likelihood}.
 \end{hypH}
-\textcolor{red}{Comments for the round-robin algorithm}.
+In the case of the round-robin scheduling, by Remark~\ref{rem:forgetting:likelihood}, H\ref{assum:sum:rho} boils down to 
+\[
+ \varepsilon^{-(c_1+c_2)n^2}\frac{\left(1-\varepsilon^{c_2n^2}\right)^{\ordermax{n}{N}}-\left(1-\varepsilon^{c_2n^2}\right)^{}}{\ordermax{n}{N}}\limit{N} 0\quad \Pstar\mbox{-a.s.}\eqsp.
+\]
 By \eqref{eq:bound:forget}, the sequence $(\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}))_{N\ge 1}$ converges uniformly in $\pi\in\Pi$, $\Pstar$-a.s. Denote by $\ell^{\infty}_{q,n}(\pi)$ this limit. In addition, by \eqref{eq:bound:loglik}, this sequence is uniformly bounded and so is its limit $\ell^{\infty}_{q,n}(\pi)$. Note that
 \[
 \sup_{\pi\in\Pi}\;\frac{1}{\ordermax{n}{N}}\left|\sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \sum_{q=2}^{\ordermax{n}{N}-1}\ell^{\infty}_{q,n}(\pi)\right| \le \frac{1}{\ordermax{n}{N}}\sum_{q=2}^{\ordermax{n}{N}-1}\varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\varepsilon)\eqsp.
 \]
-\textcolor{red}{A ajuster avec les cardinaux}
 By the ergodic theorem, for all $\pi\in\Pi$, $\Pstar$-a.s.  and in $\mathrm{L}^1(\Pstar)$,
 \[
 \frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right) \limit{N} \kullback(\pi) = \E_{\bayes}\left[\ell^{\infty}_{2,n}(\pi)\right]\eqsp.
@@ -558,120 +630,7 @@ as the inner term in the expectation is a Kullback-Leibler divergence and is the
 \section{Application to the round-robin scheduling}
 \label{sec:round:robin}
 \subsection{Detailed graphical model}
-In this section, each contestant meets others in turn according to  the round-robin scheduling that gives at each time $t\in[N]$ the pairs that face each others. At time $t=1$, this algorithm pairs the players off according to Figure~\ref{fig:robin:day1}. Each player faces the one in front of him, that is $2i-1$ faces $2i$, for all $i\in[N/2]$. At time $t=2$, a player is fixed and all the others are rotated clockwise as described in Figure~\ref{fig:robin:move}. Player $1$ does not move, $2$ takes the place of $3$, each odd integer $2i-1<N-1$ takes the place of $2i+1$, $N-1$ takes the place of $N$ and each even integer $2i>2$ takes the place of $2(i-1)$. Once they moved, each player faces the opponent in front of him. At time $t\ge 2$, each player moves once according to the round-robin algorithm and plays the opponent in front of him as displayed in Figure~\ref{fig:robin:day2}. Each time $t\in\bN$ is called a day of the tournament. It is well known that, at day $N$, all players have faced each other once. 
-
-\begin{figure}[h!]
-\begin{subfigure}{\textwidth}
-  \centering
-  \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
-\tikzstyle{connect}=[-latex, thick]
-\tikzstyle{box}=[rectangle, draw=black!100]
-\node[main, fill = black!10] (v1){$v_1$ };
-\node[main] (v3) [right=of v1] {$v_3$ };
-\node[main] (v5) [right=of v3] {$v_5$ };
-\node[main] (v7) [right=of v5] {${v_{2i-1}}$};
-\node[main] (v9) [right=of v7] {${v_{N-3}}$};
-\node[main] (v11) [right=of v9] {${v_{N-1}}$};
-\node[main] (v2) [below=of v1] {$v_2$};
-\node[main] (v4) [below=of v3] {$v_4$};
-\node[main] (v6) [below=of v5] {$v_6$};
-\node[main] (v8) [below=of v7] {${v_{2i}}$};
-\node[main] (v10) [below=of v9] {${v_{N-2}}$};
-\node[main] (v12) [below=of v11] {${v_{N}}$};
-\draw (v1) -- (v2);
-\draw (v3) -- (v4);
-\draw (v5) -- (v6);
-\draw (v7) -- (v8);
-\draw (v9) -- (v10);  
-\draw (v11) -- (v12);     
-\path (v5) -- node[auto=false]{\ldots}  (v7); 
-\path (v7) -- node[auto=false]{\ldots}  (v9); 
-\path (v6) -- node[auto=false]{\ldots}  (v8); 
-\path (v8) -- node[auto=false]{\ldots}  (v10);    
-\end{tikzpicture}
-\caption{Round-robin, day $1$.}
-\label{fig:robin:day1}
-\end{subfigure}
-
-\vspace{.7cm}
-
-\begin{subfigure}{\textwidth}
-  \centering
-  \begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
-\tikzstyle{connect}=[-latex, thick]
-\tikzstyle{box}=[rectangle, draw=black!100]
-\node[main, fill = black!10] (v1){$v_1$ };
-\node[main] (v3) [right=of v1] {$v_3$ };
-\node[main] (v5) [right=of v3] {$v_5$ };
-\node[main] (v7) [right=of v5] {${v_{2i-1}}$};
-\node[main] (v9) [right=of v7] {${v_{N-3}}$};
-\node[main] (v11) [right=of v9] {${v_{N-1}}$};
-\node[main] (v2) [below=of v1] {$v_2$};
-\node[main] (v4) [below=of v3] {$v_4$};
-\node[main] (v6) [below=of v5] {$v_6$};
-\node[main] (v8) [below=of v7] {${v_{2i}}$};
-\node[main] (v10) [below=of v9] {${v_{N-2}}$};
-\node[main] (v12) [below=of v11] {${v_{N}}$};
-\path (v2) edge [connect] (v3);   
-\path (v4) edge [connect] (v2);  
-\path (v3) edge [connect] (v5);  
-\path (v6) edge [connect] (v4); 
-\path (v9) edge [connect] (v11); 
-\path (v11) edge [connect] (v12);   
-\path (v12) edge [connect] (v10);   
-\path (v5) -- node[auto=false]{\ldots}  (v7); 
-\path (v7) -- node[auto=false]{\ldots}  (v9); 
-\path (v6) -- node[auto=false]{\ldots}  (v8); 
-\path (v8) -- node[auto=false]{\ldots}  (v10);    
-\end{tikzpicture}
-\caption{Round-robin, first move.}
-\label{fig:robin:move}
-\end{subfigure}
-
-\vspace{.7cm}
-
-\begin{subfigure}{\textwidth}
-\centering
-\begin{tikzpicture}
-\tikzstyle{main}=[circle, minimum size = 12mm, thick, draw =black!80, node distance = 6mm]
-\tikzstyle{connect}=[-latex, thick]
-\tikzstyle{box}=[rectangle, draw=black!100]
-\node[main, fill = black!10] (v1){$v_1$ };
-\node[main] (v3) [right=of v1] {$v_2$ };
-\node[main] (v5) [right=of v3] {$v_3$ };
-\node[main] (v7) [right=of v5] {${v_{2i-1}}$};
-\node[main] (v9) [right=of v7] {${v_{N-5}}$};
-\node[main] (v11) [right=of v9] {${v_{N-3}}$};
-\node[main] (v2) [below=of v1] {$v_4$};
-\node[main] (v4) [below=of v3] {$v_6$};
-\node[main] (v6) [below=of v5] {$v_8$};
-\node[main] (v8) [below=of v7] {${v_{2i}}$};
-\node[main] (v10) [below=of v9] {${v_{N}}$};
-\node[main] (v12) [below=of v11] {${v_{N-1}}$};
-\draw (v1) -- (v2);
-\draw (v3) -- (v4);
-\draw (v5) -- (v6);
-\draw (v7) -- (v8);
-\draw (v9) -- (v10);  
-\draw (v11) -- (v12);     
-\path (v5) -- node[auto=false]{\ldots}  (v7); 
-\path (v7) -- node[auto=false]{\ldots}  (v9); 
-\path (v6) -- node[auto=false]{\ldots}  (v8); 
-\path (v8) -- node[auto=false]{\ldots}  (v10);    
-\end{tikzpicture}
-\caption{Round-robin, day $2$.}
-\label{fig:robin:day2}
-\end{subfigure}
-\caption{First two days using the round-robin algorithm.}
-\label{fig:fig}
-\end{figure}
-
-%In this section, we assume that $N\to\infty$ and $n\ll N$.
-%
-%\subsection{Graphical model of the round-robin BTT}
-%Let $G^{n,N}=(V^{n,N},E^{n,N})$ be the directed graph representing the conditional dependences between the variables $v$ and $X=(X_{i,j})_{(i,j)\in A_{n,N}}$. The set of vertices is a disjoint union $V^{n,N}=\cV^{n,N}\cup \cX^{n,N}$ where $\cV^{n,N}$ is a partition of $(v_i)_{i\in[N]}$ and $\cX^{n,N}$ is a partition of $(X_{i,j})_{(i,j)\in A_{n,N}}$. 
+This section details the sets $V_q^{n,N}$ and $X_q^{n,N}$ for $0\le q\le \ordermax{n}{N}+1$ when each contestant meets others in turn according to  the round-robin scheduling described in Section~\ref{sec:likelihood}, see Figures~\ref{fig:robin:day1}-\ref{fig:robin:day2}.
 
 \begin{lemma}\label{lem:ElementsAtDistanceq} Assume that $2\le n<N/4$ and let $N/2-1= \ordermax{n}{N}(n-1)+\remainder{n}{N}$ where $0\le \remainder{n}{N}<n-1$. Define $V_{0}^{n,N}=\{v_1\}$. Then, 
 \begin{equation}\label{def:V1}
@@ -1116,6 +1075,40 @@ The proof is then completed by choosing:
 \]
 \end{proof}
 
+\begin{proof}[Proof of Lemma~\ref{lem:exp:forget}]
+Note that,
+\begin{align*}
+p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right) &\\
+&\hspace{-3cm}= \int p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N},v_{0:2}^{n,N},v_{\ordermax{n}{N}:\ordermax{n}{N}+1}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right)\rmd v_{0:2}^{n,N}\rmd v_{\ordermax{n}{N}:\ordermax{n}{N}+1}^{n,N}\eqsp,\\
+&\hspace{-3cm}= \int p_{\pi}^{n,N}\left(v_{0:2}^{n,N},v_{\ordermax{n}{N}:\ordermax{n}{N}+1}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right)\left\{\prod_{X_{i,j}\in Z^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right\}\rmd v_{0:2}^{n,N}\rmd v_{\ordermax{n}{N}:\ordermax{n}{N}+1}^{n,N}\eqsp,
+\end{align*}
+where $Z^{n,N} = X_{0}^{n,N}\cup X_{1}^{n,N}\cup X_{\ordermax{n}{N}}^{n,N}$.
+By \eqref{eq:bound:likelihood},
+\[
+\varepsilon^{\card\left(Z^{n,N}\right)}\le p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right)  \le 1\eqsp,
+\]
+so that \eqref{eq:bound:end} holds. To prove \eqref{eq:bound:forget}, for $2\le q< \ordermax{n}{N}-1$, note that by Lemma~\ref{lem:minorization},  
+\begin{multline}
+\label{eq:decomp:prod:kernel}
+p_{\pi}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) = \int p_{\pi}\left(\rmd v_{\ordermax{n}{N}-1}^{n,N}\middle | X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) \prod_{k =\ordermax{n}{N}-2}^{q+1}\kernel^{n,N}_{\pi,k,q+1}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
+\times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})
+\end{multline}
+and since $X^{n,N}_{q+1:\ordermax{n}{N}-1}=X^{n,N+\ell}_{q+1:\ordermax{n}{N}-1}$,
+\begin{multline}
+\label{eq:decomp:prod:kernel:plus}
+p_{\pi}^{n,N+\ell}\left(X^{n,N+\ell}_{q}\middle|X^{n,N+\ell}_{q+1:\ordermax{n}{N+\ell}-1}\right) = \int p_{\pi}\left(\rmd v_{\ordermax{n}{N}-1}^{n,N}\middle | X^{n,N+\ell}_{q+1:\ordermax{n}{N+\ell}}\right) \prod_{k =\ordermax{n}{N}-2}^{q+1}\kernel^{n,N}_{\pi,k,q+1}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
+\times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp.
+\end{multline}
+Then, by Lemma~\ref{lem:minorization} and \eqref{eq:exp:forgetting}, combining \eqref{eq:decomp:prod:kernel} and \eqref{eq:decomp:prod:kernel:plus} yields:
+\begin{align*}
+\left|p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) -  p_{\pi}^{(n,N+\ell)}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}-1}^{(n,N+\ell)}\right) \right|&\\
+&\hspace{-3.5cm}\leq \left(\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\epsilon)\right) \sup_{v^{n,N}_{q+1}}\left|\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right|\\
+&\hspace{-3.5cm}\le \prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\epsilon)\eqsp,
+\end{align*}
+where $\rho^{n,N}_k(\epsilon)$ is defined by \eqref{eq:defrho}. \eqref{eq:bound:forget} is then a direct consequence of \eqref{eq:decomp:prod:kernel}, \eqref{eq:decomp:prod:kernel:plus} and the fact that 
+for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$. The inequality is straightforward for $q = \ordermax{n}{N}-1$ (the upper bound being 1).
+The inequality \eqref{eq:bound:loglik} follows from \eqref{eq:decomp:prod:kernel}. 
+\end{proof}
 \bibliographystyle{plain}
 \bibliography{bradleyterrybib}
 

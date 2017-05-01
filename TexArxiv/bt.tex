@@ -155,7 +155,7 @@ On the other hand, for all $0\le k <q$,
 \end{lemma}
 \begin{remark}
 \label{rem:forgetting:robin}
-In the case of the round-robin scheduling, it is proved in Section~\ref{sec:round:robin} that if  $n = 2p+1$ with $p\ge 0$ then $\card(X^{n,N}_{k\link k+1}) = 2p(p+1)$ and  if  $n = 2(p+1)$ with $p\ge 0$ then $\card(X^{n,N}_{k\link k+1}) = 2(p+1)^2$ for $0 \le q\le  k <\ordermax{n}{N}-1$. In this case, there exists a constant $c>0$ such that  for all $0\le q\le k < \ordermax{n}{N}-1$ and for all measurable set $A$:
+In the case of the round-robin scheduling, it is proved in Section~\ref{sec:round:robin} that if  $n = 2p+1$ with $p\ge 0$ then $\card(X^{n,N}_{k\link k+1}) = 2p(p+1)$ and  if  $n = 2(p+1)$ with $p\ge 0$ then $\card(X^{n,N}_{k\link k+1}) = 2(p+1)^2$ for  $0 \le q\le  k <\ordermax{n}{N}-1$. In this case, there exists a constant $c>0$ such that  for all $0\le q\le k < \ordermax{n}{N}-1$ and for all measurable set $A$:
 \[
 \kernel^{n,N}_{\pi,k,q}(V^N_{k+1},A)  \ge \varepsilon^{cn^2} \mu^{n,N}_{\pi,k,q}(A)\eqsp.
 \]
@@ -395,7 +395,7 @@ In addition,
 \end{lemma}
 \begin{remark}
 \label{rem:forgetting:likelihood}
-In the case of the round-robin scheduling, it is proved in Section~\ref{sec:round:robin} that if  $n = 2p+1$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2p(p+1) + 2p^2$ and  if  $n = 2(p+1)$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2(p+1)^2 + 2p(p+1)$, for $0 \le q\le \ordermax{n}{N}-1$. Then, by Remark~\ref{rem:forgetting:robin}, there exist $c_1,c2 >0$ such that for all even number $\ell>1$,  $2\le q\le \ordermax{n}{N}-1$ and all $\pi\in\Pi$,
+In the case of the round-robin scheduling, it is proved in Section~\ref{sec:round:robin} that if  $n = 2p+1$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2p(p+1) + 2p^2$ and  if  $n = 2(p+1)$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2(p+1)^2 + 2p(p+1)$, for $0 \le q\le \ordermax{n}{N}-1$. Then, by Remark~\ref{rem:forgetting:robin}, there exist $c_1,c2 >0$ such that for all even number $\ell>1$,  $2\le q< \ordermax{n}{N}-2$ and all $\pi\in\Pi$,
 \begin{align*}
 \sup_{\pi\in\Pi}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \log p_{\pi}^{n,N+\ell}\left(X_{q}^{(n,N+\ell)}\middle|X_{q+1:\ordermax{n}{N+\ell}-1}^{n,N+\ell}\right) \right|&\\
 &\hspace{-2cm}\leq \varepsilon^{-c_1n^2}\prod_{k=q+1}^{\ordermax{n}{N}-2}\left(1-\varepsilon^{c_2n^2}\right) \eqsp,\\
@@ -410,7 +410,6 @@ and
 \sup_{\pi\in\Pi;\;q< \ordermax{n}{N}}\left|\log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right)\right|\le cn^2\log \left(\varepsilon^{-1}\right)\eqsp.
 \]
 \end{remark}
-
 In the sequel, the stationary observations $(X^{n,N}_{q})_{2\le q\le \ordermax{n}{N}-1}$ are extended to a stationary process $(X^{n,N}_{q})_{ q>1}$. The asymptotic properties of the loglikelihood functions is established under the additional following assumptions.
 \begin{hypH}
 \label{assum:sum:rho}
@@ -420,13 +419,23 @@ The scheduling algorithm used to define the opponents is such that for any $n\ge
 \]
 where $c_1$ and $c_2$ are defined in Remark~\ref{rem:forgetting:likelihood}.
 \end{hypH}
-In the case of the round-robin scheduling, by Remark~\ref{rem:forgetting:likelihood}, H\ref{assum:sum:rho} boils down to 
+In the case of the round-robin scheduling, by Remark~\ref{rem:forgetting:likelihood}, H\ref{assum:sum:rho} holds. 
+%boils down to 
+%\[
+% \varepsilon^{-(c_1+c_2)n^2}\frac{\left(1-\varepsilon^{c_2n^2}\right)^{\ordermax{n}{N}}-\left(1-\varepsilon^{c_2n^2}\right)^{}}{\ordermax{n}{N}}\limit{N} 0\quad \Pstar\mbox{-a.s.}\eqsp.
+%\]
+
+By \eqref{eq:bound:forget}, the sequence $(\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}))_{N\ge 1}$ converges uniformly in $\pi\in\Pi$, $\Pstar$-a.s. Denote by $\ell^{\infty}_{q,n}(\pi)$ this limit: for all $n\ge 1$
 \[
- \varepsilon^{-(c_1+c_2)n^2}\frac{\left(1-\varepsilon^{c_2n^2}\right)^{\ordermax{n}{N}}-\left(1-\varepsilon^{c_2n^2}\right)^{}}{\ordermax{n}{N}}\limit{N} 0\quad \Pstar\mbox{-a.s.}\eqsp.
+\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N})\limit{N}\ell^{\infty}_{q,n}(\pi)\quad \Pstar\mbox{-a.s.}
 \]
-By \eqref{eq:bound:forget}, the sequence $(\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}))_{N\ge 1}$ converges uniformly in $\pi\in\Pi$, $\Pstar$-a.s. Denote by $\ell^{\infty}_{q,n}(\pi)$ this limit. In addition, by \eqref{eq:bound:loglik}, this sequence is uniformly bounded and so is its limit $\ell^{\infty}_{q,n}(\pi)$. Note that
+In addition, by \eqref{eq:bound:loglik}, this sequence is uniformly bounded and so is its limit $\ell^{\infty}_{q,n}(\pi)$. Note that
 \[
 \sup_{\pi\in\Pi}\;\frac{1}{\ordermax{n}{N}}\left|\sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \sum_{q=2}^{\ordermax{n}{N}-1}\ell^{\infty}_{q,n}(\pi)\right| \le \frac{1}{\ordermax{n}{N}}\sum_{q=2}^{\ordermax{n}{N}-1}\varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\varepsilon)\eqsp.
+\]
+By Remark~\ref{rem:forgetting:likelihood}, in the case of the roud-robin algorithm, the upper bound in the last equation is given by:
+\[
+\sup_{\pi\in\Pi}\;\frac{1}{\ordermax{n}{N}}\left|\sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \sum_{q=2}^{\ordermax{n}{N}-1}\ell^{\infty}_{q,n}(\pi)\right|\le\frac{\varepsilon^{- c_1n^2}}{\ordermax{n}{N}}\left\{\frac{\left(1-\varepsilon^{c_2n^2}\right)^{\ordermax{n}{N}}}{\varepsilon^{c_2n^2}}+2\right\}\eqsp.
 \]
 By the ergodic theorem, for all $\pi\in\Pi$, $\Pstar$-a.s.  and in $\mathrm{L}^1(\Pstar)$,
 \[

@@ -463,6 +463,80 @@ Therefore,
 \end{align*}
 as the inner term in the expectation is a Kullback-Leibler divergence and is therefore positive.
 \end{proof}
+
+
+
+\begin{lemma}
+For any distributions $\pi,\pi'$ and any $2\le q\le \ordermax{n}{N}$,
+\begin{multline*}
+\left|\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi'}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N})\right| \\
+\leq 2\varepsilon^{-\card(X^{n,N}_{q})}\sum_{\ell= 0}^{\ordermax{n}{N}-q}\left(\prod_{k = q+1}^{q+\ell-1}\rho^{n,N}_k(\varepsilon)\right)\varepsilon^{-2\card(X^{n,N}_{q+\ell-1})-2\card(X^{n,N}_{q+\ell})}\|\pi-\pi'\|_{\mathsf{tv}}\eqsp.
+\end{multline*}
+\end{lemma}
+\begin{remark}
+\label{rem:forgetting:tv}
+In the case of the round-robin scheduling, it is proved in Section~\ref{sec:round:robin} that if  $n = 2p+1$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2p(p+1) + 2p^2$ and  if  $n = 2(p+1)$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2(p+1)^2 + 2p(p+1)$, for $0 \le q\le \ordermax{n}{N}-1$. Then, there exist $c_1,c2 >0$ such that,
+\[
+\left|\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi'}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N})\right| \\
+\leq c_1\varepsilon^{-c_2n^2}\|\pi-\pi'\|_{\mathsf{tv}}\eqsp.
+\]
+\end{remark}
+\begin{proof}
+First note that
+\begin{multline*}
+p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - p_{\pi'}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) \\ = \sum_{\ell= 0}^{\ordermax{n}{N}-q}\left\{p_{\ell}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - p_{\ell+1}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N})\right\}\eqsp,
+\end{multline*}
+where $p_{\ell}^{n,N}$ is the conditional distribution when where the states in $(V_q^{n,N},\ldots,V_{q+\ell-1}^{n,N})$ are i.i.d. with distribution $\pi'$ and where  the states in $(V_{q+\ell}^{n,N},\ldots,V_{\ordermax{n}{N}}^{n,N})$ are i.i.d. with distribution $\pi$. Then, for all $2\le \ell \le \ordermax{n}{N}-q$,
+\begin{multline*}
+p_{\ell}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) = \int p^{n,N}_{\ell}\left(\rmd v_{q+\ell}^{n,N}\middle | X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) \prod_{k = q+1}^{q+\ell-1}\kernel^{n,N}_{\pi',k,q+1}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
+\times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp.
+\end{multline*}
+Therefore, by Lemma~\ref{lem:minorization},
+\begin{multline*}
+\left|p_{\ell}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}-1}\right)-p_{\ell+1}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}-1}\right)\right|\\
+\le \left(\prod_{k = q+1}^{q+\ell-1}\rho^{n,N}_k(\varepsilon)\right)\|\bP^{n,N}_{\ell}\left(\cdot\middle | X^{n,N}_{q+1:\ordermax{n}{N}-1}\right)-\bP^{n,N}_{\ell+1}\left(\cdot\middle | X^{n,N}_{q+1:\ordermax{n}{N}-1}\right)\|_{\mathsf{tv}}\eqsp,
+\end{multline*}
+where $\bP^{n,N}_{\ell}$ is the distribution with probability density $p^{n,N}_{\ell}$. For any function $f$,
+\[
+\left|\int f(v_{q+\ell}^{n,N})\left\{p^{n,N}_{\ell}\left(\rmd v_{q+\ell}^{n,N}\middle | X^{n,N}_{q+1:\ordermax{n}{N}-1}\right)-p^{n,N}_{\ell+1}\left(\rmd v_{q+\ell}^{n,N}\middle | X^{n,N}_{q+1:\ordermax{n}{N}-1}\right)\right\}\right|\le T^1_{\ell}(f) + T^2_{\ell}(f)\eqsp,
+\]
+where
+\begin{align*}
+\mathrm{L}_{\ell}&= \int \prod_{m=q+1}^{q+\ell-1}\pi'(\rmd v^{n,N}_m)\prod_{m=q+\ell}^{\ordermax{n}{N}}\pi(\rmd v^{n,N}_m)\prod_{m=q+1}^{\ordermax{n}{N}-1}\prod_{X_{i,j}\in X^{n,N}_m}\condlik(X_{i,j},v_{\{i,j\}})\eqsp,\\
+T^1_{\ell}(f) &= \mathrm{L}_{\ell}^{-1}\left|\int \prod_{m=q+1}^{q+\ell-1}\pi'(\rmd v^{n,N}_m)\prod_{m=q+\ell+1}^{\ordermax{n}{N}}\pi(\rmd v^{n,N}_m)f(v_{q+\ell}^{n,N})\right.\\
+&\hspace{1cm}\left.\times\left\{\pi(\rmd v_{q+\ell}^{n,N})-\pi'(\rmd v_{q+\ell}^{n,N})\right\}\prod_{m=q+1}^{\ordermax{n}{N}-1}\prod_{X_{i,j}\in X^{n,N}_m}\condlik(X_{i,j},v_{\{i,j\}})\right|\eqsp,\\
+T^2_{\ell}(f) &= \mathrm{L}_{\ell}^{-1}\mathrm{L}_{\ell+1}^{-1}\left|\mathrm{L}_{\ell}^{-1}-\mathrm{L}_{\ell}^{-1}\right|\\
+& \hspace{1cm}\times\left|\int \prod_{m=q+1}^{q+\ell-1}\hspace{-.2cm}\pi'(\rmd v^{n,N}_m)\hspace{-.4cm}\prod_{m=q+\ell+1}^{\ordermax{n}{N}}\pi(\rmd v^{n,N}_m)f(v_{q+\ell}^{n,N})\pi'(\rmd v_{q+\ell}^{n,N})\hspace{-.2cm}\prod_{m=q+1}^{\ordermax{n}{N}-1}\prod_{X_{i,j}\in X^{n,N}_m}\condlik(X_{i,j},v_{\{i,j\}})\right|\eqsp.
+\end{align*}
+Bounding above and below the terms $\prod_{X_{i,j}\in X^{n,N}_{q+\ell}}\condlik(X_{i,j},v_{\{i,j\}})$ and $\prod_{X_{i,j}\in X^{n,N}_{q+\ell-1}}\condlik(X_{i,j},v_{\{i,j\}})$ yields:
+\begin{align*}
+T^1_{\ell}(f)  &\le \varepsilon^{-\card(X^{n,N}_{q+\ell-1})-\card(X^{n,N}_{q+\ell})}\|\pi-\pi'\|_{\mathsf{tv}}\|f\|_{\infty}\eqsp,\\
+T^2_{\ell}(f)  &\le \varepsilon^{-2\card(X^{n,N}_{q+\ell-1})-2\card(X^{n,N}_{q+\ell})}\|\pi-\pi'\|_{\mathsf{tv}}\|f\|_{\infty}
+\end{align*}
+The proof is completed using the fact that 
+for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$. 
+\end{proof}
+For all $2\le q< \ordermax{n}{N}$ and all $q\le \tilde{q}\le \ordermax{n}{N}-1$, let $\widetilde{X}^{n,N}$ be defined by $\widetilde{X}_k^{n,N} = X_k^{n,N}$ for all $q\le k\le \ordermax{n}{N}-1$ such that $k\neq \tilde{q}$. 
+\begin{lemma}
+For any distributions $\pi$ and any $2\le q\le \tilde{q}<\ordermax{n}{N}$,
+\begin{multline*}
+\left|\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi}^{n,N}(\widetilde{X}_{q}^{n,N}|\widetilde{X}_{q+1:\ordermax{n}{N}-1}^{n,N})\right| \\
+\leq \eqsp.
+\end{multline*}
+\end{lemma}
+\begin{remark}
+\label{rem:forgetting:tildeX}
+In the case of the round-robin scheduling, it is proved in Section~\ref{sec:round:robin} that if  $n = 2p+1$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2p(p+1) + 2p^2$ and  if  $n = 2(p+1)$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2(p+1)^2 + 2p(p+1)$, for $0 \le q\le \ordermax{n}{N}-1$. Then, there exist $c_1,c2 >0$ such that,
+\[
+\left|\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi}^{n,N}(\widetilde{X}_{q}^{n,N}|\widetilde{X}_{q+1:\ordermax{n}{N}-1}^{n,N})\right| \\
+\leq \eqsp.
+\]
+\end{remark}
+
+\begin{proof}
+
+\end{proof}
+
 %Then, by Lemma~\ref{lem:uniformforgetting}, $\Pstar$-a.s.,
 %\begin{align*}
 %\sup_{\param\in\paramset}\left|\ell^n_{\pi_{\param},\param}\left(\bar X_{1},\ldots,\bar X_{n}\right) - \sum_{k=1}^{n-1}\ell^k_{\infty}(\param)\right| &\\

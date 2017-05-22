@@ -161,19 +161,22 @@ In the case of the round-robin scheduling, it is proved in Section~\ref{sec:roun
 \]
 Therefore, the minorization constant does not depend on $N$.
 \end{remark}
-Let $\|\cdot\|_{\mathsf{tv}}$ denotes the total variation distance between measures. By Lemma~\ref{lem:minorization}, for all measures $\mu_1$, $\mu_2$, any bounded measurable function $f$ and any $q\le k < \ordermax{n}{N}-1$,
+Let $\|\cdot\|_{\mathsf{tv}}$ denotes the total variation distance between measures. Lemma~\ref{lem:totalvariation} is a direct consequence of Lemma~\ref{lem:minorization} and \cite{}. It is a pivotal result used in the remainder of the paper to obtain the uniform convergence of the loglikelihood of the observations in Section~\ref{sec:likelihood}.
+\begin{lemma}
+\label{lem:totalvariation}
+For all measures $\mu_1$, $\mu_2$, any bounded measurable function $f$ and any $q\le k < \ordermax{n}{N}-1$,
 \begin{align*}
 \left|\int \mu_1 (\rmd x)\kernel^{n,N}_{\pi,k,q}(x,\rmd y)f(y) - \int \mu_2 (\rmd x)\kernel^{n,N}_{\pi,k,q}(x,\rmd y)f(y) \right|&\le \left(1-\varepsilon^{\card\left(X^{n,N}_{k\link k+1}\right)}\right)\|\mu_1-\mu_2\|_{\mathsf{tv}}\|f\|_{\infty}\eqsp,\\
 &\le \left(1-\varepsilon^{\card\left(X^{n,N}_{k\link k+1}\right)}\right)\|f\|_{\infty}\eqsp.
 \end{align*}
+\end{lemma}
 Then by induction,
 \begin{multline}
 \label{eq:exp:forgetting}
 \left|\int \left\{\mu_1(\rmd v^{n,N}_{\ordermax{n}{N}-1})-\mu_2(\rmd v^{n,N}_{\ordermax{n}{N}-1})\right\} \kernel^{n,N}_{\pi,\ordermax{n}{N}-2,q}(v_{\ordermax{n}{N}-1}^{n,N},\rmd v_{\ordermax{n}{N}-2}^{n,N})\ldots\kernel^{n,N}_{\pi,k,q}(v_{k+1}^{n,N},\rmd v_k^{n,N})f(v_k^{n,N})\right|\\
 \le \|f\|_{\infty}\prod_{j=k}^{\ordermax{n}{N}-2}\left(1-\varepsilon^{\card\left(X^{n,N}_{k\link k+1}\right)}\right)\eqsp.
 \end{multline}
-This result is the pivotal tool to obtain the uniform convergence of the loglikelihood of the observations obtained in Section~\ref{sec:likelihood}.
-%
+
 
 \section{Uniform convergence of the loglikelihood}
 \label{sec:likelihood}
@@ -470,8 +473,9 @@ as the inner term in the expectation is a Kullback-Leibler divergence and is the
 For any distributions $\pi,\pi'$ and any $2\le q\le \ordermax{n}{N}$,
 \begin{multline*}
 \left|\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi'}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N})\right| \\
-\leq 2\varepsilon^{-\card(X^{n,N}_{q})}\sum_{\ell= 0}^{\ordermax{n}{N}-q}\left(\prod_{k = q+1}^{q+\ell-1}\rho^{n,N}_k(\varepsilon)\right)\varepsilon^{-2\card(X^{n,N}_{q+\ell-1})-2\card(X^{n,N}_{q+\ell})}\|\pi-\pi'\|_{\mathsf{tv}}\eqsp.
+\leq 2\varepsilon^{-\card(X^{n,N}_{q})}\sum_{\ell= 0}^{\ordermax{n}{N}-q}\left(\prod_{k = q+1}^{q+\ell-1}\rho^{n,N}_k(\varepsilon)\right)\varepsilon^{-2\card(X^{n,N}_{q+\ell-1})-2\card(X^{n,N}_{q+\ell})}\|\pi-\pi'\|_{\mathsf{tv}}\eqsp,
 \end{multline*}
+where $\rho^{n,N}_k$ is defined by \eqref{eq:defrho}.
 \end{lemma}
 \begin{remark}
 \label{rem:forgetting:tv}
@@ -482,11 +486,11 @@ In the case of the round-robin scheduling, it is proved in Section~\ref{sec:roun
 \]
 \end{remark}
 \begin{proof}
-First note that
+First note that:
 \begin{multline*}
 p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - p_{\pi'}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) \\ = \sum_{\ell= 0}^{\ordermax{n}{N}-q}\left\{p_{\ell}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - p_{\ell+1}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N})\right\}\eqsp,
 \end{multline*}
-where $p_{\ell}^{n,N}$ is the conditional distribution when where the states in $(V_q^{n,N},\ldots,V_{q+\ell-1}^{n,N})$ are i.i.d. with distribution $\pi'$ and where  the states in $(V_{q+\ell}^{n,N},\ldots,V_{\ordermax{n}{N}}^{n,N})$ are i.i.d. with distribution $\pi$. Then, for all $2\le \ell \le \ordermax{n}{N}-q$,
+where $p_{\ell}^{n,N}$ is the conditional distribution when the states in $(V_q^{n,N},\ldots,V_{q+\ell-1}^{n,N})$ are i.i.d. with distribution $\pi'$ and when the states in $(V_{q+\ell}^{n,N},\ldots,V_{\ordermax{n}{N}}^{n,N})$ are i.i.d. with distribution $\pi$. Then, for all $2\le \ell \le \ordermax{n}{N}-q$,
 \begin{multline*}
 p_{\ell}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) = \int p^{n,N}_{\ell}\left(\rmd v_{q+\ell}^{n,N}\middle | X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) \prod_{k = q+1}^{q+\ell-1}\kernel^{n,N}_{\pi',k,q+1}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
 \times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp.
@@ -516,25 +520,39 @@ T^2_{\ell}(f)  &\le \varepsilon^{-2\card(X^{n,N}_{q+\ell-1})-2\card(X^{n,N}_{q+\
 The proof is completed using the fact that 
 for all $x,y>0$, $|\log x - \log y| \le |x-y|/x\wedge y$. 
 \end{proof}
-For all $2\le q< \ordermax{n}{N}$ and all $q\le \tilde{q}\le \ordermax{n}{N}-1$, let $\widetilde{X}^{n,N}$ be defined by $\widetilde{X}_k^{n,N} = X_k^{n,N}$ for all $q\le k\le \ordermax{n}{N}-1$ such that $k\neq \tilde{q}$. 
+For all $2\le q< \ordermax{n}{N}$ and all $q\le \tilde{q}\le \ordermax{n}{N}-1$, let $\widetilde{X}^{n,N}$ be  such that $\widetilde{X}_{\tilde{q}}^{n,N}\in \{0,1\}^{\card(X_q^{n,N})}$ and $\widetilde{X}_k^{n,N} = X_k^{n,N}$ for all $q\le k\le \ordermax{n}{N}-1$ such that $k\neq \tilde{q}$. 
 \begin{lemma}
 For any distributions $\pi$ and any $2\le q\le \tilde{q}<\ordermax{n}{N}$,
-\begin{multline*}
-\left|\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi}^{n,N}(\widetilde{X}_{q}^{n,N}|\widetilde{X}_{q+1:\ordermax{n}{N}-1}^{n,N})\right| \\
-\leq \eqsp.
-\end{multline*}
+\[
+\left|\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi}^{n,N}(\widetilde{X}_{q}^{n,N}|\widetilde{X}_{q+1:\ordermax{n}{N}-1}^{n,N})\right| \leq \varepsilon^{-\card(X^{n,N}_{q})}\prod_{k = q+1}^{\tilde{q}-1}\rho^{n,N}_k(\varepsilon)\eqsp.
+\]
 \end{lemma}
 \begin{remark}
 \label{rem:forgetting:tildeX}
-In the case of the round-robin scheduling, it is proved in Section~\ref{sec:round:robin} that if  $n = 2p+1$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2p(p+1) + 2p^2$ and  if  $n = 2(p+1)$ with $p\ge 0$ then $\card(X^{n,N}_{q}) = 2(p+1)^2 + 2p(p+1)$, for $0 \le q\le \ordermax{n}{N}-1$. Then, there exist $c_1,c2 >0$ such that,
-\[
-\left|\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi}^{n,N}(\widetilde{X}_{q}^{n,N}|\widetilde{X}_{q+1:\ordermax{n}{N}-1}^{n,N})\right| \\
-\leq \eqsp.
-\]
+In the case of the round-robin scheduling, there exist $c_1,c_2 >0$ such that,
+\begin{align*}
+\left|\log p_{\pi}^{n,N}(X_{q}^{n,N}|X_{q+1:\ordermax{n}{N}-1}^{n,N}) - \log p_{\pi}^{n,N}(\widetilde{X}_{q}^{n,N}|\widetilde{X}_{q+1:\ordermax{n}{N}-1}^{n,N})\right| &\leq \varepsilon^{-c_1n^2}\prod_{k=q+1}^{\tilde{q}-1}\left(1-\varepsilon^{c_2n^2}\right) \eqsp,\\
+&\le  \varepsilon^{-c_1n^2}\left(1-\varepsilon^{c_2n^2}\right)^{\tilde{q}-q-1}\eqsp. 
+\end{align*}
 \end{remark}
 
 \begin{proof}
-
+Then, for all $2\le q \le \ordermax{n}{N}$,
+\begin{multline*}
+p_{\pi}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) = \int p^{n,N}_{\pi}\left(\rmd v_{\tilde{q}}^{n,N}\middle | X^{n,N}_{q+1:\ordermax{n}{N}-1}\right) \prod_{k = q+1}^{\tilde{q}-1}\kernel^{n,N}_{\pi,k,q+1}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
+\times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp.
+\end{multline*}
+As for all $q+1\le k\le \tilde{q}-1$ the Markov transition kernel $\kernel^{n,N}_{\pi,k,q+1}$ depends only on $\pi$, $\condlik$ and $X^{n,N}_{q+1:k-1}$ and on $X^{n,N}_{k\link k+1}$,  
+\begin{multline*}
+p_{\pi}^{n,N}\left(\widetilde{X}^{n,N}_{q}\middle|\widetilde{X}^{n,N}_{q+1:\ordermax{n}{N}-1}\right) = \int p^{n,N}_{\pi}\left(\rmd v_{\tilde{q}}^{n,N}\middle | \widetilde{X}^{n,N}_{q+1:\ordermax{n}{N}-1}\right) \prod_{k = q+1}^{\tilde{q}-1}\kernel^{n,N}_{\pi,k,q+1}(v_{k+1}^{n,N},\rmd v_k^{n,N})\\
+\times\int \pi(\rmd v_q^{n,N})\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\eqsp.
+\end{multline*}
+Then, by Lemma~\ref{lem:totalvariation}, 
+\begin{multline*}
+\left|p_{\pi}^{n,N}\left(X^{n,N}_{q}\middle|X^{n,N}_{q+1:\ordermax{n}{N}-1}\right)-p_{\pi}^{n,N}\left(\widetilde{X}^{n,N}_{q}\middle|\widetilde{X}^{n,N}_{q+1:\ordermax{n}{N}-1}\right)\right| \\
+\le \left(\prod_{k = q+1}^{\tilde{q}-1}\rho^{n,N}_k(\varepsilon)\right) \sup_{v^{n,N}_{q+1}}\left|\int\pi(\rmd v^{n,N}_q)\prod_{X_{i,j}\in X_{q}^{n,N}}\condlik(X_{i,j},v_{\{i,j\}})\right|\eqsp,
+\end{multline*}
+which concludes the proof using H\ref{assum:strongmix} and for all $x,y>0$, $|\log x - \log y|\le  |x-y|/(x\wedge y)$.
 \end{proof}
 
 %Then, by Lemma~\ref{lem:uniformforgetting}, $\Pstar$-a.s.,

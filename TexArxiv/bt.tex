@@ -437,9 +437,10 @@ In addition, by \eqref{eq:bound:loglik}, this sequence is uniformly bounded and 
 \sup_{\pi\in\Pi}\;\frac{1}{\ordermax{n}{N}}\left|\sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \sum_{q=2}^{\ordermax{n}{N}-1}\ell^{\infty}_{q,n}(\pi)\right| \le \frac{1}{\ordermax{n}{N}}\sum_{q=2}^{\ordermax{n}{N}-1}\varepsilon^{-\card(X^{n,N}_{q})}\prod_{k=q+1}^{\ordermax{n}{N}-2}\rho^{n,N}_k(\varepsilon)\eqsp.
 \]
 By Remark~\ref{rem:forgetting:likelihood}, in the case of the roud-robin algorithm, the upper bound in the last equation is given by:
-\[
+\begin{equation}
+\label{eq:linfty}
 \sup_{\pi\in\Pi}\;\frac{1}{\ordermax{n}{N}}\left|\sum_{q=2}^{\ordermax{n}{N}-1}  \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right) - \sum_{q=2}^{\ordermax{n}{N}-1}\ell^{\infty}_{q,n}(\pi)\right|\le\frac{\varepsilon^{- c_1n^2}}{\ordermax{n}{N}}\left\{\frac{\left(1-\varepsilon^{c_2n^2}\right)^{\ordermax{n}{N}}}{\varepsilon^{c_2n^2}}+2\right\}\eqsp.
-\]
+\end{equation}
 By the ergodic theorem, for all $\pi\in\Pi$, $\Pstar$-a.s.  and in $\mathrm{L}^1(\Pstar)$,
 \[
 \frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right) \limit{N} \kullback(\pi) = \E_{\bayes}\left[\ell^{\infty}_{2,n}(\pi)\right]\eqsp.
@@ -467,6 +468,40 @@ Therefore,
 as the inner term in the expectation is a Kullback-Leibler divergence and is therefore positive.
 \end{proof}
 
+
+
+The risk of the estimator $\MLE^{n,N}$ is measured by the excess loss defined as follows:
+\[
+R^{\bayes}(\MLE^{n,N})=\kullback^{\bayes}(\bayes)-\kullback^{\bayes}(\MLE^{n,N})\enspace.
+\]
+This excess loss may be bounded above by construction:
+By construction
+\begin{align*}
+R^{\bayes}(\MLE^{n,N}) &=\kullback^{\bayes}(\bayes)-\E_{\bayes}\left[\frac{1}{\ordermax{n}{N}}\log p_{\bayes}^{n,N}\left(X_{\cA_{n,N}}\right)\right]\\
+&\hspace{1cm}+\E_{\bayes}\left[\frac{1}{\ordermax{n}{N}}\log p_{\bayes}^{n,N}\left(X_{\cA_{n,N}}\right)\right]-\frac{1}{\ordermax{n}{N}}\log p_{\bayes}^{n,N}\left(X_{\cA_{n,N}}\right)\\
+&\hspace{1cm}+\frac{1}{\ordermax{n}{N}}\log p_{\bayes}^{n,N}\left(X_{\cA_{n,N}}\right)-\frac{1}{\ordermax{n}{N}}\log p_{\MLE^{n,N}}^{n,N}\left(X_{\cA_{n,N}}\right)\\
+&\hspace{1cm}+\frac{1}{\ordermax{n}{N}}\log p_{\MLE^{n,N}}^{n,N}\left(X_{\cA_{n,N}}\right)-\E_{\bayes}\left[\frac{1}{\ordermax{n}{N}}\log p_{\MLE^{n,N}}^{n,N}\left(X_{\cA_{n,N}}\right)\right]\\
+&\hspace{1cm}+\E_{\bayes}\left[\frac{1}{\ordermax{n}{N}}\log p_{\MLE^{n,N}}^{n,N}\left(X_{\cA_{n,N}}\right)\right]-\kullback^{\bayes}(\MLE^{n,N})\eqsp,\\
+&\le 2\sup_{\pi\in\Pi\cup\{\pi^*\}}\left|\kullback^{\bayes}(\pi)-\E_{\bayes}\left[\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right)\right]\right|\\
+&\hspace{1cm}+2\sup_{\pi\in\Pi\cup\{\pi^*\}}\left|\E_{\bayes}\left[\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right)\right]-\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right)\right|\enspace.
+\end{align*}
+For all $\pi\in\Pi$,
+\begin{multline*}
+\left|\kullback^{\bayes}(\pi)-\E_{\bayes}\left[\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right)\right]\right| \le \frac{1}{\ordermax{n}{N}} \E_{\bayes}\left[\sum_{q=2}^{\ordermax{n}{N}-1}\left|\ell^{\infty}_{2,n}(\pi)- \log p_{\pi}^{n,N}\left(X_{q}^{n,N}\middle|X_{q+1:\ordermax{n}{N}-1}^{n,N}\right)\right|\right]\\
++ \frac{1}{\ordermax{n}{N}} \E_{\bayes}\left[\left|2\ell^{\infty}_{2,n}(\pi)- \log p_{\pi}^{n,N}\left(X_{0}^{n,N},X_{1}^{n,N},X_{\ordermax{n}{N}}^{n,N}\middle|X_{2:\ordermax{n}{N}-1}^{n,N}\right)\right|\right]\eqsp.
+\end{multline*}
+Then, by Lemma~\ref{lem:exp:forget} and \eqref{eq:linfty}, for a round-Robin algorithm, there exists $c(n)$ such that, \textcolor{red}{on peut detailler c(n) si necessaire}
+\[
+2\sup_{\pi\in\Pi\cup\{\pi^*\}}\left|\kullback^{\bayes}(\pi)-\E_{\bayes}\left[\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right)\right]\right|\le \frac{c(n)}{\ordermax{n}{N}}\enspace.
+\]
+This yields:
+\[
+R^{\bayes}(\MLE^{n,N}) \le  \frac{c(n)}{\ordermax{n}{N}} + 2\sup_{\pi\in\Pi\cup\{\pi^*\}}\left|\E_{\bayes}\left[\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right)\right]-\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right)\right|\eqsp.
+\]
+The last term is controlled following \cite{dedecker:gouezel:2015}. Define
+\[
+K(X_{\cA_{n,N}}) = \sup_{\pi\in\Pi\cup\{\pi^*\}}\left|\E_{\bayes}\left[\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right)\right]-\frac{1}{\ordermax{n}{N}}\log p_{\pi}^{n,N}\left(X_{\cA_{n,N}}\right)\right|\eqsp.
+\]
 
 
 \begin{lemma}

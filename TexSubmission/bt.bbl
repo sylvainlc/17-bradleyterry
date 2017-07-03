@@ -1,0 +1,188 @@
+\begin{thebibliography}{10}
+
+\bibitem{billingsley:1995}
+P.~Billingsley.
+\newblock {\em Probability and {M}easure}.
+\newblock Wiley, 1995.
+
+\bibitem{bradley:terry:1952}
+R.~Bradley and M.~Terry.
+\newblock Rank analysis of incomplete block designs: I. the method of pair
+  comparisons.
+\newblock {\em Biometrika}, 39(3/4):324--345, 1952.
+
+\bibitem{cappe:moulines:ryden:2005}
+O.~Cappe, E.~Moulines, and T.~Ryden.
+\newblock {\em Inference in hidden {M}arkov models}.
+\newblock Springer, 2005.
+
+\bibitem{caron:doucet:2012}
+D.~Caron and A.~Doucet.
+\newblock Efficient {B}ayesian inference for generalized {B}radley-{T}erry
+  models.
+\newblock {\em Journal of {C}omputational and {G}raphical {S}tatistics},
+  21(1):174--196, 2012.
+
+\bibitem{chatterjee:diaconis:sly:2011}
+S.~Chatterjee, P.~Diaconis, and A.~Sly.
+\newblock Random graphs with a given degree sequence.
+\newblock {\em {T}he {A}nnals of {A}pplied {P}robability}, 21(4):1400--1435,
+  2011.
+
+\bibitem{CheDielLer:2017}
+R.~Chetrite, R.~Diel, and M.~Lerasle.
+\newblock The number of potential winners in bradley-terry models in random
+  environment.
+\newblock {\em To appear in {T}he {A}nnals of {A}pplied {P}robability}, 2017.
+
+\bibitem{David:1963}
+H.~A. David.
+\newblock {\em The method of paired comparisons}, volume~41 of {\em Griffin's
+  Statistical Monographs \& Courses}.
+\newblock Charles Griffin \& Co., Ltd., London; The Clarendon Press, Oxford
+  University Press, New York, second edition, 1988.
+
+\bibitem{decastro:gassiat:lacour:2016}
+Y.~De~Castro, E.~Gassiat, and C.~Lacour.
+\newblock Minimax adaptative estimation of nonparametric hidden {M}arkov
+  models.
+\newblock {\em Journal of {M}achine {L}earning {R}esearch}, 17:1--43, 2016.
+
+\bibitem{decastro:gassiat:lecorff:2017}
+Y.~De~Castro, E.~Gassiat, and S.~Le~Corff.
+\newblock Consistent estimation of the filtering and marginal smoothing
+  distributions in nonparametric hidden {M}arkov models.
+\newblock {\em To appear in {IEEE} {T}ransactions on {I}nformation {T}heory},
+  2017.
+
+\bibitem{dedecker:gouezel:2015}
+J.~Dedecker and S.~Gouezel.
+\newblock Subgaussian concentration inequalities for geometrically ergodic
+  {M}arkov chains.
+\newblock {\em Electronic {C}ommunications in {P}robability}, 20:1--12, 2015.
+
+\bibitem{DoucMoulines}
+R.~Douc and \'E. Moulines.
+\newblock Asymptotic properties of the maximum likelihood estimation in
+  misspecified hidden {M}arkov models.
+\newblock {\em The {A}nnals of {S}tatistics}, 40(5):2697--2732, 2012.
+
+\bibitem{MR0220340}
+R.~M. Dudley.
+\newblock The sizes of compact subsets of {H}ilbert space and continuity of
+  {G}aussian processes.
+\newblock {\em Journal of Functional Analysis}, 1:290--330, 1967.
+
+\bibitem{MR2724758}
+B.~Efron.
+\newblock {\em Large-scale inference}, volume~1 of {\em Institute of
+  Mathematical Statistics (IMS) Monographs}.
+\newblock Cambridge University Press, Cambridge, 2010.
+\newblock Empirical Bayes methods for estimation, testing, and prediction.
+
+\bibitem{Hun:2004}
+D.R. Hunter.
+\newblock M{M} algorithms for generalized {B}radley-{T}erry models.
+\newblock {\em The {A}nnals of {S}tatistics}, 32(1):384--406, 2004.
+
+\bibitem{MR3331127}
+M.~Lavielle.
+\newblock {\em Mixed effects models for the population approach}.
+\newblock Chapman \& Hall/CRC Biostatistics Series. CRC Press, Boca Raton, FL,
+  2015.
+\newblock Models, tasks, methods and tools, With contributions by Kevin
+  Bleakley.
+
+\bibitem{lehericy:2017}
+L.~Leh\'ericy.
+\newblock Consistent order estimation for nonparametric hidden {M}arkov models.
+\newblock {\em ArXiv:1606.00622}, 2017.
+
+\bibitem{lindvall:1992}
+T.~Lindvall.
+\newblock {\em Lectures on the coupling method}.
+\newblock Wiley, 1992.
+
+\bibitem{MR1765618}
+E.~Mammen and A.B. Tsybakov.
+\newblock Smooth discrimination analysis.
+\newblock {\em The {A}nnals of {S}tatistics}, 27(6):1808--1829, 1999.
+
+\bibitem{MassartNedelec2006}
+P.~Massart and \'E. N\'ed\'elec.
+\newblock Risk bounds for statistical learning.
+\newblock {\em The {A}nnals of {S}tatistics}, 34(5):2326--2366, 2006.
+
+\bibitem{rao:kupper:1967}
+P.~Rap and L.~Kupper.
+\newblock Ties in paired-comparison experiments: a generalization of the
+  {B}radley-{T}erry model.
+\newblock {\em Journal of the {A}merican {S}tatistical {A}ssociation},
+  62:194--204, 1967.
+
+\bibitem{MR0084919}
+H.~Robbins.
+\newblock An empirical {B}ayes approach to statistics.
+\newblock In {\em Proceedings of the {T}hird {B}erkeley {S}ymposium on
+  {M}athematical {S}tatistics and {P}robability, 1954--1955, vol. {I}}, pages
+  157--163. University of California Press, Berkeley and Los Angeles, 1956.
+
+\bibitem{Simons_Yao:1999}
+G.~Simons and Y.-C. Yao.
+\newblock Asymptotics when the number of parameters tends to infinity in the
+  {B}radley-{T}erry model for paired comparisons.
+\newblock {\em The {A}nnals of {S}tatistics}, 27(3):1041--1060, 1999.
+
+\bibitem{Sir_Red:2009}
+C.~Sire and S.~Redner.
+\newblock Understanding baseball team standings and streaks.
+\newblock {\em Eur. Phys. J. B}, 67:473--481, 2009.
+
+\bibitem{Talagrand:2014}
+M.~Talagrand.
+\newblock {\em Upper and lower bounds for stochastic processes}, volume~60.
+\newblock Springer, Heidelberg, 2014.
+\newblock Modern methods and classical problems.
+
+\bibitem{MR1652247}
+A.~W. van~der Vaart.
+\newblock {\em Asymptotic statistics}, volume~3 of {\em Cambridge Series in
+  Statistical and Probabilistic Mathematics}.
+\newblock Cambridge University Press, Cambridge, 1998.
+
+\bibitem{MR0474638}
+V.~N. Vapnik and A.~Ya. Chervonenkis.
+\newblock {\em Teoriya raspoznavaniya obrazov. {S}tatisticheskie problemy
+  obucheniya.}
+
+\bibitem{MR1641250}
+V.N. Vapnik.
+\newblock {\em Statistical learning theory}.
+\newblock Adaptive and Learning Systems for Signal Processing, Communications,
+  and Control. John Wiley \& Sons, Inc., New York, 1998.
+\newblock A Wiley-Interscience Publication.
+
+\bibitem{vernet:2015}
+{\'E}.~Vernet.
+\newblock Posterior consistency for nonparametric hidden {M}arkov models with
+  finite state space.
+\newblock {\em Electronic {J}ournal of {S}tatistics}, 9, 2015.
+
+\bibitem{vernet:2017}
+{\'E}.~Vernet.
+\newblock Nonparametric hidden {M}arkov models with finite state space:
+  Posterior concentration rates.
+\newblock {\em ArXiv:1511.08624}, 2017.
+
+\bibitem{YanYangXu:2011}
+T.~Yan, Y.~Yang, and J.~Xu.
+\newblock Sparse paired comparisons in the {B}radley-{T}erry model.
+\newblock {\em Statistica Sinica}, 22(3):1305--1318, 2012.
+
+\bibitem{zemerlo:1929}
+E.~Zemerlo.
+\newblock {D}ie {B}erechnung der {T}urnier-{E}rgebnisse als ein
+  {M}aximumproblem der {W}ahrscheinlichkeitsrechnung.
+\newblock {\em {M}athematische {Z}eitschrift}, 29(1):436--460, 1929.
+
+\end{thebibliography}

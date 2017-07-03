@@ -16,12 +16,16 @@
 \usepackage{enumerate}
 \usepackage{dsfont}
 \usepackage{subcaption}
+\usepackage{hyperref}
+
+
 
 \newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposition}
-\newtheorem{theorem}{Theorem}
-\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{corollary}[lemma]{Corollary}
 \newtheorem{remark}{Remark}
+\newtheorem{Example}{Example}
 
 \definecolor{lavander}{cmyk}{0,0.48,0,0}
 \definecolor{violet}{cmyk}{0.79,0.88,0,0}
@@ -45,12 +49,19 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\kullback}{\mathsf{L}}
 \newcommand{\link}{\leftrightarrow}
+\newcommand{\un}[1]{\mathds{1}_{#1}}
+\newcommand{\nobs}{{\mathsf n}}
 
 
 \newcommand{\pa}[1]{\left(#1\right)}
 \newcommand{\cro}[1]{\left[#1\right]}
+\newcommand{\absj}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
 \newcommand{\set}[1]{\left\{#1\right\}}
 \newcommand{\PE}[1]{\left\lfloor#1\right\rfloor}
+
+\newcommand{\likelihood}[2]{\mathbb{P}^{#1}_{#2}}
+
 
 \newcommand{\loss}[1]{\ell\pa{#1}}
 \newcommand{\Lo}[2]{\ell^{#1}\pa{#2}}
@@ -64,9 +75,14 @@
 \newcommand{\cD}{\mathcal{D}}
 \newcommand{\cE}{\mathcal{E}}
 \newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
 \newcommand{\cS}{\mathcal{S}}
 \newcommand{\cV}{\mathcal{V}}
 \newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+
+\newcommand{\Vset}{\mathbb{V}}
+\newcommand{\Xset}{\mathbb{X}}
 
 \newcommand{\ordermax}[2]{{\mathsf{q}}^{#1}_{#2}}
 \newcommand{\remainder}[2]{{\mathsf{r}}^{#1}_{#2}}
@@ -74,6 +90,13 @@
 \newcommand{\condlik}{k}
 \newcommand{\card}{\mathrm{card}}
 
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
+
+
+\newcommand{\shift}{\vartheta}
 \newcommand{\MLE}{\widehat{\pi}}
 
 \newcounter{hypH}
